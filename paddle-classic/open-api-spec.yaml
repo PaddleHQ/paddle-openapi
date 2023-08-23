@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: 'v0: Paddle API'
+  version: '0.0'
+  description: The Paddle API lets you create, read, update, and delete information in your Paddle system. Use the Paddle API to integrate Paddle with your app or third-party solutions. See https://developer.paddle.com/ to learn more.
+  summary: REST API for interfacing with Paddle.
+  license:
+    name: Paddle Market Ltd.
+    url: https://www.paddle.com/legal/terms
+  contact:
+    name: Paddle Seller Support team
+    url: https://developer.paddle.com
+    email: sellers@paddle.com
+  termsOfService: https://www.paddle.com/legal/terms
+externalDocs:
+  description: Paddle Developer Center
+  url: https://developer.paddle.com/
+servers:
+  - url: https://api.paddle.com
+    description: Production
+  - url: https://sandbox-api.paddle.com
+    description: Sandbox
+tags:
+  - name: Sellers
+    description: Get Paddle sellers.
+paths:
+  /sellers: {}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Get an API key from your Paddle dashboard under [Developer Tools > Authentication](https://vendors.paddle.com/authentication).
+  responses:
+    error_validation_response:
+      description: Error response for validation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/error_validation'
+          examples:
+            '400':
+              value:
+                error:
+                  status: 400
+                  type: not
+                  code: not_found
+                  detail: string
+                  documentation_url: http://example.com
+                  errors:
+                    - field: string
+                      message: string
+      headers:
+        request-id:
+          schema:
+            type: string
+          description: The ID of the request
+    error_response:
+      description: General error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/error'
+          examples:
+            '401':
+              value:
+                error:
+                  type: authentication
+                  code: unauthorized
+                  detail: string
+                  documentation_url: http://example.com
+            '404':
+              value:
+                error:
+                  type: not_found
+                  code: not_found
+                  detail: string
+                  documentation_url: http://example.com
+            '422':
+              value:
+                error:
+                  type: unprocessable_entity
+                  code: unprocessable_entity
+                  detail: string
+                  documentation_url: http://example.com
+            '500':
+              value:
+                error:
+                  type: string
+                  code: string
+                  detail: string
+                  documentation_url: http://example.com
+      headers:
+        request-id:
+          schema:
+            type: string
+          description: The ID of the request
+  parameters:
+    after:
+      x-stoplight:
+        id: l5ufdqj1nh780
+      name: after
+      in: query
+      description: Return entities after the specified cursor. Used for working through paginated results.
+      schema:
+        type: string
+    order_by:
+      x-stoplight:
+        id: x6h5gs8gtpj96
+      name: order_by
+      in: query
+      description: Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`).
+      schema:
+        type: string
+        default: id[ASC]
+    per_page:
+      x-stoplight:
+        id: v618rnaim51vy
+      name: per_page
+      in: query
+      description: Set how many entities are returned per page.
+      schema:
+        type: integer
+        default: 10
+    search:
+      x-stoplight:
+        id: qygy37f0dujm3
+      name: search
+      in: query
+      schema:
+        type: string
+        maxLength: 100
+        examples:
+          - upgrade
+  examples: {}
+  requestBodies: {}
+  schemas:
+    error:
+      type: object
+      title: Error
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+        detail:
+          type: string
+        documentation_url:
+          type: string
+          format: uri
+        extra:
+          type: object
+          propertyNames:
+            pattern: ^[A-Za-z0-9_]*$
+        errors:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+            required:
+              - field
+              - message
+      required:
+        - type
+        - code
+        - detail
+        - documentation_url
+    error_validation:
+      type: object
+      description: ''
+      properties:
+        type:
+          type: string
+        code:
+          type: string
+        detail:
+          type: string
+        documentation_url:
+          type: string
+          format: uri
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+            required:
+              - field
+              - message
+      required:
+        - type
+        - code
+        - detail
+        - documentation_url
+        - errors
+      title: ErrorValidation
+    pagination:
+      type: object
+      title: Pagination
+      description: ''
+      properties:
+        per_page:
+          type: integer
+          description: Amount of results per page. May differ from amount passed into request if a number that is too high is provided.
+          default: 10
+          minimum: 1
+          example: 10
+          maximum: 100
+          readOnly: true
+        next:
+          type: string
+          description: Returns a valid URL of the next page of results including any passed request parameters
+          example: http://api.paddle.com/example?after=exm_01gbwf7pezzb56efp2far9a678
+          format: uri
+          readOnly: true
+        has_more:
+          type: boolean
+          description: Indicates whether there results available by using the next cursor
+          readOnly: true
+        estimated_total:
+          type: integer
+          description: Estimated amount of total results
+          example: 526
+          readOnly: true
+      required:
+        - per_page
+        - next
+        - has_more
+    request_id_response:
+      title: Request ID
+      type: string
+      example: b15ec92e-8688-40d4-a04d-f44cbec93355
+      description: Unique ID for this request. Provide this when contacting Paddle support about a specific request.
+    seller:
+      title: Seller
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        legal_name:
+          type: string
+        display_name:
+          type:
+            - string
+            - 'null'
+        email:
+          type: string
+        active:
+          type: boolean
+        created_at:
+          $ref: '#/components/schemas/timestamp_read_only'
+        updated_at:
+          $ref: '#/components/schemas/timestamp_read_only'
+        settings:
+          type: object
+          properties:
+            email_logo_url:
+              type:
+                - string
+                - 'null'
+              description: Seller logo to be displayed on emails
+      required:
+        - id
+        - legal_name
+        - active
+        - created_at
+        - updated_at
+    timestamp_read_only:
+      type: string
+      x-stoplight:
+        id: ey4cnv4cd51u8
+      title: Timestamp
+      description: Timestamp following the RFC 3339 standard
+      examples:
+        - '2019-10-12T07:20:50.52Z'
+      example: '2019-10-12T07:20:50.52Z'
+      readOnly: true
+security:
+  - bearerAuth: []
