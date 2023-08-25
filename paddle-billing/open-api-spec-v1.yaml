@@ -10156,6 +10156,8 @@ components:
           allOf:
             - $ref: '#/components/schemas/period1'
           description: Setting for the period of time between when the transaction is billed and when it is due. Mandatory when `collection_mode` is set to `manual`.
+      required:
+        - payment_terms
     billing_details2:
       title: Billing details
       x-stoplight:
@@ -10180,6 +10182,28 @@ components:
           description: How long a customer has to pay this invoice once issued.
       required:
         - payment_terms
+    billing_details_update:
+      title: Billing details (update)
+      x-stoplight:
+        id: qfhx4lkzdn5bl
+      type: object
+      description: Details for invoicing. Required if `collection_mode` is `manual`.
+      properties:
+        enable_checkout:
+          description: Whether the related transaction may be paid using a Paddle Checkout.
+          type: boolean
+          default: false
+        purchase_order_number:
+          maxLength: 100
+          description: Customer purchase order number. Appears on invoice documents.
+          type: string
+        additional_information:
+          maxLength: 1500
+          description: Notes or other information to include on this invoice. Appears on invoice documents.
+          type: string
+        payment_terms:
+          $ref: '#/components/schemas/period2'
+          description: How long a customer has to pay this invoice once issued.
     billing_period:
       type: object
       title: Billing Period
@@ -14470,7 +14494,7 @@ components:
           type:
             - object
             - 'null'
-          $ref: '#/components/schemas/billing_details2'
+          $ref: '#/components/schemas/billing_details_update'
           description: Details for invoicing. Required if `collection_mode` is `manual`. `null` if changing `collection_mode` to `automatic`.
         scheduled_change:
           description: Change that's scheduled to be applied to a subscription. When updating, you may only set to `null` to remove a scheduled change. Use the pause subscription, cancel subscription, and resume subscription operations to create scheduled changes.
