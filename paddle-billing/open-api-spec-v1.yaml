@@ -8720,7 +8720,6 @@ components:
           - business
           - customer
           - discount
-          - recurring
         x-enum-descriptions:
           address:
             description: Include an object for the address entity related to this transaction. Only included where an `address_id` is set against the transaction.
@@ -8734,8 +8733,6 @@ components:
             description: Include an object for the customer entity related to this transaction. Only included where a `customer_id` is set against the transaction.
           discount:
             description: Include an object for the discount entity related to this transaction. Only included where a `discount_id` is set against the transaction.
-          recurring:
-            description: Include an object for the recurring totals related to this transaction.
     include_deleted:
       x-stoplight:
         id: 3bmxhe8bk2b0d
@@ -15247,9 +15244,6 @@ components:
             adjustments_totals:
               $ref: '#/components/schemas/transaction_adjustments_totals_include'
               description: Object containing totals for all adjustments on a transaction. Returned when the `include` parameter is used.
-              x-included: true
-            recurring:
-              $ref: '#/components/schemas/transaction_recurring_totals'
               x-included: true
     transaction-preview:
       title: Transaction (preview)
