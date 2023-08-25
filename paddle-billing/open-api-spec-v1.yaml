@@ -8720,6 +8720,7 @@ components:
           - business
           - customer
           - discount
+          - recurring
         x-enum-descriptions:
           address:
             description: Include an object for the address entity related to this transaction. Only included where an `address_id` is set against the transaction.
@@ -8733,6 +8734,8 @@ components:
             description: Include an object for the customer entity related to this transaction. Only included where a `customer_id` is set against the transaction.
           discount:
             description: Include an object for the discount entity related to this transaction. Only included where a `discount_id` is set against the transaction.
+          recurring:
+            description: Include an object for the recurring totals related to this transaction.
     include_deleted:
       x-stoplight:
         id: 3bmxhe8bk2b0d
@@ -14081,6 +14084,19 @@ components:
                 - string
                 - 'null'
               description: Seller logo to be displayed on emails
+        onboarding_error_codes:
+          type: array
+          description: |-
+            An array of potential onboarding error_codes that will be thrown by transaction service if you attempt to create a transaction for this seller. 
+            If the array is empty, it is safe to assume a transaction can be created for this seller.
+
+            These error codes will corrispond to the error codes defined in the [dev docs](https://developer.paddle.com/errors/overview).
+          items:
+            type: string
+            enum:
+              - transaction_default_checkout_url_not_set
+              - transaction_checkout_not_enabled
+            readOnly: true
       required:
         - id
         - legal_name
@@ -15227,6 +15243,9 @@ components:
               $ref: '#/components/schemas/transaction_adjustments_totals_include'
               description: Object containing totals for all adjustments on a transaction. Returned when the `include` parameter is used.
               x-included: true
+            recurring:
+              $ref: '#/components/schemas/transaction_recurring_totals'
+              x-included: true
     transaction-preview:
       title: Transaction (preview)
       x-stoplight:
@@ -16155,6 +16174,35 @@ components:
           description: Total amount discounted as a result of this discount in the format of a given currency. '
           examples:
             - $0
+    transaction_recurring_totals:
+      description: |-
+        Object containing recurring totals for a transaction. Returned when the `include` parameter is used.
+
+        The recurring total amounts object will represent the amount owed on the next payment for this subscription. The main difference here from the totals on the transaction itself are:
+
+        - Ignoring trial periods
+        - Determining if the discount applied to a transaction (if any) will be applied when a subscription recurs
+      type: object
+      properties:
+        totals:
+          allOf:
+            - $ref: '#/components/schemas/totals2'
+            - type: object
+              properties:
+                currency_code:
+                  $ref: '#/components/schemas/currency_code2'
+                  description: Three-letter ISO 4217 currency code of the currency used for this transaction.
+        line_items:
+          description: Information about line items for this transaction. Different from transaction `items` as they include totals calculated by Paddle. Considered the source of truth for line item totals.
+          type: array
+          items:
+            allOf:
+              - type: object
+                properties:
+                  id:
+                    $ref: '#/components/schemas/transaction_item_id'
+                    readOnly: true
+              - $ref: '#/components/schemas/transaction_line_item'
     transaction_totals:
       title: Transaction totals
       x-stoplight:
