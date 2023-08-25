@@ -3150,8 +3150,6 @@ paths:
                       request_id: 32cf1966-ed49-47d6-a76a-a9b8f7843245
         '400':
           $ref: '#/components/responses/error_response'
-        '404':
-          $ref: '#/components/responses/error_response'
         '500':
           $ref: '#/components/responses/error_response'
       description: |-
