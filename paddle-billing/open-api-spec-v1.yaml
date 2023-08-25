@@ -4455,8 +4455,8 @@ paths:
       summary: Delete a notification setting
       operationId: delete-notification-setting
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
           headers:
             Request-Id:
               $ref: '#/components/headers/Request-Id'
@@ -9920,7 +9920,7 @@ components:
         proration:
           $ref: '#/components/schemas/transaction_item_proration'
           type:
-            - string
+            - object
             - 'null'
           description: |-
             How proration was calculated for this adjustment item. Populated when an adjustment type is `proration`. 
@@ -12274,6 +12274,27 @@ components:
         - description
         - type
         - amount
+    discount-subscription:
+      title: Subscription discount
+      x-stoplight:
+        id: w9gnqrbggtq8i
+      description: Details of the discount applied to this subscription.
+      type:
+        - object
+        - 'null'
+      properties:
+        id:
+          $ref: '#/components/schemas/discount_id'
+        starts_at:
+          $ref: '#/components/schemas/timestamp1'
+          description: RFC 3339 datetime string of when this discount was first applied.
+        ends_at:
+          $ref: '#/components/schemas/timestamp1'
+          description: RFC 3339 datetime string of when this discount no longer applies. Where a discount has `maximum_recurring_intervals`, this is the date of the last billing period where this discount applies. `null` where a discount recurs forever.
+      required:
+        - id
+        - starts_at
+        - ends_at
     discount_code:
       title: Discount code
       description: Unique code that customers can use to apply this discount at checkout. Use letters and numbers only, up to 16 characters. Paddle generates a random 10-character code if a code is not provided and `enabled_for_checkout` is `true`.
@@ -12961,7 +12982,7 @@ components:
           description: RFC 3339 datetime string of when this item is next scheduled to be billed.
         trial_dates:
           type:
-            - string
+            - object
             - 'null'
           $ref: '#/components/schemas/time_period'
           description: Trial dates for this item.
@@ -14410,23 +14431,7 @@ components:
             - 'null'
           readOnly: true
         discount:
-          description: Details of the discount applied to this subscription.
-          type:
-            - object
-            - 'null'
-          properties:
-            id:
-              $ref: '#/components/schemas/discount_id'
-            starts_at:
-              $ref: '#/components/schemas/timestamp1'
-              description: RFC 3339 datetime string of when this discount was first applied.
-            ends_at:
-              $ref: '#/components/schemas/timestamp1'
-              description: RFC 3339 datetime string of when this discount no longer applies. Where a discount has `maximum_recurring_intervals`, this is the date of the last billing period where this discount applies. `null` where a discount recurs forever.
-          required:
-            - id
-            - starts_at
-            - ends_at
+          $ref: '#/components/schemas/discount-subscription'
         collection_mode:
           $ref: '#/components/schemas/collection_mode2'
           description: How payment is collected for transactions created for this subscription. `automatic` for checkout, `manual` for invoices.
