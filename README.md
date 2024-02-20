@@ -20,7 +20,7 @@ Use [the Paddle API](https://developer.paddle.com/api-reference/overview?utm_sou
 
 ## Get started
 
-The `paddle-billing` directory contains an OpenAPI specification file for each supported [version](https://developer.paddle.com/api-reference/about/versioning?utm_source=dx&utm_medium=paddle-openapi) of the Paddle API.
+The `v1` directory contains an OpenAPI specification file for each supported [version](https://developer.paddle.com/api-reference/about/versioning?utm_source=dx&utm_medium=paddle-openapi) of the Paddle API.
 
 We recommend that you [fork this repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo), rather than downloading OpenAPI files directly. This means you can [get the latest changes](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) using git in the future.
 
