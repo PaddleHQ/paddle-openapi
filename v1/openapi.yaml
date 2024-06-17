@@ -8632,7 +8632,7 @@ paths:
                   summary: Get a PDF invoice for a transaction
                   value:
                     data:
-                      url: https://paddle-invoice-service-pdfs.s3.amazonaws.com/invoices/10889/e01ae945-9e6d-4208-a0ba-83b107e06657/invoice_325-10650_DX-ChatApp.pdf
+                      url: https://paddle-production-invoice-service-pdfs.s3.amazonaws.com/invoices/10889/e01ae945-9e6d-4208-a0ba-83b107e06657/invoice_325-10650_DX-ChatApp.pdf
                     meta:
                       request_id: 126c131a-258a-482b-b4a9-9ffca5126539
         default:
@@ -10436,7 +10436,7 @@ paths:
         default:
           $ref: '#/components/responses/error'
       description: |-
-        Activates a trialing subscription using its ID. Only `trialing` subscriptions can be activated.
+        Activates a trialing subscription using its ID. Only automatically-collected subscriptions where the status is `trialing` can be activated.
 
         On activation, Paddle bills for a subscription immediately. Subscription billing dates are recalculated based on the activation date (the time the activation request is made).
 
@@ -20948,12 +20948,18 @@ components:
       description: Three-letter ISO 4217 currency code for chargeback fees.
       type: string
       enum:
+        - AUD
+        - CAD
         - EUR
         - GBP
         - USD
       maxLength: 3
       minLength: 3
       x-enum-descriptions:
+        AUD:
+          description: Australian Dollar
+        CAD:
+          description: Canadian Dollar
         EUR:
           description: Euro
         GBP:
@@ -21437,15 +21443,17 @@ components:
           description: Whether this discount applies for multiple billing periods.
           default: false
         maximum_recurring_intervals:
-          type:
-            - integer
-            - 'null'
           description: Amount of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
-        usage_limit:
           type:
             - integer
             - 'null'
+          minimum: 1
+        usage_limit:
           description: Maximum amount of times this discount can be used. This is an overall limit, rather than a per-customer limit. `null` if this discount can be used an unlimited amount of times.
+          type:
+            - integer
+            - 'null'
+          minimum: 1
         restrict_to:
           type:
             - array
@@ -21539,15 +21547,17 @@ components:
           description: Whether this discount applies for multiple billing periods.
           default: false
         maximum_recurring_intervals:
-          type:
-            - integer
-            - 'null'
           description: Amount of subscription billing periods that this discount recurs for. Requires `recur`. `null` if this discount recurs forever.
-        usage_limit:
           type:
             - integer
             - 'null'
+          minimum: 1
+        usage_limit:
           description: Maximum amount of times this discount can be used. This is an overall limit, rather than a per-customer limit. `null` if this discount can be used an unlimited amount of times.
+          type:
+            - integer
+            - 'null'
+          minimum: 1
         restrict_to:
           type:
             - array
@@ -22744,7 +22754,7 @@ components:
       title: Payment Method ID
       x-stoplight:
         id: ye2qle9f7g7wb
-      description: Paddle ID of a payment method, prefixed with `paymtd_`.
+      description: Unique Paddle ID for this payment method entity, prefixed with `paymtd_`.
       type: string
       examples:
         - paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1
@@ -24560,7 +24570,7 @@ components:
           oneOf:
             - $ref: '#/components/schemas/time_period'
             - type: 'null'
-          description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+          description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
           readOnly: true
         billing_cycle:
           description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -24621,11 +24631,11 @@ components:
                 description: Add a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
                 $ref: '#/components/schemas/subscription_item_create_with_price_id'
               - title: Non-catalog price for an existing product
-                description: Add a non-catalog price for an existing product in your catalog to a transaction. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
-                $ref: '#/components/schemas/subscription_item_create_with_price'
+                description: Add a non-catalog price for an existing product in your catalog to a subscription. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
+                $ref: '#/components/schemas/subscription_charge_create_with_price'
               - title: Non-catalog price and product
-                description: Add a non-catalog price for a non-catalog product in your catalog to a transaction. In this case, the product and price that you're billing for are specific to this transaction.
-                $ref: '#/components/schemas/subscription_item_create_with_price_and_product'
+                description: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this transaction.
+                $ref: '#/components/schemas/subscription_charge_create_with_price_and_product'
         on_payment_failure:
           $ref: '#/components/schemas/subscription_on_payment_failure'
       required:
@@ -24728,7 +24738,7 @@ components:
           oneOf:
             - $ref: '#/components/schemas/time_period'
             - type: 'null'
-          description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+          description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
           readOnly: true
         billing_cycle:
           description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -24939,7 +24949,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25056,7 +25066,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25176,7 +25186,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25291,7 +25301,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25404,7 +25414,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25521,7 +25531,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25636,7 +25646,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25749,7 +25759,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25862,7 +25872,7 @@ components:
                   oneOf:
                     - $ref: '#/components/schemas/time_period'
                     - type: 'null'
-                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle.
+                  description: Current billing period for this subscription. Set automatically by Paddle based on the billing cycle. `null` for `paused` and `canceled` subscriptions.
                   readOnly: true
                 billing_cycle:
                   description: How often this subscription renews. Set automatically by Paddle based on the prices on this subscription.
@@ -25890,6 +25900,118 @@ components:
         - $ref: '#/components/examples/subscription-updated'
       x-tags:
         - 'v1: Subscription Notifications'
+    subscription_charge_create_with_price:
+      x-stoplight:
+        id: e8h3p5j9q7lrx
+      title: Subscription charge create with price
+      type: object
+      properties:
+        quantity:
+          description: Quantity to bill for.
+          type: integer
+          minimum: 1
+          examples:
+            - 5
+        price:
+          type: object
+          description: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
+          properties:
+            product_id:
+              $ref: '#/components/schemas/product_id'
+              description: Paddle ID for the product that this price is for, prefixed with `pro_`.
+            description:
+              minLength: 2
+              maxLength: 200
+              type: string
+              description: Internal description for this price, not shown to customers. Typically notes for your team.
+            name:
+              type:
+                - string
+                - 'null'
+              minLength: 1
+              maxLength: 50
+              description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+            tax_mode:
+              $ref: '#/components/schemas/tax_mode'
+            unit_price:
+              $ref: '#/components/schemas/money'
+              description: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+            unit_price_overrides:
+              description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+              type: array
+              items:
+                $ref: '#/components/schemas/unit_price_override'
+            quantity:
+              $ref: '#/components/schemas/price_quantity'
+              description: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
+            custom_data:
+              description: Your own structured key-value data.
+              oneOf:
+                - $ref: '#/components/schemas/custom_data'
+                - type: 'null'
+          required:
+            - product_id
+            - description
+            - unit_price
+      required:
+        - quantity
+        - price
+    subscription_charge_create_with_price_and_product:
+      x-stoplight:
+        id: w1o4t9y6m2lqn
+      title: Subscription charge create with price
+      type: object
+      properties:
+        quantity:
+          description: Quantity to bill for.
+          type: integer
+          minimum: 1
+          examples:
+            - 5
+        price:
+          description: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
+          type: object
+          properties:
+            description:
+              minLength: 2
+              maxLength: 200
+              type: string
+              description: Internal description for this price, not shown to customers. Typically notes for your team.
+            name:
+              type:
+                - string
+                - 'null'
+              minLength: 1
+              maxLength: 50
+              description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+            tax_mode:
+              $ref: '#/components/schemas/tax_mode'
+            unit_price:
+              $ref: '#/components/schemas/money'
+              description: Base price. This price applies to all customers, except for customers located in countries where you have `unit_price_overrides`.
+            unit_price_overrides:
+              description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
+              type: array
+              items:
+                $ref: '#/components/schemas/unit_price_override'
+            quantity:
+              $ref: '#/components/schemas/price_quantity'
+              description: Limits on how many times the related product can be purchased at this price. Useful for discount campaigns. If omitted, defaults to 1-100.
+            custom_data:
+              description: Your own structured key-value data.
+              oneOf:
+                - $ref: '#/components/schemas/custom_data'
+                - type: 'null'
+            product:
+              $ref: '#/components/schemas/transaction-subscription-product-create'
+              description: Product object for a non-catalog item to charge for.
+          required:
+            - description
+            - unit_price
+            - product
+      required:
+        - quantity
+        - price
     subscription_id:
       title: Subscription ID
       x-stoplight:
@@ -25899,42 +26021,6 @@ components:
       examples:
         - sub_01h04vsc0qhwtsbsxh3422wjs4
       pattern: ^sub_[a-z\d]{26}$
-    subscription_item_create_with_price:
-      x-stoplight:
-        id: rqotvu3nbphka
-      title: Subscription item create with price
-      type: object
-      properties:
-        quantity:
-          description: Quantity to bill for.
-          type: integer
-          minimum: 1
-          examples:
-            - 5
-        price:
-          $ref: '#/components/schemas/transaction-subscription-price-create-with-product-id'
-          description: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
-      required:
-        - quantity
-        - price
-    subscription_item_create_with_price_and_product:
-      x-stoplight:
-        id: xcmzlp7dxywq9
-      title: Subscription item create with price
-      type: object
-      properties:
-        quantity:
-          description: Quantity to bill for.
-          type: integer
-          minimum: 1
-          examples:
-            - 5
-        price:
-          $ref: '#/components/schemas/transaction-subscription-price-create-with-product'
-          description: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
-      required:
-        - quantity
-        - price
     subscription_item_create_with_price_id:
       x-stoplight:
         id: izjswe6cvdplx
@@ -26165,8 +26251,7 @@ components:
         full_immediately:
           description: |-
             Paddle does not calculate proration for the subscription changes, creating a transaction to collect for the full 
-            amount immediately. 
-            changes.
+            amount immediately.
         full_next_billing_period:
           description: |-
             Paddle does not calculate proration for the subscription changes, scheduling for the full amount for the changes
