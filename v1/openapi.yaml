@@ -12440,7 +12440,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/report-create'
+              $ref: '#/components/schemas/report'
             examples:
               Standard:
                 $ref: '#/components/examples/create-report-standard'
@@ -19203,51 +19203,17 @@ components:
           description: Paddle ID for the customer related to this address, prefixed with `cus_`.
           readOnly: true
         description:
-          type:
-            - string
-            - 'null'
-          examples:
-            - Paddle.com
-          description: Memorable description for this address.
-          maxLength: 1024
+          $ref: '#/components/schemas/address_description'
         first_line:
-          type:
-            - string
-            - 'null'
-          examples:
-            - 3811 Ditmars Blvd
-          description: First line of this address.
-          maxLength: 1024
+          $ref: '#/components/schemas/address_first_line'
         second_line:
-          type:
-            - string
-            - 'null'
-          description: Second line of this address.
-          maxLength: 1024
+          $ref: '#/components/schemas/address_second_line'
         city:
-          type:
-            - string
-            - 'null'
-          examples:
-            - Astoria
-          description: City of this address.
-          maxLength: 200
+          $ref: '#/components/schemas/address_city'
         postal_code:
-          type:
-            - string
-            - 'null'
-          description: ZIP or postal code of this address. Required for some countries.
-          maxLength: 200
-          examples:
-            - 11105-1803
+          $ref: '#/components/schemas/address_postal_code'
         region:
-          type:
-            - string
-            - 'null'
-          examples:
-            - NY
-          description: State, county, or region of this address.
-          maxLength: 200
+          $ref: '#/components/schemas/address_region'
         country_code:
           $ref: '#/components/schemas/country_code'
           description: Supported two-letter ISO 3166-1 alpha-2 country code for this address.
@@ -19724,6 +19690,33 @@ components:
         - $ref: '#/components/examples/address-updated'
       x-tags:
         - 'v1: Address Notifications'
+    address_city:
+      title: City
+      type:
+        - string
+        - 'null'
+      examples:
+        - Astoria
+      description: City of this address.
+      maxLength: 200
+    address_description:
+      title: Description
+      description: Memorable description for this address.
+      type:
+        - string
+        - 'null'
+      examples:
+        - Paddle.com
+      maxLength: 1024
+    address_first_line:
+      title: First line
+      description: First line of this address.
+      type:
+        - string
+        - 'null'
+      examples:
+        - 3811 Ditmars Blvd
+      maxLength: 1024
     address_id:
       title: Address ID
       x-stoplight:
@@ -19733,6 +19726,31 @@ components:
       examples:
         - add_01gm302t81w94gyjpjpqypkzkf
       pattern: ^add_[a-z\d]{26}$
+    address_postal_code:
+      title: Postal Code
+      type:
+        - string
+        - 'null'
+      description: ZIP or postal code of this address. Required for some countries.
+      maxLength: 200
+      examples:
+        - 11105-1803
+    address_region:
+      title: Region
+      type:
+        - string
+        - 'null'
+      examples:
+        - NY
+      description: State, county, or region of this address.
+      maxLength: 200
+    address_second_line:
+      title: Second line
+      type:
+        - string
+        - 'null'
+      description: Second line of this address.
+      maxLength: 1024
     adjustment:
       title: Adjustment
       description: Represents an adjustment entity.
@@ -19805,6 +19823,9 @@ components:
             - $ref: '#/components/schemas/adjustment_payout_totals'
             - type: 'null'
           readOnly: true
+        tax_rates_used:
+          readOnly: true
+          $ref: '#/components/schemas/adjustment-tax-rates-used'
         created_at:
           $ref: '#/components/schemas/created_at'
           readOnly: true
@@ -19925,6 +19946,57 @@ components:
         - items
       x-tags:
         - 'v1: Entities'
+    adjustment-tax-rates-used:
+      title: AdjustmentTaxRateUsed
+      x-stoplight:
+        id: d34bab52f6950
+      type: array
+      description: List of tax rates applied for this adjustment.
+      items:
+        type: object
+        properties:
+          tax_rate:
+            type: string
+            description: Rate used to calculate tax for this adjustment.
+            examples:
+              - '0.2'
+            readOnly: true
+            x-stoplight:
+              id: dm6d0jeplgejv
+          totals:
+            title: AdjustmentTaxRateUsedTotals
+            description: Calculated totals for the tax applied to this adjustment.
+            type: object
+            readOnly: true
+            properties:
+              subtotal:
+                type: string
+                description: Total before tax. For tax adjustments, the value is 0.
+                examples:
+                  - '15000'
+                readOnly: true
+                x-stoplight:
+                  id: xdn31l7kbxqz2
+              tax:
+                type: string
+                description: Total tax on the subtotal.
+                examples:
+                  - '1500'
+                readOnly: true
+                x-stoplight:
+                  id: p5kcn8cwteoig
+              total:
+                type: string
+                description: Total after tax.
+                examples:
+                  - '16500'
+                readOnly: true
+                x-stoplight:
+                  id: iok5gsgqhtsn9
+            x-stoplight:
+              id: m5pkyrhfc5798
+        x-stoplight:
+          id: j2wage5mboivf
     adjustment.created:
       title: adjustment.created
       description: Occurs when an adjustment is created.
@@ -20004,6 +20076,11 @@ components:
                   description: Breakdown of how this adjustment affects your payout balance.
                   oneOf:
                     - $ref: '#/components/schemas/adjustment_payout_totals'
+                    - type: 'null'
+                  readOnly: true
+                tax_rates_used:
+                  oneOf:
+                    - $ref: '#/components/schemas/adjustment-tax-rates-used'
                     - type: 'null'
                   readOnly: true
                 created_at:
@@ -20099,6 +20176,11 @@ components:
                   description: Breakdown of how this adjustment affects your payout balance.
                   oneOf:
                     - $ref: '#/components/schemas/adjustment_payout_totals'
+                    - type: 'null'
+                  readOnly: true
+                tax_rates_used:
+                  oneOf:
+                    - $ref: '#/components/schemas/adjustment-tax-rates-used'
                     - type: 'null'
                   readOnly: true
                 created_at:
@@ -20817,56 +20899,73 @@ components:
       description: Card metadata
       properties:
         type:
-          title: CardType
-          description: Type of credit or debit card used to pay.
-          type: string
-          enum:
-            - american_express
-            - diners_club
-            - discover
-            - jcb
-            - mada
-            - maestro
-            - mastercard
-            - union_pay
-            - unknown
-            - visa
-          x-enum-descriptions:
-            american_express:
-              description: American Express
-            diners_club:
-              description: Diners Club
-            discover:
-              description: Discover Card
-            jcb:
-              description: JCB Card, popular in Japan
-            mada:
-              description: Mada Card, popular in Saudi Arabia
-            maestro:
-              description: Maestro (debit card)
-            mastercard:
-              description: Mastercard
-            union_pay:
-              description: UnionPay, popular in China
-            unknown:
-              description: Card type unknown
-            visa:
-              description: Visa
+          $ref: '#/components/schemas/card_type'
         last4:
-          description: Last four digits of the card used to pay.
-          type: string
-          example: '4242'
+          $ref: '#/components/schemas/card_last4'
         expiry_month:
-          description: Month of the expiry date of the card used to pay.
-          type: number
-          example: 9
+          $ref: '#/components/schemas/card_expiry_month'
         expiry_year:
-          description: Year of the expiry year of the card used to pay.
-          type: number
-          example: 2028
+          $ref: '#/components/schemas/card_expiry_year'
         cardholder_name:
-          description: The name on the card used to pay.
-          type: string
+          $ref: '#/components/schemas/card_cardholder_name'
+    card_cardholder_name:
+      title: Cardholder Name
+      description: The name on the card used to pay.
+      type: string
+    card_expiry_month:
+      title: Card Expiry Month
+      description: Month of the expiry date of the card used to pay.
+      type: number
+      examples:
+        - 12
+    card_expiry_year:
+      title: Card Expiry Year
+      description: Year of the expiry date of the card used to pay.
+      type: number
+      examples:
+        - '2028'
+    card_last4:
+      title: Card Last Four
+      description: Last four digits of the card used to pay.
+      type: string
+      examples:
+        - '4242'
+    card_type:
+      title: CardType
+      description: Type of credit or debit card used to pay.
+      type: string
+      enum:
+        - american_express
+        - diners_club
+        - discover
+        - jcb
+        - mada
+        - maestro
+        - mastercard
+        - union_pay
+        - unknown
+        - visa
+      x-enum-descriptions:
+        american_express:
+          description: American Express
+        diners_club:
+          description: Diners Club
+        discover:
+          description: Discover Card
+        jcb:
+          description: JCB Card, popular in Japan
+        mada:
+          description: Mada Card, popular in Saudi Arabia
+        maestro:
+          description: Maestro (debit card)
+        mastercard:
+          description: Mastercard
+        union_pay:
+          description: UnionPay, popular in China
+        unknown:
+          description: Card type unknown
+        visa:
+          description: Visa
     catalog-type:
       title: CatalogType
       description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
@@ -22169,6 +22268,7 @@ components:
       x-stoplight:
         id: ag87xlsy7lo7k
       type: object
+      additionalProperties: false
       properties:
         id:
           $ref: '#/components/schemas/discount_id'
@@ -22272,6 +22372,7 @@ components:
         id: ehpctuyy3n42u
       description: Represents a discount entity when creating discounts.
       type: object
+      additionalProperties: false
       properties:
         id:
           $ref: '#/components/schemas/discount_id'
@@ -22361,6 +22462,12 @@ components:
           readOnly: true
         updated_at:
           $ref: '#/components/schemas/updated_at'
+          readOnly: true
+        import_meta:
+          description: Import information for this entity. `null` if this entity is not imported.
+          oneOf:
+            - $ref: '#/components/schemas/import_meta'
+            - type: 'null'
           readOnly: true
       required:
         - description
@@ -23447,6 +23554,23 @@ components:
         - ntfset_01gt21c5pdx9q1e4mh1xrsjjn6
       readOnly: true
       pattern: ^ntfset_[a-z\d]{26}$
+    operator:
+      x-stoplight:
+        id: m6n9k3l8j2q7f
+      title: FilterOperator
+      description: Operator to use when filtering.
+      type: string
+      enum:
+        - lt
+        - gte
+        - null
+      x-enum-descriptions:
+        lt:
+          description: Less than.
+        gte:
+          description: Greater than or equal to.
+      examples:
+        - lt
     origin-transaction:
       title: Transaction origin
       x-stoplight:
@@ -24571,10 +24695,44 @@ components:
       examples:
         - pro_01gsz97mq9pa4fkyy0wqenepkz
     report:
-      type: object
       x-stoplight:
         id: 5f658b424acbd
       title: Report
+      description: Represents a report entity.
+      oneOf:
+        - title: Adjustments reports
+          description: Entity when working with reports for adjustments or adjustment line items.
+          $ref: '#/components/schemas/report-adjustments'
+        - title: Transactions reports
+          description: Entity when working with reports for transaction or transaction line items.
+          $ref: '#/components/schemas/report-transactions'
+        - title: Products and prices report
+          description: Entity when working with a products and prices report.
+          $ref: '#/components/schemas/report-products-prices'
+        - title: Discounts report
+          description: Entity when working with a discounts report.
+          $ref: '#/components/schemas/report-discounts'
+    report-adjustments:
+      title: ReportAdjustments
+      description: Report entity when working with adjustments reports.
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/report-base'
+        - type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/report_type_adjustments'
+              description: Type of report to create.
+            filters:
+              $ref: '#/components/schemas/report_filter_adjustments'
+              description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+          required:
+            - type
+    report-base:
+      type: object
+      x-stoplight:
+        id: f2g5h8j3k7l9p
+      title: ReportBase
       description: Represents a report entity.
       properties:
         id:
@@ -24590,30 +24748,7 @@ components:
             - integer
             - 'null'
           description: Number of records in this report. `null` if the report is `pending`.
-        type:
-          allOf:
-            - $ref: '#/components/schemas/report_type_adjustments'
-            - $ref: '#/components/schemas/report_type_transactions'
-            - type: string
-              enum:
-                - products_prices
-              x-enum-descriptions:
-                products_prices:
-                  description: Products and prices reports contain information about the product and price objects from the catalog.
-            - type: string
-              enum:
-                - discounts
-              x-enum-descriptions:
-                discounts:
-                  description: Discounts reports contain information about discounts.
-          description: Type of report.
-        filters:
-          allOf:
-            - $ref: '#/components/schemas/report_filter_adjustments'
-            - $ref: '#/components/schemas/report_filter_transactions'
-            - $ref: '#/components/schemas/report_filter_products_prices'
-            - $ref: '#/components/schemas/report_filter_discounts'
-          description: List of filters applied to this report.
+          readOnly: true
         expires_at:
           oneOf:
             - $ref: '#/components/schemas/timestamp'
@@ -24623,100 +24758,77 @@ components:
         updated_at:
           $ref: '#/components/schemas/updated_at'
           description: RFC 3339 datetime string of when this report was last updated.
+          readOnly: true
         created_at:
           $ref: '#/components/schemas/created_at'
           description: RFC 3339 datetime string of when this report was created.
-      required:
-        - id
-        - status
+          readOnly: true
       x-tags:
         - 'v1: Reports'
-    report-create:
-      title: ReportCreate
-      description: Represents a report entity when creating reports.
-      oneOf:
-        - title: Adjustments reports
-          description: Request body when creating reports for adjustments or adjustment line items.
-          $ref: '#/components/schemas/report-create-adjustments'
-        - title: Transactions reports
-          description: Request body when creating reports for transaction or transaction line items.
-          $ref: '#/components/schemas/report-create-transactions'
-        - title: Products and prices report
-          description: Request body when creating a products and prices report.
-          $ref: '#/components/schemas/report-create-products-prices'
-        - title: Discounts report
-          description: Request body when creating a discounts report.
-          $ref: '#/components/schemas/report-create-discounts'
-    report-create-adjustments:
-      title: ReportCreateRequestAdjustments
-      description: Report create request for adjustments.
+    report-discounts:
+      title: ReportDiscounts
+      description: Report entity when working with the discounts report.
       type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/report_type_adjustments'
-          description: Type of report to create.
-        filters:
-          $ref: '#/components/schemas/report_filter_adjustments'
-          description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
-      required:
-        - type
-    report-create-discounts:
-      title: ReportCreateRequestDiscounts
-      description: Report create request for discounts
+      allOf:
+        - $ref: '#/components/schemas/report-base'
+        - type: object
+          properties:
+            type:
+              title: ReportTypeDiscounts
+              description: Type of report to create.
+              type: string
+              enum:
+                - discounts
+              x-enum-descriptions:
+                discounts:
+                  description: Discounts reports contain information about your product and checkout discounts.
+              examples:
+                - discounts
+            filters:
+              $ref: '#/components/schemas/report_filter_discounts'
+              description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+          required:
+            - type
+    report-products-prices:
+      title: ReportProductsPrices
+      description: Report entity when working with the products and prices report.
       type: object
-      additionalProperties: false
-      properties:
-        type:
-          description: Type of report to create.
-          type: string
-          enum:
-            - discounts
-          x-enum-descriptions:
-            discounts:
-              description: Discounts reports contain information about your product and checkout discounts.
-          examples:
-            - discounts
-        filters:
-          $ref: '#/components/schemas/report_filter_discounts'
-          description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
-      required:
-        - type
-    report-create-products-prices:
-      title: ReportCreateRequestProductsPrices
-      description: Report create request for products and prices
+      allOf:
+        - $ref: '#/components/schemas/report-base'
+        - type: object
+          properties:
+            type:
+              title: ReportTypeProductsPrices
+              description: Type of report to create.
+              type: string
+              enum:
+                - products_prices
+              x-enum-descriptions:
+                products_prices:
+                  description: Products and prices reports contain information about your products and prices. May include non-catalog products and prices.
+              examples:
+                - products_prices
+            filters:
+              $ref: '#/components/schemas/report_filter_products_prices'
+              description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+          required:
+            - type
+    report-transactions:
+      title: ReportTransactions
+      description: Report entity when working with transactions reports.
       type: object
-      additionalProperties: false
-      properties:
-        type:
-          description: Type of report to create.
-          type: string
-          enum:
-            - products_prices
-          x-enum-descriptions:
-            products_prices:
-              description: Products and prices reports contain information about your products and prices. May include non-catalog products and prices.
-          examples:
-            - products_prices
-        filters:
-          $ref: '#/components/schemas/report_filter_products_prices'
-          description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
-      required:
-        - type
-    report-create-transactions:
-      title: ReportCreateRequestTransactions
-      description: Report create request for transactions.
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/report_type_transactions'
-          description: Type of report to create.
-        filters:
-          $ref: '#/components/schemas/report_filter_transactions'
-          description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
-      required:
-        - type
+      allOf:
+        - $ref: '#/components/schemas/report-base'
+        - type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/report_type_transactions'
+              description: Type of report to create.
+            filters:
+              $ref: '#/components/schemas/report_filter_transactions'
+              description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+          required:
+            - type
     report.created:
       title: report.created
       description: Occurs when a report is created.
@@ -24730,58 +24842,20 @@ components:
               $ref: '#/components/schemas/notification_id'
               readOnly: true
             data:
-              type: object
-              title: Report Notification
-              properties:
-                id:
-                  $ref: '#/components/schemas/paddle_id'
-                  description: Unique Paddle ID for this report, prefixed with `rep_`
-                  readOnly: true
-                status:
-                  $ref: '#/components/schemas/status-report'
-                  default: pending
-                  readOnly: true
-                rows:
-                  type:
-                    - integer
-                    - 'null'
-                  description: Number of records in this report. `null` if the report is `pending`.
-                type:
-                  allOf:
-                    - $ref: '#/components/schemas/report_type_adjustments'
-                    - $ref: '#/components/schemas/report_type_transactions'
-                    - type: string
-                      enum:
-                        - products_prices
-                      x-enum-descriptions:
-                        products_prices:
-                          description: Products and prices reports contain information about the product and price objects from the catalog.
-                    - type: string
-                      enum:
-                        - discounts
-                      x-enum-descriptions:
-                        discounts:
-                          description: Discounts reports contain information about discounts.
-                  description: Type of report.
-                filters:
-                  allOf:
-                    - $ref: '#/components/schemas/report_filter_adjustments'
-                    - $ref: '#/components/schemas/report_filter_transactions'
-                    - $ref: '#/components/schemas/report_filter_products_prices'
-                    - $ref: '#/components/schemas/report_filter_discounts'
-                  description: List of filters applied to this report.
-                expires_at:
-                  oneOf:
-                    - $ref: '#/components/schemas/timestamp'
-                    - type: 'null'
-                  description: RFC 3339 datetime string of when this report expires. The report is no longer available to download after this date.
-                  readOnly: true
-                updated_at:
-                  $ref: '#/components/schemas/updated_at'
-                  description: RFC 3339 datetime string of when this report was last updated.
-                created_at:
-                  $ref: '#/components/schemas/created_at'
-                  description: RFC 3339 datetime string of when this report was created.
+              description: New or changed entity.
+              oneOf:
+                - title: Adjustments reports
+                  description: Entity when working with reports for adjustments or adjustment line items.
+                  $ref: '#/components/schemas/report-adjustments'
+                - title: Transactions reports
+                  description: Entity when working with reports for transaction or transaction line items.
+                  $ref: '#/components/schemas/report-transactions'
+                - title: Products and prices report
+                  description: Entity when working with a products and prices report.
+                  $ref: '#/components/schemas/report-products-prices'
+                - title: Discounts report
+                  description: Entity when working with a discounts report.
+                  $ref: '#/components/schemas/report-discounts'
       examples:
         - $ref: '#/components/examples/report-created'
       x-tags:
@@ -24799,71 +24873,34 @@ components:
               $ref: '#/components/schemas/notification_id'
               readOnly: true
             data:
-              type: object
-              title: Report Notification
-              properties:
-                id:
-                  $ref: '#/components/schemas/paddle_id'
-                  description: Unique Paddle ID for this report, prefixed with `rep_`
-                  readOnly: true
-                status:
-                  $ref: '#/components/schemas/status-report'
-                  default: pending
-                  readOnly: true
-                rows:
-                  type:
-                    - integer
-                    - 'null'
-                  description: Number of records in this report. `null` if the report is `pending`.
-                type:
-                  allOf:
-                    - $ref: '#/components/schemas/report_type_adjustments'
-                    - $ref: '#/components/schemas/report_type_transactions'
-                    - type: string
-                      enum:
-                        - products_prices
-                      x-enum-descriptions:
-                        products_prices:
-                          description: Products and prices reports contain information about the product and price objects from the catalog.
-                    - type: string
-                      enum:
-                        - discounts
-                      x-enum-descriptions:
-                        discounts:
-                          description: Discounts reports contain information about discounts.
-                  description: Type of report.
-                filters:
-                  allOf:
-                    - $ref: '#/components/schemas/report_filter_adjustments'
-                    - $ref: '#/components/schemas/report_filter_transactions'
-                    - $ref: '#/components/schemas/report_filter_products_prices'
-                    - $ref: '#/components/schemas/report_filter_discounts'
-                  description: List of filters applied to this report.
-                expires_at:
-                  oneOf:
-                    - $ref: '#/components/schemas/timestamp'
-                    - type: 'null'
-                  description: RFC 3339 datetime string of when this report expires. The report is no longer available to download after this date.
-                  readOnly: true
-                updated_at:
-                  $ref: '#/components/schemas/updated_at'
-                  description: RFC 3339 datetime string of when this report was last updated.
-                created_at:
-                  $ref: '#/components/schemas/created_at'
-                  description: RFC 3339 datetime string of when this report was created.
+              description: New or changed entity.
+              oneOf:
+                - title: Adjustments reports
+                  description: Entity when working with reports for adjustments or adjustment line items.
+                  $ref: '#/components/schemas/report-adjustments'
+                - title: Transactions reports
+                  description: Entity when working with reports for transaction or transaction line items.
+                  $ref: '#/components/schemas/report-transactions'
+                - title: Products and prices report
+                  description: Entity when working with a products and prices report.
+                  $ref: '#/components/schemas/report-products-prices'
+                - title: Discounts report
+                  description: Entity when working with a discounts report.
+                  $ref: '#/components/schemas/report-discounts'
       examples:
         - $ref: '#/components/examples/report-updated'
       x-tags:
         - 'v1: Report Notifications'
     report_filter_adjustments:
-      title: Report filters
+      title: ReportFiltersAdjustments
       description: List of filters applied to this report.
       type: array
       items:
         type: object
-        description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+        description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
+            title: FilterNameAdjustments
             type: string
             description: Field name to filter by.
             enum:
@@ -24882,16 +24919,7 @@ components:
                 description: Filter by transaction or adjustment updated date. Pass an RFC 3339 datetime string.
           operator:
             oneOf:
-              - type: string
-                enum:
-                  - lt
-                  - gte
-                  - null
-                x-enum-descriptions:
-                  lt:
-                    description: Less than.
-                  gte:
-                    description: Greater than or equal to.
+              - $ref: '#/components/schemas/operator'
               - type: 'null'
             description: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
           value:
@@ -24900,14 +24928,15 @@ components:
               - string
             description: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
     report_filter_discounts:
-      title: Report filters
+      title: ReportFiltersDiscounts
       description: List of filters applied to this report.
       type: array
       items:
         type: object
-        description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+        description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
+            title: FilterNameDiscounts
             type: string
             description: Field name to filter by.
             enum:
@@ -24922,33 +24951,25 @@ components:
               updated_at:
                 description: Filter by discount updated date. Pass an RFC 3339 datetime string.
           operator:
-            type:
-              - string
-              - 'null'
+            oneOf:
+              - $ref: '#/components/schemas/operator'
+              - type: 'null'
             description: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
-            enum:
-              - lt
-              - gte
-              - null
-            x-enum-descriptions:
-              lt:
-                description: Less than.
-              gte:
-                description: Greater than or equal to.
           value:
             type:
               - array
               - string
             description: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
     report_filter_products_prices:
-      title: Report filters
+      title: ReportFiltersProductPrices
       description: List of filters applied to this report.
       type: array
       items:
         type: object
-        description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+        description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
+            title: FilterNameProductPrices
             type: string
             description: Field name to filter by.
             enum:
@@ -24972,33 +24993,25 @@ components:
               price_updated_at:
                 description: Filter by price `updated_at` date. Pass an RFC 3339 datetime string.
           operator:
-            type:
-              - 'null'
-              - string
-            description: Operator to use when filtering. Valid when filtering by `product_updated_at` or `price_updated_at`, `null` otherwise.
-            enum:
-              - lt
-              - gte
-              - null
-            x-enum-descriptions:
-              lt:
-                description: Less than.
-              gte:
-                description: Greater than or equal to.
+            oneOf:
+              - $ref: '#/components/schemas/operator'
+              - type: 'null'
+            description: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
           value:
             type:
               - array
               - string
             description: Value to filter by.
     report_filter_transactions:
-      title: Report filters
+      title: ReportFiltersTransactions
       description: List of filters applied to this report.
       type: array
       items:
         type: object
-        description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+        description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
+            title: FilterNameTransactions
             type: string
             description: Field name to filter by.
             enum:
@@ -25020,16 +25033,7 @@ components:
                 description: Filter by transaction or adjustment updated date. Pass an RFC 3339 datetime string.
           operator:
             oneOf:
-              - type: string
-                enum:
-                  - lt
-                  - gte
-                  - null
-                x-enum-descriptions:
-                  lt:
-                    description: Less than.
-                  gte:
-                    description: Greater than or equal to.
+              - $ref: '#/components/schemas/operator'
               - type: 'null'
             description: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
           value:
