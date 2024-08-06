@@ -2921,7 +2921,7 @@ paths:
       externalDocs:
         description: Preview a transaction
         url: https://developer.paddle.com/api-reference/transactions/preview-transaction
-      operationId: preview-transaction
+      operationId: preview-transaction-create
       responses:
         '200':
           description: OK
@@ -4103,7 +4103,7 @@ paths:
           $ref: '#/components/responses/error'
       description: Returns a paginated list of adjustments. Use the query parameters to page through results.
       parameters:
-        - $ref: '#/components/parameters/action_query'
+        - $ref: '#/components/parameters/action_adjustment_query'
         - $ref: '#/components/parameters/after_query'
         - $ref: '#/components/parameters/customer_id_query'
         - $ref: '#/components/parameters/order_by_query'
@@ -8562,6 +8562,7 @@ paths:
                 properties:
                   data:
                     type: object
+                    title: IPAddress
                     properties:
                       ipv4_cidrs:
                         type: array
@@ -11204,7 +11205,7 @@ paths:
       externalDocs:
         description: Preview an update to a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/preview-subscription
-      operationId: preview-subscription
+      operationId: preview-subscription-update
       responses:
         '200':
           description: OK
@@ -14043,13 +14044,14 @@ components:
         type: string
         examples:
           - ts=1671552777;h1=eb4d0dc8853be92b7f063b9f3ba5233eb920a09459b6e6b2c26705b4364db151
-    action_query:
+    action_adjustment_query:
       x-stoplight:
         id: ca0iv72dzviv5
       name: action
       in: query
       description: Return entities for the specified action.
       schema:
+        title: AdjustmentActionQuery
         type: string
         enum:
           - chargeback
@@ -14308,7 +14310,7 @@ components:
           type: string
           enum:
             - address
-            - adjustment
+            - adjustments
             - adjustments_totals
             - available_payment_methods
             - business
@@ -14317,7 +14319,7 @@ components:
           x-enum-descriptions:
             address:
               description: Include an object for the address entity related to this transaction. Only included where an `address_id` is set against the transaction.
-            adjustment:
+            adjustments:
               description: Include an array of adjustments related to this transaction. Only included where a transaction has adjustments.
             adjustments_totals:
               description: Include an object that includes totals for all adjustments against this transaction.
@@ -19158,36 +19160,6 @@ components:
         examples:
           - 61f3f8d7-d4e3-4be8-86f3-4826f2a27f2f
   schemas:
-    action:
-      title: Action
-      description: How this adjustment impacts the related transaction.
-      x-stoplight:
-        id: 93v8i00i1jgqp
-      type: string
-      enum:
-        - credit
-        - refund
-        - chargeback
-        - chargeback_reverse
-        - chargeback_warning
-        - credit_reverse
-      x-enum-descriptions:
-        credit:
-          description: Credits some or all the related transaction.
-        refund:
-          description: Refunds some or all the related transaction. Must be approved by Paddle in most cases.
-        chargeback:
-          description: Chargeback for the related transaction. Automatically created by Paddle when a customer successfully disputes a charge.
-          readOnly: true
-        chargeback_reverse:
-          description: Reversal of a chargeback for the related transaction. Automatically created by Paddle when Paddle contests a chargeback successfully.
-          readOnly: true
-        chargeback_warning:
-          description: Warning of an upcoming chargeback for the related transaction. Automatically created by Paddle.
-          readOnly: true
-        credit_reverse:
-          description: Reversal of a credit for the related transaction. Automatically created by Paddle.
-          readOnly: true
     address:
       title: Address
       x-stoplight:
@@ -19762,7 +19734,7 @@ components:
           $ref: '#/components/schemas/adjustment_id'
           readOnly: true
         action:
-          $ref: '#/components/schemas/action'
+          $ref: '#/components/schemas/adjustment_action'
         transaction_id:
           $ref: '#/components/schemas/transaction_id'
           description: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
@@ -19845,7 +19817,7 @@ components:
           $ref: '#/components/schemas/adjustment_id'
           readOnly: true
         action:
-          $ref: '#/components/schemas/action'
+          $ref: '#/components/schemas/adjustment_action'
         transaction_id:
           $ref: '#/components/schemas/transaction_id'
           description: |-
@@ -20017,7 +19989,7 @@ components:
                   $ref: '#/components/schemas/adjustment_id'
                   readOnly: true
                 action:
-                  $ref: '#/components/schemas/action'
+                  $ref: '#/components/schemas/adjustment_action'
                 transaction_id:
                   $ref: '#/components/schemas/transaction_id'
                   description: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
@@ -20117,7 +20089,7 @@ components:
                   $ref: '#/components/schemas/adjustment_id'
                   readOnly: true
                 action:
-                  $ref: '#/components/schemas/action'
+                  $ref: '#/components/schemas/adjustment_action'
                 transaction_id:
                   $ref: '#/components/schemas/transaction_id'
                   description: Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
@@ -20193,6 +20165,36 @@ components:
         - 'v1: Adjustment Notifications'
       examples:
         - $ref: '#/components/examples/adjustment-updated'
+    adjustment_action:
+      title: AdjustmentAction
+      description: How this adjustment impacts the related transaction.
+      x-stoplight:
+        id: 93v8i00i1jgqp
+      type: string
+      enum:
+        - credit
+        - refund
+        - chargeback
+        - chargeback_reverse
+        - chargeback_warning
+        - credit_reverse
+      x-enum-descriptions:
+        credit:
+          description: Credits some or all the related transaction.
+        refund:
+          description: Refunds some or all the related transaction. Must be approved by Paddle in most cases.
+        chargeback:
+          description: Chargeback for the related transaction. Automatically created by Paddle when a customer successfully disputes a charge.
+          readOnly: true
+        chargeback_reverse:
+          description: Reversal of a chargeback for the related transaction. Automatically created by Paddle when Paddle contests a chargeback successfully.
+          readOnly: true
+        chargeback_warning:
+          description: Warning of an upcoming chargeback for the related transaction. Automatically created by Paddle.
+          readOnly: true
+        credit_reverse:
+          description: Reversal of a credit for the related transaction. Automatically created by Paddle.
+          readOnly: true
     adjustment_id:
       title: Adjustment ID
       x-stoplight:
@@ -23062,6 +23064,7 @@ components:
       properties:
         name:
           $ref: '#/components/schemas/event_type_name'
+          readOnly: true
         description:
           type: string
           description: Short description of this event type.
@@ -23081,12 +23084,52 @@ components:
             type: integer
           readOnly: true
     event_type_name:
-      title: Event type
-      x-stoplight:
-        id: gbacr2mumy7v2
-      type: string
+      title: Event type name
       description: Type of event sent by Paddle, in the format `entity.event_type`.
-      readOnly: true
+      type: string
+      enum:
+        - address.created
+        - address.imported
+        - address.updated
+        - adjustment.created
+        - adjustment.updated
+        - business.created
+        - business.imported
+        - business.updated
+        - customer.created
+        - customer.imported
+        - customer.updated
+        - discount.created
+        - discount.imported
+        - discount.updated
+        - payout.created
+        - payout.paid
+        - price.created
+        - price.imported
+        - price.updated
+        - product.created
+        - product.imported
+        - product.updated
+        - report.created
+        - report.updated
+        - subscription.activated
+        - subscription.canceled
+        - subscription.created
+        - subscription.imported
+        - subscription.past_due
+        - subscription.paused
+        - subscription.resumed
+        - subscription.trialing
+        - subscription.updated
+        - transaction.billed
+        - transaction.canceled
+        - transaction.completed
+        - transaction.created
+        - transaction.paid
+        - transaction.past_due
+        - transaction.payment_failed
+        - transaction.ready
+        - transaction.updated
     import_meta:
       title: ImportMeta
       x-stoplight:
@@ -23252,6 +23295,7 @@ components:
           description: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
     money:
       title: Money
+      description: A base representation of monetary value unformatted in the lowest denomination with currency code.
       x-stoplight:
         id: 082l2ayyyf2sb
       type: object
@@ -23313,6 +23357,7 @@ components:
           readOnly: true
         origin:
           type: string
+          title: NotificationOrigin
           description: Describes how this notification was created.
           enum:
             - event
@@ -23497,7 +23542,7 @@ components:
           description: Subscribed events for this notification destination. When creating or updating a notification destination, pass an array of event type names only. Paddle returns the complete event type object.
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/event_type_name'
         endpoint_secret_key:
           description: Webhook destination secret key, prefixed with `pdl_ntfset_`. Used for signature verification.
           type: string
@@ -23541,7 +23586,7 @@ components:
           type: array
           description: Subscribed events for this notification destination. When creating or updating a notification destination, pass an array of event type names only. Paddle returns the complete event type object.
           items:
-            type: string
+            $ref: '#/components/schemas/event_type_name'
       x-tags:
         - 'v1: Entities'
     notification_setting_id:
@@ -25639,6 +25684,12 @@ components:
               - title: Catalog item
                 description: Add or update a catalog item to a subscription. In this case, the product and price that you're billing for exist in your product catalog in Paddle.
                 $ref: '#/components/schemas/subscription_update_item'
+              - title: Non-catalog price for an existing product
+                description: Add a non-catalog price for an existing product in your catalog to a subscription. In this case, the product you're billing for is a catalog product, but you charge a specific price for it.
+                $ref: '#/components/schemas/subscription_item_create_with_price'
+              - title: Non-catalog price and product
+                description: Add a non-catalog price for a non-catalog product in your catalog to a subscription. In this case, the product and price that you're billing for are specific to this subscription.
+                $ref: '#/components/schemas/subscription_item_create_with_price_and_product'
         custom_data:
           description: Your own structured key-value data.
           oneOf:
@@ -26811,6 +26862,42 @@ components:
       examples:
         - sub_01h04vsc0qhwtsbsxh3422wjs4
       pattern: ^sub_[a-z\d]{26}$
+    subscription_item_create_with_price:
+      x-stoplight:
+        id: rqotvu3nbphka
+      title: Subscription item create with price
+      type: object
+      properties:
+        quantity:
+          description: Quantity to bill for.
+          type: integer
+          minimum: 1
+          examples:
+            - 5
+        price:
+          $ref: '#/components/schemas/transaction-price-create-with-product-id'
+          description: Price object for a non-catalog item to bill for. Include a `product_id` to relate this non-catalog price to an existing catalog price.
+      required:
+        - quantity
+        - price
+    subscription_item_create_with_price_and_product:
+      x-stoplight:
+        id: xcmzlp7dxywq9
+      title: Subscription item create with price
+      type: object
+      properties:
+        quantity:
+          description: Quantity to bill for.
+          type: integer
+          minimum: 1
+          examples:
+            - 5
+        price:
+          $ref: '#/components/schemas/transaction-price-create-with-product'
+          description: Price object for a non-catalog item to charge for. Include a `product` object to create a non-catalog product for this non-catalog price.
+      required:
+        - quantity
+        - price
     subscription_item_create_with_price_id:
       x-stoplight:
         id: izjswe6cvdplx
@@ -27163,37 +27250,6 @@ components:
           examples:
             - '16500'
           readOnly: true
-      readOnly: true
-    totals_formatted:
-      title: Totals formatted
-      x-stoplight:
-        id: mi624iroub1eh
-      type: object
-      description: The financial breakdown of a charge in the format of a given currency.
-      properties:
-        subtotal:
-          type: string
-          description: The amount times the quantity.
-          examples:
-            - $150.00
-        discount:
-          type: string
-          description: |-
-            The amount discounted due to a discount code or ID being applied. 
-
-            Except for percentage discounts, Paddle applies tax to discounts based on the line item `price.tax_mode`. If `price.tax_mode` for a line item is `internal`, Paddle removes tax from the discount applied.
-          examples:
-            - $0
-        tax:
-          type: string
-          description: The amount of tax due on the subtotal.
-          examples:
-            - $15.00
-        total:
-          type: string
-          description: The subtotal - discount + tax.
-          examples:
-            - $165.00
       readOnly: true
     transaction:
       title: Transaction
@@ -29258,6 +29314,7 @@ components:
             - '14700'
           readOnly: true
         breakdown:
+          title: AdjustmentsTotalsBreakdown
           description: Breakdown of the total adjustments by adjustment action.
           type: object
           properties:
@@ -29473,7 +29530,8 @@ components:
             - '0.2'
           readOnly: true
         unit_totals:
-          $ref: '#/components/schemas/unit_totals'
+          $ref: '#/components/schemas/totals'
+          description: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
           readOnly: true
         totals:
           $ref: '#/components/schemas/totals'
@@ -29777,7 +29835,8 @@ components:
             - '0.2'
           readOnly: true
         unit_totals:
-          $ref: '#/components/schemas/unit_totals'
+          $ref: '#/components/schemas/totals'
+          description: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
           readOnly: true
         totals:
           $ref: '#/components/schemas/totals'
@@ -29890,13 +29949,16 @@ components:
           examples:
             - '0.2'
         unit_totals:
-          $ref: '#/components/schemas/unit_totals'
+          $ref: '#/components/schemas/totals'
+          description: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
         formatted_unit_totals:
-          $ref: '#/components/schemas/unit_totals_formatted'
+          $ref: '#/components/schemas/totals'
+          description: Breakdown of the charge for one unit in the format of a given currency.
         totals:
           $ref: '#/components/schemas/totals'
         formatted_totals:
-          $ref: '#/components/schemas/totals_formatted'
+          $ref: '#/components/schemas/totals'
+          description: The financial breakdown of a charge in the format of a given currency.
         product:
           $ref: '#/components/schemas/product'
           description: Related product entity for this preview line item price.
@@ -30038,97 +30100,26 @@ components:
       required:
         - country_codes
         - unit_price
-    unit_totals:
-      title: Unit totals
-      x-stoplight:
-        id: evzv5nweoto1j
-      type: object
-      description: Breakdown of the charge for one unit in the lowest denomination of a currency (e.g. cents for USD).
-      properties:
-        subtotal:
-          type: string
-          description: Unit price.
-          examples:
-            - '15000'
-        discount:
-          type: string
-          description: |-
-            Total discount as a result of any discounts applied.
-            Except for percentage discounts, Paddle applies tax to discounts based on the line item `price.tax_mode`. If `price.tax_mode` for a line item is `internal`, Paddle removes tax from the discount applied.
-          examples:
-            - '0'
-        tax:
-          type: string
-          description: Total tax on the subtotal.
-          examples:
-            - '1500'
-        total:
-          type: string
-          description: Total after discount and tax.
-          examples:
-            - '16500'
-    unit_totals_formatted:
-      title: Unit totals formatted
-      x-stoplight:
-        id: yatacyk35h3ai
-      type: object
-      description: Breakdown of the charge for one unit in the format of a given currency.
-      properties:
-        subtotal:
-          type: string
-          description: Unit price.
-          examples:
-            - $150.00
-        discount:
-          type: string
-          description: |-
-            Total discount as a result of any discounts applied.
-            Except for percentage discounts, Paddle applies tax to discounts based on the line item `price.tax_mode`. If `price.tax_mode` for a line item is `internal`, Paddle removes tax from the discount applied.
-          examples:
-            - $0
-        tax:
-          type: string
-          description: Total tax on the subtotal.
-          examples:
-            - $15.00
-        total:
-          type: string
-          description: Total after discount and tax.
-          examples:
-            - $165.00
     update_summary:
-      title: Preview subscription update summary
+      title: Subscription preview update summary
       x-stoplight:
         id: 21j4evdiobw72
       description: Impact of this subscription change. Includes whether the change results in a charge or credit, and totals for prorated amounts.
       type: object
       properties:
         credit:
-          description: Details of any credit adjustments. Paddle creates adjustments against existing transactions when prorating.
-          type: object
-          properties:
-            amount:
-              type: string
-              description: Total of any credit adjustments created for this update.
-            currency_code:
-              $ref: '#/components/schemas/currency_code'
-              description: Three-letter ISO 4217 currency code for adjustments.
+          description: Details of any credit adjustments created for this update. Paddle creates adjustments against existing transactions when prorating.
+          $ref: '#/components/schemas/money'
         charge:
           description: Details of the transaction to be created for this update. Paddle creates a transaction to bill for new charges.
-          type: object
-          properties:
-            amount:
-              type: string
-              description: Total of the transaction to be created for this update.
-            currency_code:
-              $ref: '#/components/schemas/currency_code'
-              description: Three-letter ISO 4217 currency code for the transaction to be created.
+          $ref: '#/components/schemas/money'
         result:
+          title: UpdateSummaryResult
           description: Details of the result of credits and charges. Where the total of any credit adjustments is greater than the total charge, the result is a prorated credit; otherwise, the result is a prorated charge.
           type: object
           properties:
             action:
-              title: ResultAction
+              title: UpdateSummaryResultAction
               type: string
               description: Whether the subscription change results in a prorated credit or a charge.
               enum:
