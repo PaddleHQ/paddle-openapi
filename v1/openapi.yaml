@@ -2902,7 +2902,7 @@ paths:
       description: |-
         Previews calculations for one or more prices. Typically used for building pricing pages.
 
-        You can provide location information when previewing prices. Paddle uses this to calculate tax. You can provide one of:
+        You can provide location information when previewing prices. You must provide this if you want Paddle to calculate tax or [automatically localize prices](https://developer.paddle.com/build/products/offer-localized-pricing). You can provide one of:
 
         * `customer_ip_address`: Paddle fetches location using the IP address to calculate totals.
         * `address`: Paddle uses the country and ZIP code (where supplied) to calculate totals.
@@ -3161,7 +3161,7 @@ paths:
 
         Consider using [the preview prices operation](https://developer.paddle.com/api-reference/pricing-preview/preview-prices) for simpler pricing pages.
 
-        You can provide location information to preview a transaction. Paddle uses this to calculate tax. You can provide one of:
+        You can provide location information when previewing a transaction. You must provide this if you want Paddle to calculate tax or [automatically localize prices](https://developer.paddle.com/build/products/offer-localized-pricing). You can provide one of:
 
         * `customer_ip_address`: Paddle fetches location using the IP address to calculate totals.
         * `address`: Paddle uses the country and ZIP code (where supplied) to calculate totals.
@@ -3827,11 +3827,12 @@ paths:
       description: |-
         Creates an adjustment for one or more transaction items.
 
-        You can create adjustments for manually-collected transactions that are `billed` or `completed`: 
+        You can create adjustments to refund or credit all or part of a transaction and its items:
 
-        * For `billed` transactions (issued invoices), credit adjustments reduce the balance to pay on the transaction.
-        * For `completed` transactions, credit adjustments add an amount to a credit balance for a customer. Credit balances are used to pay for future transactions.
-        * Refund adjustments return an amount to a customer's original payment method.
+        * Refunds return an amount to a customer's original payment method. You can create refund adjustments for transactions that are `completed`.
+        * Credits reduce the amount that a customer has to pay for a transaction. You can create credit adjustments for manually-collected transactions that are `billed` or `past_due`.
+
+        You can create adjustments to refund transactions that are `completed`, or to reduce the amount to due on manually-collected transactions that are `billed` or `past_due`.
 
         Most refunds for live accounts are created with the status of `pending_approval` until reviewed by Paddle, but [some are automatically approved](https://developer.paddle.com/build/transactions/create-transaction-adjustments#background-refunds). For sandbox accounts, Paddle automatically approves refunds every ten minutes.
 
@@ -4166,8 +4167,6 @@ paths:
         Credit balances are created automatically by Paddle when you take an action that results in Paddle creating a credit for a customer, like making prorated changes to a subscription. An empty `data` array is returned where a customer has no credit balances.
 
         The response is not paginated.
-      parameters:
-        - {}
   /customers:
     get:
       tags:
@@ -4325,8 +4324,6 @@ paths:
       externalDocs:
         description: Get a customer
         url: https://developer.paddle.com/api-reference/customers/get-customer
-      parameters:
-        - {}
       responses:
         '200':
           description: OK
@@ -8770,7 +8767,6 @@ paths:
         - $ref: '#/components/parameters/after_query'
         - $ref: '#/components/parameters/code_query'
         - $ref: '#/components/parameters/id_query'
-        - {}
         - $ref: '#/components/parameters/order_by_query'
           description: |-
             Order returned entities by the specified field and direction (`[ASC]` or `[DESC]`). For example, `?order_by=id[ASC]`.
@@ -12563,7 +12559,6 @@ paths:
         - $ref: '#/components/parameters/order_by_query'
         - $ref: '#/components/parameters/per_page_query'
         - $ref: '#/components/parameters/status_report_query'
-        - {}
   /reports/{report_id}/download-url:
     parameters:
       - $ref: '#/components/parameters/report_id_path'
@@ -15480,6 +15475,7 @@ components:
         data:
           id: pri_01hv0vax6rv18t4tamj848ne4d
           name: Monthly (per seat)
+          type: standard
           status: active
           quantity:
             maximum: 100
@@ -15554,6 +15550,7 @@ components:
         data:
           id: pri_01hv0vax6rv18t4tamj848ne4d
           name: Monthly (per seat)
+          type: standard
           status: active
           quantity:
             maximum: 100
@@ -15597,6 +15594,7 @@ components:
         data:
           id: pro_01htz88xpr0mm7b3ta2pjkr7w2
           name: AeroEdit Student
+          type: standard
           status: active
           image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
           custom_data:
@@ -15647,6 +15645,7 @@ components:
         data:
           id: pro_01htz88xpr0mm7b3ta2pjkr7w2
           name: AeroEdit for learner pilots
+          type: standard
           status: active
           image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
           custom_data:
@@ -19756,12 +19755,7 @@ components:
           type: string
           description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
         credit_applied_to_balance:
-          description: |-
-            Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
-
-            `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
-
-            `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
+          description: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
           oneOf:
             - type: boolean
             - type: 'null'
@@ -19822,7 +19816,8 @@ components:
           $ref: '#/components/schemas/transaction_id'
           description: |-
             Paddle ID of the transaction that this adjustment is for, prefixed with `txn_`.
-            Transactions must be manually-collected, and have a status of `billed` or `completed`. 
+
+            Automatically-collected transactions must be `completed`; manually-collected transactions must have a status of `billed` or `past_due`
 
             You can't create an adjustment for a transaction that has a refund that's pending approval.
         subscription_id:
@@ -19843,12 +19838,7 @@ components:
           type: string
           description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
         credit_applied_to_balance:
-          description: |-
-            Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
-
-            `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
-
-            `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
+          description: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
           oneOf:
             - type: boolean
             - type: 'null'
@@ -20011,12 +20001,7 @@ components:
                   type: string
                   description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
                 credit_applied_to_balance:
-                  description: |-
-                    Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
-
-                    `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
-
-                    `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
+                  description: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
                   oneOf:
                     - type: boolean
                     - type: 'null'
@@ -20104,19 +20089,14 @@ components:
                 customer_id:
                   $ref: '#/components/schemas/customer_id'
                   description: |-
-                    Paddle ID for the customer related to this adjustment, prefixed with `ctm_`. 
+                    Paddle ID for the customer related to this adjustment, prefixed with `ctm_`.
                     Set automatically by Paddle based on the `customer_id` of the related transaction.
                   readOnly: true
                 reason:
                   type: string
                   description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
                 credit_applied_to_balance:
-                  description: |-
-                    Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
-
-                    `false` where the related transaction is `billed`. The adjustment reduces the amount due on the transaction.
-
-                    `true` where the related transaction is `completed`. The amount is added the customer's credit balance and used to pay future transactions.
+                  description: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
                   oneOf:
                     - type: boolean
                     - type: 'null'
@@ -22478,7 +22458,7 @@ components:
       x-tags:
         - 'v1: Entities'
     discount-subscription:
-      title: Subscription discount
+      title: SubscriptionDiscountTimePeriod
       x-stoplight:
         id: w9gnqrbggtq8i
       description: Details of the discount applied to this subscription.
@@ -24060,7 +24040,9 @@ components:
                   maxLength: 200
                   description: Internal description for this price, not shown to customers. Typically notes for your team.
                 type:
-                  $ref: '#/components/schemas/catalog-type'
+                  oneOf:
+                    - $ref: '#/components/schemas/catalog-type'
+                    - type: 'null'
                 name:
                   type:
                     - string
@@ -24152,7 +24134,9 @@ components:
                   maxLength: 200
                   description: Internal description for this price, not shown to customers. Typically notes for your team.
                 type:
-                  $ref: '#/components/schemas/catalog-type'
+                  oneOf:
+                    - $ref: '#/components/schemas/catalog-type'
+                    - type: 'null'
                 name:
                   type:
                     - string
@@ -24244,7 +24228,9 @@ components:
                   maxLength: 200
                   description: Internal description for this price, not shown to customers. Typically notes for your team.
                 type:
-                  $ref: '#/components/schemas/catalog-type'
+                  oneOf:
+                    - $ref: '#/components/schemas/catalog-type'
+                    - type: 'null'
                 name:
                   type:
                     - string
@@ -24542,7 +24528,9 @@ components:
                   description: Short description for this product.
                   maxLength: 2048
                 type:
-                  $ref: '#/components/schemas/catalog-type'
+                  oneOf:
+                    - $ref: '#/components/schemas/catalog-type'
+                    - type: 'null'
                 tax_category:
                   $ref: '#/components/schemas/tax_category'
                 image_url:
@@ -24617,7 +24605,9 @@ components:
                   description: Short description for this product.
                   maxLength: 2048
                 type:
-                  $ref: '#/components/schemas/catalog-type'
+                  oneOf:
+                    - $ref: '#/components/schemas/catalog-type'
+                    - type: 'null'
                 tax_category:
                   $ref: '#/components/schemas/tax_category'
                 image_url:
@@ -24692,7 +24682,9 @@ components:
                   description: Short description for this product.
                   maxLength: 2048
                 type:
-                  $ref: '#/components/schemas/catalog-type'
+                  oneOf:
+                    - $ref: '#/components/schemas/catalog-type'
+                    - type: 'null'
                 tax_category:
                   $ref: '#/components/schemas/tax_category'
                 image_url:
@@ -24819,7 +24811,7 @@ components:
         - type: object
           properties:
             type:
-              title: ReportTypeDiscounts
+              title: DiscountsReportType
               description: Type of report to create.
               type: string
               enum:
@@ -24843,7 +24835,7 @@ components:
         - type: object
           properties:
             type:
-              title: ReportTypeProductsPrices
+              title: ProductsPricesReportType
               description: Type of report to create.
               type: string
               enum:
@@ -24887,6 +24879,7 @@ components:
               $ref: '#/components/schemas/notification_id'
               readOnly: true
             data:
+              title: Report Notification
               description: New or changed entity.
               oneOf:
                 - title: Adjustments reports
@@ -24918,6 +24911,7 @@ components:
               $ref: '#/components/schemas/notification_id'
               readOnly: true
             data:
+              title: Report Notification
               description: New or changed entity.
               oneOf:
                 - title: Adjustments reports
@@ -24937,7 +24931,7 @@ components:
       x-tags:
         - 'v1: Report Notifications'
     report_filter_adjustments:
-      title: ReportFiltersAdjustments
+      title: AdjustmentsReportFilters
       description: List of filters applied to this report.
       type: array
       items:
@@ -24945,7 +24939,7 @@ components:
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
-            title: FilterNameAdjustments
+            title: AdjustmentsReportFilterName
             type: string
             description: Field name to filter by.
             enum:
@@ -24973,7 +24967,7 @@ components:
               - string
             description: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
     report_filter_discounts:
-      title: ReportFiltersDiscounts
+      title: DiscountsReportFilters
       description: List of filters applied to this report.
       type: array
       items:
@@ -24981,7 +24975,7 @@ components:
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
-            title: FilterNameDiscounts
+            title: DiscountsReportFilterName
             type: string
             description: Field name to filter by.
             enum:
@@ -25006,7 +25000,7 @@ components:
               - string
             description: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
     report_filter_products_prices:
-      title: ReportFiltersProductPrices
+      title: ProductPricesReportFilters
       description: List of filters applied to this report.
       type: array
       items:
@@ -25014,7 +25008,7 @@ components:
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
-            title: FilterNameProductPrices
+            title: ProductPricesReportFilterName
             type: string
             description: Field name to filter by.
             enum:
@@ -25048,7 +25042,7 @@ components:
               - string
             description: Value to filter by.
     report_filter_transactions:
-      title: ReportFiltersTransactions
+      title: TransactionsReportFilters
       description: List of filters applied to this report.
       type: array
       items:
@@ -25056,7 +25050,7 @@ components:
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
         properties:
           name:
-            title: FilterNameTransactions
+            title: TransactionsReportFilterName
             type: string
             description: Field name to filter by.
             enum:
@@ -25087,7 +25081,7 @@ components:
               - string
             description: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
     report_type_adjustments:
-      title: ReportTypeAdjustments
+      title: AdjustmentsReportType
       description: Type of report.
       type: string
       enum:
@@ -25101,7 +25095,7 @@ components:
       examples:
         - adjustments
     report_type_transactions:
-      title: ReportTypeTransactions
+      title: TransactionsReportType
       description: Type of report.
       type: string
       enum:
@@ -25651,6 +25645,7 @@ components:
           $ref: '#/components/schemas/timestamp'
           description: RFC 3339 datetime string of when this subscription is next scheduled to be billed. Include to change the next billing date.
         discount:
+          title: SubscriptionDiscountEffectiveFrom
           description: Details of the discount applied to this subscription. Include to add a discount to a subscription. `null` to remove a discount.
           type:
             - object
@@ -27347,6 +27342,7 @@ components:
             $ref: '#/components/schemas/transaction_payment_attempt'
           readOnly: true
         checkout:
+          title: TransactionCheckout
           description: Paddle Checkout details for this transaction. Returned for automatically-collected transactions and where `billing_details.enable_checkout` is `true` for manually-collected transactions; `null` otherwise.
           type:
             - object
@@ -27487,6 +27483,7 @@ components:
             $ref: '#/components/schemas/transaction_payment_attempt'
           readOnly: true
         checkout:
+          title: TransactionCheckout
           description: Paddle Checkout details for this transaction. You may pass a URL when creating or updating an automatically-collected transaction, or when creating or updating a manually-collected transaction where `billing_details.enable_checkout` is `true`.
           type:
             - object
@@ -27972,6 +27969,7 @@ components:
             $ref: '#/components/schemas/transaction_payment_attempt'
           readOnly: true
         checkout:
+          title: TransactionCheckout
           description: Paddle Checkout details for this transaction. You may pass a URL when creating or updating an automatically-collected transaction, or when creating or updating a manually-collected transaction where `billing_details.enable_checkout` is `true`.
           type:
             - object
@@ -29272,7 +29270,7 @@ components:
       x-tags:
         - 'v1: Transaction Notifications'
     transaction_adjustments_totals_include:
-      title: Adjustments Totals
+      title: Adjustment Totals
       x-stoplight:
         id: 9l2duvwg9zgtm
       description: Breakdown of all the adjustments made against a transaction in the transaction currency.
@@ -29314,7 +29312,7 @@ components:
             - '14700'
           readOnly: true
         breakdown:
-          title: AdjustmentsTotalsBreakdown
+          title: AdjustmentTotalsBreakdown
           description: Breakdown of the total adjustments by adjustment action.
           type: object
           properties:
@@ -29481,7 +29479,7 @@ components:
       title: Transaction item ID
       x-stoplight:
         id: u1y6v3q7t2kls
-      description: Unique Paddle ID for this transaction item, prefixed with `txnitm_`.
+      description: Unique Paddle ID for this transaction item, prefixed with `txnitm_`. Used when working with [adjustments](https://developer.paddle.com/build/transactions/create-transaction-adjustments).
       type: string
       examples:
         - txnitm_01gm302t81w94gyjpjpqypkzkf
