@@ -1040,6 +1040,7 @@ paths:
                         created_at: "2024-04-12T10:33:52.610609Z"
                         updated_at: "2024-04-12T10:33:52.610609Z"
                         billed_at: null
+                        revised_at: null
                         items:
                           - price:
                               id: pri_01gsz8x8sawmvhz1pv30nge1ke
@@ -2448,6 +2449,7 @@ paths:
                       created_at: "2024-04-12T07:40:38.007040251Z"
                       updated_at: "2024-04-12T07:40:38.007040251Z"
                       billed_at: null
+                      revised_at: null
                       items:
                         - price:
                             id: pri_01gsz91wy9k1yn7kx82aafwvea
@@ -2691,8 +2693,6 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/transaction_pricing_preview_response"
-                    required:
-                      - items
                   meta:
                     $ref: "#/components/schemas/meta"
                 required:
@@ -3229,6 +3229,7 @@ paths:
                       created_at: "2024-04-12T10:12:33.2014Z"
                       updated_at: "2024-04-12T10:20:21.386946Z"
                       billed_at: "2024-04-12T10:18:48.294633Z"
+                      revised_at: null
                       items:
                         - price:
                             id: pri_01gsz8x8sawmvhz1pv30nge1ke
@@ -3537,6 +3538,7 @@ paths:
                       created_at: "2024-04-12T07:40:38.00704Z"
                       updated_at: "2024-04-12T10:00:03.871169408Z"
                       billed_at: null
+                      revised_at: null
                       items:
                         - price:
                             id: pri_01gsz91wy9k1yn7kx82aafwvea
@@ -3759,6 +3761,331 @@ paths:
         - Transactions
       parameters:
         - $ref: "#/components/parameters/include_transaction_query"
+  /transactions/{transaction_id}/revise:
+    parameters:
+      - $ref: "#/components/parameters/transaction_id_path"
+    post:
+      summary: Revise customer information on a billed or completed transaction
+      operationId: revise-transaction
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/transaction"
+                  meta:
+                    $ref: "#/components/schemas/meta"
+                required:
+                  - data
+                  - meta
+              examples:
+                Standard - 200 OK:
+                  summary: Revise a billed or completed transaction (200)
+                  value:
+                    data:
+                      id: txn_01hv8wptq8987qeep44cyrewp9
+                      status: completed
+                      customer_id: ctm_01hv8wt8nffez4p2t6typn4a5j
+                      address_id: add_01hv8wt8ny8ms5vtm71bj8vcdd
+                      business_id: null
+                      custom_data: null
+                      origin: web
+                      collection_mode: automatic
+                      subscription_id: sub_01hv8x29kz0t586xy6zn1a62ny
+                      invoice_id: inv_01hv8x29nsh54c2pgt0hnq0zkx
+                      invoice_number: 325-10566
+                      billing_details: null
+                      billing_period:
+                        starts_at: "2024-04-12T10:18:47.635628Z"
+                        ends_at: "2024-05-12T10:18:47.635628Z"
+                      currency_code: USD
+                      discount_id: null
+                      created_at: "2024-04-12T10:12:33.2014Z"
+                      updated_at: "2024-07-26T08:46:00.746349Z"
+                      billed_at: "2024-04-12T10:18:48.294633Z"
+                      revised_at: "2024-07-26T08:46:00.746349Z"
+                      items:
+                        - price:
+                            id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                            description: Monthly
+                            type: standard
+                            name: Monthly (per seat)
+                            product_id: pro_01gsz4t5hdjse780zja8vvr7jg
+                            billing_cycle:
+                              interval: month
+                              frequency: 1
+                            trial_period: null
+                            tax_mode: account_setting
+                            unit_price:
+                              amount: "3000"
+                              currency_code: USD
+                            unit_price_overrides: []
+                            custom_data: null
+                            quantity:
+                              minimum: 1
+                              maximum: 999
+                            status: active
+                            created_at: "2023-02-23T13:55:22.538367Z"
+                            updated_at: "2024-04-11T13:54:52.254748Z"
+                          quantity: 10
+                        - price:
+                            id: pri_01h1vjfevh5etwq3rb416a23h2
+                            description: Monthly
+                            type: standard
+                            name: Monthly (recurring addon)
+                            product_id: pro_01h1vjes1y163xfj1rh1tkfb65
+                            billing_cycle:
+                              interval: month
+                              frequency: 1
+                            trial_period: null
+                            tax_mode: account_setting
+                            unit_price:
+                              amount: "10000"
+                              currency_code: USD
+                            unit_price_overrides: []
+                            custom_data: null
+                            quantity:
+                              minimum: 1
+                              maximum: 100
+                            status: active
+                            created_at: "2023-06-01T13:31:12.625056Z"
+                            updated_at: "2024-04-09T07:23:00.907834Z"
+                            import_meta: null
+                          quantity: 1
+                        - price:
+                            id: pri_01gsz98e27ak2tyhexptwc58yk
+                            description: One-time addon
+                            type: standard
+                            name: One-time addon
+                            product_id: pro_01gsz97mq9pa4fkyy0wqenepkz
+                            billing_cycle: null
+                            trial_period: null
+                            tax_mode: account_setting
+                            unit_price:
+                              amount: "19900"
+                              currency_code: USD
+                            unit_price_overrides: []
+                            custom_data: null
+                            quantity:
+                              minimum: 1
+                              maximum: 1
+                            status: active
+                            created_at: "2023-02-23T14:01:28.391712Z"
+                            updated_at: "2024-04-09T07:23:10.921392Z"
+                            import_meta: null
+                          quantity: 1
+                      details:
+                        tax_rates_used:
+                          - tax_rate: "0.08875"
+                            totals:
+                              subtotal: "59900"
+                              discount: "0"
+                              tax: "5315"
+                              total: "65215"
+                        totals:
+                          subtotal: "59900"
+                          tax: "5315"
+                          discount: "0"
+                          total: "65215"
+                          grand_total: "65215"
+                          fee: "3311"
+                          credit: "0"
+                          credit_to_balance: "0"
+                          balance: "0"
+                          earnings: "56589"
+                          currency_code: USD
+                        adjusted_totals:
+                          subtotal: "59900"
+                          tax: "5315"
+                          total: "65215"
+                          grand_total: "65215"
+                          fee: "3311"
+                          earnings: "56589"
+                          currency_code: USD
+                        payout_totals:
+                          subtotal: "59900"
+                          tax: "5315"
+                          discount: "0"
+                          total: "65215"
+                          credit: "0"
+                          credit_to_balance: "0"
+                          balance: "0"
+                          grand_total: "65215"
+                          fee: "3311"
+                          earnings: "56589"
+                          currency_code: USD
+                        adjusted_payout_totals:
+                          subtotal: "59900"
+                          tax: "5315"
+                          total: "65215"
+                          fee: "3311"
+                          chargeback_fee:
+                            amount: "0"
+                            original: null
+                          earnings: "56589"
+                          currency_code: USD
+                        line_items:
+                          - id: txnitm_01hv8wt98jahpbm1t1tzr06z6n
+                            price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                            quantity: 10
+                            totals:
+                              subtotal: "30000"
+                              tax: "2662"
+                              discount: "0"
+                              total: "32662"
+                            product:
+                              id: pro_01gsz4t5hdjse780zja8vvr7jg
+                              name: AeroEdit Pro
+                              description: Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.
+                              type: standard
+                              tax_category: standard
+                              image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
+                              custom_data:
+                                features:
+                                  aircraft_performance: true
+                                  compliance_monitoring: true
+                                  flight_log_management: true
+                                  payment_by_invoice: false
+                                  route_planning: true
+                                  sso: false
+                                suggested_addons:
+                                  - pro_01h1vjes1y163xfj1rh1tkfb65
+                                  - pro_01gsz97mq9pa4fkyy0wqenepkz
+                                upgrade_description: Move from Basic to Pro to take advantage of aircraft performance, advanced route planning, and compliance monitoring.
+                              status: active
+                              created_at: "2023-02-23T12:43:46.605Z"
+                              updated_at: "2024-04-05T15:53:44.687Z"
+                              import_meta: null
+                            tax_rate: "0.08875"
+                            unit_totals:
+                              subtotal: "3000"
+                              tax: "266"
+                              discount: "0"
+                              total: "3266"
+                          - id: txnitm_01hv8wt98jahpbm1t1v1sd067y
+                            price_id: pri_01h1vjfevh5etwq3rb416a23h2
+                            quantity: 1
+                            totals:
+                              subtotal: "10000"
+                              tax: "887"
+                              discount: "0"
+                              total: "10887"
+                            product:
+                              id: pro_01h1vjes1y163xfj1rh1tkfb65
+                              name: Analytics addon
+                              description: Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.
+                              type: standard
+                              tax_category: standard
+                              image_url: https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png
+                              custom_data: null
+                              status: active
+                              created_at: "2023-06-01T13:30:50.302Z"
+                              updated_at: "2024-04-05T15:47:17.163Z"
+                              import_meta: null
+                            tax_rate: "0.08875"
+                            unit_totals:
+                              subtotal: "10000"
+                              tax: "887"
+                              discount: "0"
+                              total: "10887"
+                          - id: txnitm_01hv8wt98jahpbm1t1v67vqnb6
+                            price_id: pri_01gsz98e27ak2tyhexptwc58yk
+                            quantity: 1
+                            totals:
+                              subtotal: "19900"
+                              tax: "1766"
+                              discount: "0"
+                              total: "21666"
+                            product:
+                              id: pro_01gsz97mq9pa4fkyy0wqenepkz
+                              name: Custom domains
+                              description: Make AeroEdit truly your own with custom domains. Custom domains reinforce your brand identity and make it easy for your team to access your account.
+                              type: standard
+                              tax_category: standard
+                              image_url: https://paddle.s3.amazonaws.com/user/165798/XIG7UXoJQHmlIAiKcnkA_custom-domains.png
+                              custom_data: null
+                              status: active
+                              created_at: "2023-02-23T14:01:02.441Z"
+                              updated_at: "2024-04-05T15:43:28.971Z"
+                              import_meta: null
+                            tax_rate: "0.08875"
+                            unit_totals:
+                              subtotal: "19900"
+                              tax: "1766"
+                              discount: "0"
+                              total: "21666"
+                      payments:
+                        - payment_attempt_id: 937640dd-e3dc-40df-a16c-bb75aafd8f71
+                          stored_payment_method_id: 281ff2ca-8550-42b9-bf39-15948e7de62d
+                          payment_method_id: paymtd_01hv8x1tpjfnttxddw73xnqx6s
+                          amount: "65215"
+                          status: captured
+                          error_code: null
+                          method_details:
+                            type: card
+                            card:
+                              type: visa
+                              last4: "3184"
+                              expiry_month: 1
+                              expiry_year: 2025
+                              cardholder_name: Michael McGovern
+                          created_at: "2024-04-12T10:18:33.579142Z"
+                          captured_at: "2024-04-12T10:18:47.635628Z"
+                        - payment_attempt_id: 8f72cfa6-26b4-4a57-91dc-8f2708f7822d
+                          stored_payment_method_id: a78ece50-356f-4e0c-b72d-ad5368b0a0d9
+                          payment_method_id: paymtd_01hv8wx2mka7dfsqjjsxh1ne7z
+                          amount: "65215"
+                          status: error
+                          error_code: declined
+                          method_details:
+                            type: card
+                            card:
+                              type: visa
+                              last4: "0002"
+                              expiry_month: 1
+                              expiry_year: 2025
+                              cardholder_name: Michael McGovern
+                          created_at: "2024-04-12T10:15:57.888183Z"
+                          captured_at: null
+                      checkout:
+                        url: https://aeroedit.com/pay?_ptxn=txn_01hv8wptq8987qeep44cyrewp9
+                    meta:
+                      request_id: d6186f6a-70f7-4f1c-a65a-f790f940cf6e
+        default:
+          $ref: "#/components/responses/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/transaction-revise"
+            examples:
+              Standard:
+                $ref: "#/components/examples/revise-transaction-standard"
+      description: |-
+        Revises customer information for a billed or completed transaction.
+
+        Revise a transaction to rectify incorrect customer, address, or business information on invoice documents generated by Paddle.
+
+        You can revise transaction details that don't impact the tax rates on a transaction. This includes:
+
+        * Customer name
+        * Business name and tax or VAT number (`tax_identifier`)
+        * Address details, apart from the country
+
+        You can't remove a valid tax or VAT number, only replace it with another valid one. If a valid tax or VAT number is added, Paddle automatically creates an adjustment to refund any tax where applicable.
+
+        Transactions can only be revised once.
+
+        If successful, your response includes a copy of the transaction entity. [Get a transaction](https://developer.paddle.com/api-reference/transactions/get-transaction) using the `include` parameter with the `customer`, `address`, and `business` values to see the revised customer information.
+
+        Only the customer information for this transaction is updated. The related customer, address, and business entities are not updated.
+      tags:
+        - Transactions
   /adjustments:
     post:
       summary: Create an adjustment
@@ -4326,6 +4653,7 @@ paths:
         description: Create a customer
         url: https://developer.paddle.com/api-reference/customers/create-customer
       operationId: create-customer
+      parameters: []
       responses:
         "201":
           description: Created
@@ -4382,6 +4710,7 @@ paths:
       externalDocs:
         description: Get a customer
         url: https://developer.paddle.com/api-reference/customers/get-customer
+      parameters: []
       responses:
         "200":
           description: OK
@@ -11858,6 +12187,9 @@ paths:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
                   description: RFC 3339 datetime string of when the paused subscription should resume. Omit to pause indefinitely until resumed.
+                on_resume:
+                  $ref: "#/components/schemas/subscription_on_resume"
+                  default: start_new_billing_period
             examples:
               Standard:
                 $ref: "#/components/examples/pause-subscription-standard"
@@ -12046,6 +12378,9 @@ paths:
                         When this scheduled change should take effect from. RFC 3339 datetime string of when the subscription should resume.
 
                         Valid where subscriptions are `active` with a scheduled change to pause, or where they have the status of `paused`.
+                    on_resume:
+                      $ref: "#/components/schemas/subscription_on_resume"
+                      default: start_new_billing_period
                   required:
                     - effective_from
                 - title: Resume immediately
@@ -12068,6 +12403,9 @@ paths:
                         immediately:
                           description: Takes effect immediately. For automatically-collected subscriptions, responses may take longer than usual while a payment attempt is processed.
                       default: immediately
+                    on_resume:
+                      $ref: "#/components/schemas/subscription_on_resume"
+                      default: start_new_billing_period
                   required:
                     - effective_from
                 - type: "null"
@@ -15436,6 +15774,32 @@ webhooks:
             Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
 
             If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
+  transaction.revised:
+    post:
+      security: []
+      summary: transaction.revised
+      tags:
+        - Transactions
+      description: Occurs when a transaction is revised.
+      externalDocs:
+        description: transaction.revised
+        url: https://developer.paddle.com/webhooks/transactions/transaction-revised
+      operationId: transaction-revised
+      parameters:
+        - $ref: "#/components/parameters/Paddle-Signature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            examples:
+              Standard:
+                $ref: "#/components/examples/transaction-revised"
+      responses:
+        "200":
+          description: |-
+            Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
+
+            If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
 components:
   securitySchemes:
     bearerAuth:
@@ -17322,6 +17686,16 @@ components:
       summary: Resume a paused subscription
       value:
         effective_from: immediately
+    revise-transaction-standard:
+      summary: Revise a transaction
+      description: This example changes some fields for a `completed` transaction.
+      value:
+        customer:
+          name: Sam Miller
+        business:
+          tax_identifier: AB0123456789
+        address:
+          first_line: 3811 Ditmars Blvd
     subscription-activated:
       summary: subscription.activated
       value:
@@ -18769,6 +19143,7 @@ components:
           created_at: "2024-04-12T07:40:38.00704Z"
           invoice_id: inv_01hv8m0nn5nbvdejcvv9cpg8jf
           updated_at: "2024-04-12T10:30:27.584874645Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -18997,6 +19372,7 @@ components:
           created_at: "2024-04-12T07:40:38.00704Z"
           invoice_id: inv_01hv8m0nn5nbvdejcvv9cpg8jf
           updated_at: "2024-04-12T10:31:27.360716923Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -19270,6 +19646,7 @@ components:
           created_at: "2024-04-12T10:12:33.2014Z"
           invoice_id: inv_01hv8x29nsh54c2pgt0hnq0zkx
           updated_at: "2024-04-12T10:18:49.738971238Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -19494,6 +19871,7 @@ components:
           created_at: "2024-04-12T10:12:33.201400507Z"
           invoice_id: null
           updated_at: "2024-04-12T10:12:33.201400507Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: null
@@ -19748,6 +20126,7 @@ components:
           created_at: "2024-04-12T10:12:33.2014Z"
           invoice_id: null
           updated_at: "2024-04-12T10:18:48.294635093Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -19955,6 +20334,7 @@ components:
           created_at: "2024-04-12T10:24:01.588479Z"
           invoice_id: null
           updated_at: "2024-04-12T10:24:03.19700142Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -20195,6 +20575,7 @@ components:
           created_at: "2024-04-12T10:12:33.2014Z"
           invoice_id: null
           updated_at: "2024-04-12T10:14:26.325076Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -20417,6 +20798,7 @@ components:
           created_at: "2024-04-12T10:12:33.2014Z"
           invoice_id: null
           updated_at: "2024-04-12T10:14:26.325076344Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -20426,6 +20808,235 @@ components:
           invoice_number: null
           billing_details: null
           collection_mode: automatic
+          subscription_id: null
+    transaction-revised:
+      summary: transaction.revised
+      value:
+        event_id: evt_01hzpwdkc41q67tbawb73h0t7p
+        event_type: transaction.revised
+        occurred_at: "2024-06-06T13:39:40.036493Z"
+        notification_id: ntf_01hzpwdkj9akeqyv4padq7ndwc
+        data:
+          id: txn_01hv8m0mnx3sj85e7gxc6kga03
+          items:
+            - price:
+                id: pri_01gsz91wy9k1yn7kx82aafwvea
+                name: Annual (per seat)
+                type: standard
+                status: active
+                quantity:
+                  maximum: 100
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T13:57:54.249913Z"
+                product_id: pro_01gsz4vmqbjk3x4vvtafffd540
+                unit_price:
+                  amount: "50000"
+                  currency_code: USD
+                updated_at: "2024-04-05T14:32:00.471447Z"
+                custom_data: null
+                description: Annual
+                trial_period: null
+                billing_cycle:
+                  interval: year
+                  frequency: 1
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 50
+              proration: null
+            - price:
+                id: pri_01gsz96z29d88jrmsf2ztbfgjg
+                name: Annual (recurring addon)
+                type: standard
+                status: active
+                quantity:
+                  maximum: 1
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T14:00:40.265185Z"
+                product_id: pro_01gsz92krfzy3hcx5h5rtgnfwz
+                unit_price:
+                  amount: "300000"
+                  currency_code: USD
+                updated_at: "2024-03-25T14:31:18.587603Z"
+                custom_data: null
+                description: Annual (recurring addon)
+                trial_period: null
+                billing_cycle:
+                  interval: year
+                  frequency: 1
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 1
+              proration: null
+            - price:
+                id: pri_01gsz98e27ak2tyhexptwc58yk
+                name: One-time addon
+                type: standard
+                status: active
+                quantity:
+                  maximum: 1
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T14:01:28.391712Z"
+                product_id: pro_01gsz97mq9pa4fkyy0wqenepkz
+                unit_price:
+                  amount: "19900"
+                  currency_code: USD
+                updated_at: "2024-04-09T07:23:10.921392Z"
+                custom_data: null
+                description: One-time addon
+                trial_period: null
+                billing_cycle: null
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 1
+              proration: null
+          origin: api
+          status: billed
+          details:
+            totals:
+              fee: null
+              tax: "225239"
+              total: "2763149"
+              credit: "0"
+              balance: "2763149"
+              discount: "281990"
+              earnings: null
+              subtotal: "2819900"
+              grand_total: "2763149"
+              currency_code: USD
+              credit_to_balance: "0"
+            line_items:
+              - id: txnitm_01hv8vzz0sjdj6grvpxyyjsmvf
+                totals:
+                  tax: "199687"
+                  total: "2449687"
+                  discount: "250000"
+                  subtotal: "2500000"
+                product:
+                  id: pro_01gsz4vmqbjk3x4vvtafffd540
+                  name: AeroEdit Enterprise
+                  type: standard
+                  status: active
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/Ws808ziTS76a6YbnMkiK_enterprise.png
+                  created_at: "2023-02-23T12:44:34.923Z"
+                  updated_at: "2024-04-05T15:58:28.309Z"
+                  custom_data:
+                    features:
+                      sso: true
+                      route_planning: true
+                      payment_by_invoice: true
+                      aircraft_performance: true
+                      compliance_monitoring: true
+                      flight_log_management: true
+                    suggested_addons: []
+                    upgrade_description: Ready to reach new heights? Upgrade to enterprise to unlock single sign-on, payment by invoice, and dedicated account management.
+                  description: The ultimate solution for organizations, featuring all Pro capabilities plus multi-user support, advanced data storage capabilities, plus personalized onboarding, dedicated account management, and the ability to pay via invoice.
+                  tax_category: standard
+                  import_meta: null
+                price_id: pri_01gsz91wy9k1yn7kx82aafwvea
+                quantity: 50
+                tax_rate: "0.08875"
+                unit_totals:
+                  tax: "3994"
+                  total: "48994"
+                  discount: "5000"
+                  subtotal: "50000"
+              - id: txnitm_01hv8vzz0sjdj6grvpy1fzm46f
+                totals:
+                  tax: "23962"
+                  total: "293962"
+                  discount: "30000"
+                  subtotal: "300000"
+                product:
+                  id: pro_01gsz92krfzy3hcx5h5rtgnfwz
+                  name: VIP support
+                  type: standard
+                  status: active
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/qgyipKJwRtq98YNboipo_vip-support.png
+                  created_at: "2023-02-23T13:58:17.615Z"
+                  updated_at: "2024-04-05T15:44:02.893Z"
+                  custom_data: null
+                  description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
+                  tax_category: standard
+                  import_meta: null
+                price_id: pri_01gsz96z29d88jrmsf2ztbfgjg
+                quantity: 1
+                tax_rate: "0.08875"
+                unit_totals:
+                  tax: "23962"
+                  total: "293962"
+                  discount: "30000"
+                  subtotal: "300000"
+              - id: txnitm_01hv8vzz0sjdj6grvpy6g84gyw
+                totals:
+                  tax: "1590"
+                  total: "19500"
+                  discount: "1990"
+                  subtotal: "19900"
+                product:
+                  id: pro_01gsz97mq9pa4fkyy0wqenepkz
+                  name: Custom domains
+                  type: standard
+                  status: active
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/XIG7UXoJQHmlIAiKcnkA_custom-domains.png
+                  created_at: "2023-02-23T14:01:02.441Z"
+                  updated_at: "2024-04-05T15:43:28.971Z"
+                  custom_data: null
+                  description: Make AeroEdit truly your own with custom domains. Custom domains reinforce your brand identity and make it easy for your team to access your account.
+                  tax_category: standard
+                  import_meta: null
+                price_id: pri_01gsz98e27ak2tyhexptwc58yk
+                quantity: 1
+                tax_rate: "0.08875"
+                unit_totals:
+                  tax: "1590"
+                  total: "19500"
+                  discount: "1990"
+                  subtotal: "19900"
+            payout_totals: null
+            tax_rates_used:
+              - totals:
+                  tax: "225239"
+                  total: "2763149"
+                  discount: "281990"
+                  subtotal: "2819900"
+                tax_rate: "0.08875"
+            adjusted_totals:
+              fee: "0"
+              tax: "225239"
+              total: "2763149"
+              earnings: "0"
+              subtotal: "2537910"
+              grand_total: "2763149"
+              currency_code: USD
+          checkout:
+            url: null
+          payments: []
+          billed_at: "2024-04-12T10:30:27.198043152Z"
+          address_id: add_01hv8gq3318ktkfengj2r75gfx
+          created_at: "2024-04-12T07:40:38.00704Z"
+          invoice_id: inv_01hv8m0nn5nbvdejcvv9cpg8jf
+          updated_at: "2024-04-12T10:30:27.584874645Z"
+          revised_at: "2024-04-12T10:30:27.584874645Z"
+          business_id: null
+          custom_data: null
+          customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
+          discount_id: dsc_01gtgztp8fpchantd5g1wrksa3
+          currency_code: USD
+          billing_period:
+            ends_at: "2025-04-11T23:59:00Z"
+            starts_at: "2024-04-12T00:00:00Z"
+          invoice_number: null
+          billing_details:
+            payment_terms:
+              interval: day
+              frequency: 14
+            enable_checkout: false
+            purchase_order_number: PO-123
+            additional_information: null
+          collection_mode: manual
           subscription_id: null
     transaction-updated:
       summary: transaction.updated
@@ -20637,6 +21248,7 @@ components:
           created_at: "2024-04-12T07:40:38.00704Z"
           invoice_id: inv_01hv8m0nn5nbvdejcvv9cpg8jf
           updated_at: "2024-04-12T10:00:03.871169408Z"
+          revised_at: null
           business_id: null
           custom_data: null
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -21858,7 +22470,7 @@ components:
           $ref: "#/components/schemas/transaction_item_id"
           description: Paddle ID for the transaction item that this adjustment item relates to, prefixed with `txnitm_`.
         type:
-          title: AdjustmentType
+          title: AdjustmentItemType
           type: string
           enum:
             - full
@@ -23564,6 +24176,7 @@ components:
       x-stoplight:
         id: d93lzwpbl5p79
       type: object
+      additionalProperties: true
       description: Your own structured key-value data.
       examples:
         - customer_reference_id: abcd1234
@@ -24367,8 +24980,10 @@ components:
         id:
           $ref: "#/components/schemas/discount_id"
         starts_at:
-          $ref: "#/components/schemas/timestamp"
-          description: RFC 3339 datetime string of when this discount was first applied.
+          oneOf:
+            - $ref: "#/components/schemas/timestamp"
+            - type: "null"
+          description: RFC 3339 datetime string of when this discount was first applied. `null` for canceled subscriptions where a discount was redeemed but never applied to a transaction.
         ends_at:
           oneOf:
             - $ref: "#/components/schemas/timestamp"
@@ -29806,6 +30421,19 @@ components:
           description: In case of payment failure, prevent the change to the subscription from applying.
         apply_change:
           description: In case of payment failure, apply the change and update the subscription.
+    subscription_on_resume:
+      title: Subscription On Resume
+      description: How Paddle should set the billing period for the subscription when resuming. If omitted, defaults to `start_new_billing_period`.
+      type: string
+      default: start_new_billing_period
+      enum:
+        - continue_existing_billing_period
+        - start_new_billing_period
+      x-enum-descriptions:
+        continue_existing_billing_period:
+          description: When resuming, continue the existing billing period. If the customer resumes before the end date of the existing billing period, there's no immediate charge. If after, an error is returned.
+        start_new_billing_period:
+          description: When resuming, start a new billing period. The `current_billing_period.starts_at` date is set to the resume date, and Paddle immediately charges the full amount for the new billing period.
     subscription_recurring_transaction_details:
       type: object
       x-stoplight:
@@ -30086,7 +30714,7 @@ components:
     totals_without_discount:
       title: Totals Without Discount
       x-stoplight:
-        id: ojjwgle4sgynf
+        id: rzkypb4609xbk
       type: object
       description: Breakdown of a charge in the lowest denomination of a currency (e.g. cents for USD).
       properties:
@@ -30096,18 +30724,24 @@ components:
           examples:
             - "15000"
           readOnly: true
+          x-stoplight:
+            id: mxxhkdji88fee
         tax:
           type: string
           description: Total tax on the subtotal.
           examples:
             - "1500"
           readOnly: true
+          x-stoplight:
+            id: 0yypnv93xmljr
         total:
           type: string
           description: Total after tax.
           examples:
             - "16500"
           readOnly: true
+          x-stoplight:
+            id: gtpcaovds4vzx
       readOnly: true
     transaction:
       title: Transaction
@@ -30225,6 +30859,12 @@ components:
             - $ref: "#/components/schemas/timestamp"
             - type: "null"
           description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+          readOnly: true
+        revised_at:
+          oneOf:
+            - $ref: "#/components/schemas/timestamp"
+            - type: "null"
+          description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
           readOnly: true
       x-tags:
         - "v1: Entities"
@@ -30388,7 +31028,7 @@ components:
           properties:
             address:
               $ref: "#/components/schemas/address"
-              description: Address for this transaction. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
+              description: Address for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `address` value and the transaction has an `address_id`.
               x-included: true
             adjustments:
               type: array
@@ -30402,15 +31042,15 @@ components:
               x-included: true
             business:
               $ref: "#/components/schemas/business"
-              description: Business for this transaction. Returned when the `include` parameter is used with the `business` value and the transaction has a `business_id`.
+              description: Business for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `business` value and the transaction has a `business_id`.
               x-included: true
             customer:
               $ref: "#/components/schemas/customer"
-              description: Customer for this transaction. Returned when the `include` parameter is used with the `customer` value and the transaction has a `customer_id`.
+              description: Customer for this transaction. Reflects the entity at the time it was added to the transaction, or its revision if `revised_at` is not `null`. Returned when the `include` parameter is used with the `customer` value and the transaction has a `customer_id`.
               x-included: true
             discount:
               $ref: "#/components/schemas/discount"
-              description: Discount for this transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
+              description: Discount for this transaction. Reflects the entity at the time it was added to the transaction. Returned when the `include` parameter is used with the `discount` value and the transaction has a `discount_id`.
               x-included: true
             available_payment_methods:
               x-included: true
@@ -30550,10 +31190,9 @@ components:
               type: object
               $ref: "#/components/schemas/address-preview"
               description: Address for this transaction preview.
-        - $ref: "#/components/schemas/transaction-preview-create"
           required:
             - address
-            - items
+        - $ref: "#/components/schemas/transaction-preview-create"
       x-tags:
         - "v1: Entities"
     transaction-preview-create-ip-address:
@@ -30567,10 +31206,9 @@ components:
             customer_ip_address:
               type: string
               description: IP address for this transaction preview.
-        - $ref: "#/components/schemas/transaction-preview-create"
           required:
             - customer_ip_address
-            - items
+        - $ref: "#/components/schemas/transaction-preview-create"
       x-tags:
         - "v1: Entities"
     transaction-preview-create-paddle-ids:
@@ -30590,11 +31228,10 @@ components:
                 - $ref: "#/components/schemas/business_id"
                 - type: "null"
               description: Paddle ID of the business that this transaction preview is for, prefixed with `biz_`.
-        - $ref: "#/components/schemas/transaction-preview-create"
           required:
             - customer_id
             - address_id
-            - items
+        - $ref: "#/components/schemas/transaction-preview-create"
       x-tags:
         - "v1: Entities"
     transaction-price-create-base:
@@ -30681,6 +31318,68 @@ components:
               description: Paddle ID for the product that this price is for, prefixed with `pro_`.
       required:
         - product_id
+    transaction-revise:
+      title: TransactionRevise
+      description: Represents a customer information revision for a transaction.
+      x-stoplight:
+        id: m8kvy2fku8q7u
+      type: object
+      additionalProperties: false
+      properties:
+        customer:
+          description: Revised customer information for this transaction.
+          type: object
+          properties:
+            name:
+              $ref: "#/components/schemas/name"
+              description: Revised name of the customer for this transaction.
+              examples:
+                - Sam Miller
+        business:
+          description: Revised business information for this transaction.
+          type: object
+          properties:
+            name:
+              $ref: "#/components/schemas/name"
+              description: Revised name of the business for this transaction.
+              examples:
+                - ChatApp Inc.
+            tax_identifier:
+              type: string
+              description: Revised tax or VAT number for this transaction. You can't remove a valid tax or VAT number, only replace it with another valid one. Paddle automatically creates an adjustment to refund any tax where applicable.
+              maxLength: 1024
+              examples:
+                - AB0123456789
+        address:
+          description: Revised address information for this transaction.
+          type: object
+          properties:
+            first_line:
+              type: string
+              description: Revised first line of the address for this transaction.
+              maxLength: 1024
+              examples:
+                - 3811 Ditmars Blvd
+            second_line:
+              type:
+                - string
+                - "null"
+              description: Revised second line of the address for this transaction.
+              maxLength: 1024
+            city:
+              type: string
+              description: Revised city of the address for this transaction.
+              maxLength: 200
+              examples:
+                - Astoria
+            region:
+              type: string
+              description: Revised state, county, or region of the address for this transaction.
+              maxLength: 200
+              examples:
+                - NY
+      x-tags:
+        - "v1: Entities"
     transaction-subscription-product-create:
       title: TransactionSubscriptionProductCreate
       x-stoplight:
@@ -31009,6 +31708,12 @@ components:
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-billed"
       x-tags:
@@ -31149,6 +31854,12 @@ components:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
                   readOnly: true
       x-tags:
         - "v1: Transaction Notifications"
@@ -31294,6 +32005,12 @@ components:
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-completed"
       x-tags:
@@ -31438,6 +32155,12 @@ components:
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
       x-tags:
         - "v1: Transaction Notifications"
       examples:
@@ -31581,6 +32304,12 @@ components:
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-paid"
     transaction.past_due:
@@ -31717,6 +32446,12 @@ components:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
                   readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-past_due"
@@ -31863,6 +32598,12 @@ components:
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-payment_failed"
       x-tags:
@@ -32003,6 +32744,12 @@ components:
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-ready"
       x-tags:
@@ -32141,6 +32888,12 @@ components:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
                   description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
                   readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-updated"
@@ -32413,7 +33166,7 @@ components:
           readOnly: true
         product:
           $ref: "#/components/schemas/product"
-          description: Related product entity for this transaction line item price.
+          description: Related product entity for this transaction line item price. Reflects the entity at the time it was added to the transaction.
           readOnly: true
     transaction_payment_attempt:
       title: Transaction payment attempt
