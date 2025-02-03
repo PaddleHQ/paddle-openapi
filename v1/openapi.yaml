@@ -3176,7 +3176,7 @@ paths:
 
         If successful, your response includes the data you sent with a `details` object that includes totals for the supplied prices.
 
-        Transaction previews do not create transactions, so no `id` is returned.
+        Transaction previews don't create transactions, so no `id` is returned.
       tags:
         - Transactions
   /transactions/{transaction_id}:
@@ -4083,7 +4083,7 @@ paths:
 
         If successful, your response includes a copy of the transaction entity. [Get a transaction](https://developer.paddle.com/api-reference/transactions/get-transaction) using the `include` parameter with the `customer`, `address`, and `business` values to see the revised customer information.
 
-        Only the customer information for this transaction is updated. The related customer, address, and business entities are not updated.
+        Only the customer information for this transaction is updated. The related customer, address, and business entities aren't updated.
       tags:
         - Transactions
   /adjustments:
@@ -4502,7 +4502,7 @@ paths:
     get:
       summary: List credit balances for a customer
       tags:
-        - Adjustments
+        - Customers
       operationId: list-credit-balances
       responses:
         "200":
@@ -6108,7 +6108,7 @@ paths:
         description: List events types
         url: https://developer.paddle.com/api-reference/event-types/list-event-types
       tags:
-        - Events types
+        - Event types
       responses:
         "200":
           description: OK
@@ -9184,7 +9184,7 @@ paths:
 
         Only notifications with the `origin` of `event` can be replayed. You can't replay a notification created for a replay.
       tags:
-        - Notification setting replays
+        - Notifications
   /simulation-types:
     get:
       summary: List simulation types
@@ -10335,10 +10335,12 @@ paths:
       description: |-
         Returns a link to an invoice PDF for a transaction.
 
-        Invoice PDFs are created for both automatically and manually-collected transactions.
+        Invoice PDFs are available for both automatically and manually-collected transactions:
 
-        * The PDF for manually-collected transactions includes payment terms, purchase order number, and notes for your customer. It's a demand for payment from your customer.
-        * The PDF for automatically-collected transactions lets your customer know that payment was taken successfully. Customers may require this for for tax-reporting purposes.
+        * The PDF for manually-collected transactions includes payment terms, purchase order number, and notes for your customer. It's a demand for payment from your customer. It's available for transactions that are `billed` or `completed`.
+        * The PDF for automatically-collected transactions lets your customer know that payment was taken successfully. Customers may require this for for tax-reporting purposes. It's available for transactions that are `completed`.
+
+        Invoice PDFs aren't available for zero-value transactions.
 
         The link returned is not a permanent link. It expires after an hour.
     parameters:
@@ -11945,7 +11947,7 @@ paths:
 
         You can cancel a subscription right away by including `effective_from` in your request, setting the value to `immediately`. If successful, your response includes a copy of the updated subscription entity with the `status` of `canceled`. Canceling immediately is the default behavior for paused subscriptions.
 
-        You cannot reinstate a canceled subscription.
+        You can't reinstate a canceled subscription.
       tags:
         - Subscriptions
       requestBody:
@@ -12355,13 +12357,19 @@ paths:
         default:
           $ref: "#/components/responses/error"
       description: |-
-        Resumes a paused subscription using its ID. Only `paused` subscriptions can be resumed. You cannot resume a `canceled` subscription.
+        Resumes a paused subscription using its ID. Only `paused` subscriptions can be resumed. If an `active` subscription has a scheduled change to pause in the future, use this operation to set or change the resume date.
 
-        On resume, Paddle bills for a subscription immediately. Subscription billing dates are recalculated based on the resume date.
+        You can't resume a `canceled` subscription.
 
-        If successful, Paddle returns a copy of the updated subscription entity. The subscription status is `active`, and billing dates are updated to reflect the resume date.
+        On resume, Paddle bills for a subscription immediately by default. Subscription billing dates are recalculated based on the resume date. Use the `on_resume` field to change this behavior.
 
-        This operation results in an immediate charge, so responses may take longer than usual while a payment attempt is processed.
+        If successful, Paddle returns a copy of the updated subscription entity:
+
+        * When resuming a `paused` subscription immediately, the subscription status is `active`, and billing dates are updated to reflect the resume date.
+        * When scheduling a `paused` subscription to resume on a date in the future, the subscription status is `paused`, and `scheduled_change.resume_at` is updated to reflect the scheduled resume date.
+        * When changing the resume date for an `active` subscription that's scheduled to pause, the subscription status is `active` and `scheduled_change.resume_at` is updated to reflect the scheduled resume date.
+
+        This operation may result in an immediate charge, so responses may take longer than usual while a payment attempt is processed.
       tags:
         - Subscriptions
       requestBody:
@@ -15211,7 +15219,7 @@ webhooks:
 
         Payload includes the complete subscription entity, except `management_urls`. Subscription management links are temporary, so they're not included. [Get a subscription using the API](/api-reference/subscriptions/get-subscription) to get management links for a subscription.
 
-        It also includes a `transaction_id` field, which contains the Paddle ID of the completed or billed transaction that caused Paddle to create this subscription. You can use this match the created subscription with related transaction events [as part of provisioning](/build/subscriptions/provision-access-webhooks). Other subscription events do not include this field, and it is not returned by the API when working with subscription entities.
+        It also includes a `transaction_id` field, which contains the Paddle ID of the completed or billed transaction that caused Paddle to create this subscription. You can use this match the created subscription with related transaction events [as part of provisioning](/build/subscriptions/provision-access-webhooks). Other subscription events don't include this field, and it is not returned by the API when working with subscription entities.
       externalDocs:
         description: subscription.created
         url: https://developer.paddle.com/webhooks/subscriptions/subscription-created
@@ -15442,7 +15450,7 @@ webhooks:
         Transactions are marked as billed when:
 
         * You update its status to `billed` using the API.
-        * You send an invoice (a manually-collected transaction) using the Paddle web app.
+        * You send an invoice (a manually-collected transaction) using the Paddle dashboard.
 
         Billed transactions get an invoice number. They're considered legal records, so they can't be deleted or changed.
 
@@ -15486,7 +15494,7 @@ webhooks:
         Transactions are marked as canceled when:
 
         * You update its status to `canceled` using the API.
-        * You cancel an invoice (a manually-collected transaction) using the Paddle web app.
+        * You cancel an invoice (a manually-collected transaction) using the Paddle dashboard.
       externalDocs:
         description: transaction.canceled
         url: https://developer.paddle.com/webhooks/transactions/transaction-canceled
@@ -15558,7 +15566,7 @@ webhooks:
         Occurs when a transaction is created. Paddle creates a transaction when:
 
         * Customers open checkout.
-        * You create an invoice in the Paddle web app.
+        * You create an invoice in the Paddle dashboard.
 
         You may also create a transaction using the API:
 
@@ -15791,6 +15799,8 @@ webhooks:
         required: true
         content:
           application/json:
+            schema:
+              $ref: "#/components/schemas/transaction.revised"
             examples:
               Standard:
                 $ref: "#/components/examples/transaction-revised"
@@ -16021,10 +16031,10 @@ components:
         Determine whether the generated URL should download the PDF as an attachment saved locally, or open it inline in the browser.
 
         Default: `attachment`.
-      default: attachment
       schema:
         title: Disposition
         type: string
+        default: attachment
         enum:
           - attachment
           - inline
@@ -16064,7 +16074,7 @@ components:
         id: f2h6l7m3d1vq
       name: from
       in: query
-      description: Return entities from a specific time.
+      description: Return entities from a specific time. Pass an RFC 3339 datetime string.
       schema:
         type: string
         examples:
@@ -16140,7 +16150,7 @@ components:
             - recurring_transaction_details
           x-enum-descriptions:
             next_transaction:
-              description: Include an object with a preview of the next transaction for this subscription. May include prorated charges that are not yet billed and one-time charges.
+              description: Include an object with a preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges.
             recurring_transaction_details:
               description: Include an object with a preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges.
     include_transaction_query:
@@ -16645,7 +16655,7 @@ components:
         id: mv6fdpmnt5e6q
       name: subscription_id
       in: query
-      description: Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that are not related to any subscription.
+      description: Return entities related to the specified subscription. Use a comma-separated list to specify multiple subscription IDs. Pass `null` to return entities that aren't related to any subscription.
       explode: false
       schema:
         type: array
@@ -16730,7 +16740,7 @@ components:
         id: m4q9z5j8r1lhn
       name: to
       in: query
-      description: Return entities up to a specific time.
+      description: Return entities up to a specific time. Pass an RFC 3339 datetime string.
       schema:
         type: string
         examples:
@@ -16790,7 +16800,7 @@ components:
           - standard
         x-enum-descriptions:
           custom:
-            description: Return items where the type is `custom`. Returned items can be considered non-catalog items. They're typically created for a specific transaction or subscription. Not returned when listing via API or shown in the Paddle web app.
+            description: Return items where the type is `custom`. Returned items can be considered non-catalog items. They're typically created for a specific transaction or subscription. Not returned when listing via API or shown in the Paddle dashboard.
           standard:
             description: Return items where the type is `standard`. Returned items can be considered part of your catalog and reused across transactions and subscriptions easily.
     updated_at_query:
@@ -17395,7 +17405,7 @@ components:
         occurred_at: "2023-06-01T13:30:38.138984Z"
         notification_id: ntf_01h2b06f84qsjzdw8rywe3j4gt
         data:
-          id: pay_01gsz4vmqbjk3x4vvtafffd540
+          id: payout_01gsz4vmqbjk3x4vvtafffd540
           status: unpaid
           amount: "10000"
           currency_code: USD
@@ -17407,7 +17417,7 @@ components:
         occurred_at: "2023-06-07T13:30:38.138984Z"
         notification_id: ntf_01h2b0tqkhfqd094y9pys30xyw
         data:
-          id: pay_01gsz4vmqbjk3x4vvtafffd540
+          id: payout_01gsz4vmqbjk3x4vvtafffd540
           status: paid
           amount: "10000"
           currency_code: USD
@@ -22103,7 +22113,7 @@ components:
           readOnly: true
         reason:
           type: string
-          description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
+          description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for recordkeeping purposes.
         credit_applied_to_balance:
           description: Whether this adjustment was applied to the related customer's credit balance. Only returned for `credit` adjustments.
           oneOf:
@@ -22271,7 +22281,7 @@ components:
                   readOnly: true
                 reason:
                   type: string
-                  description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
+                  description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for recordkeeping purposes.
                 credit_applied_to_balance:
                   description: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
                   oneOf:
@@ -22370,7 +22380,7 @@ components:
                   readOnly: true
                 reason:
                   type: string
-                  description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for record-keeping purposes.
+                  description: Why this adjustment was created. Appears in the Paddle dashboard. Retained for recordkeeping purposes.
                 credit_applied_to_balance:
                   description: Whether this adjustment was applied to the related customer's credit balance. `null` unless adjustment `action` is not `credit`.
                   oneOf:
@@ -22675,7 +22685,7 @@ components:
       description: Details for invoicing. Required if `collection_mode` is `manual`.
       properties:
         enable_checkout:
-          description: Whether the related transaction may be paid using a Paddle Checkout. If omitted when creating a transaction, defaults to `false`.
+          description: Whether the related transaction may be paid using Paddle Checkout. If omitted when creating a transaction, defaults to `false`.
           type: boolean
           default: false
         purchase_order_number:
@@ -22701,7 +22711,7 @@ components:
       description: Details for invoicing. Required if `collection_mode` is `manual`.
       properties:
         enable_checkout:
-          description: Whether the related transaction may be paid using a Paddle Checkout.
+          description: Whether the related transaction may be paid using Paddle Checkout.
           type: boolean
           default: false
         purchase_order_number:
@@ -23241,7 +23251,7 @@ components:
           description: Visa
     catalog-type:
       title: CatalogType
-      description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app.
+      description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
       x-stoplight:
         id: ys1jc2h1xvweb
       type: string
@@ -23251,7 +23261,7 @@ components:
         - standard
       x-enum-descriptions:
         custom:
-          description: Non-catalog item. Typically created for a specific transaction or subscription. Not returned when listing or shown in the Paddle web app.
+          description: Non-catalog item. Typically created for a specific transaction or subscription. Not returned when listing or shown in the Paddle dashboard.
         standard:
           description: Standard item. Can be considered part of your catalog and reused across transactions and subscriptions easily.
     collection_mode:
@@ -25522,6 +25532,7 @@ components:
         - invalid_payment_details
         - issuer_unavailable
         - not_enough_balance
+        - preferred_network_not_supported
         - psp_error
         - redacted_payment_method
         - system_error
@@ -25554,6 +25565,8 @@ components:
           description: Payment service provider couldn't reach the payment method issuer.
         not_enough_balance:
           description: Payment method declined because of insufficient funds, or fund limits being reached.
+        preferred_network_not_supported:
+          description: Payment method has been declined because the network scheme that the customer selected isn't supported by the payment service provider.
         psp_error:
           description: Something went wrong with the payment service provider, with no other information returned.
         redacted_payment_method:
@@ -25674,89 +25687,89 @@ components:
         - transaction.updated
       x-enum-descriptions:
         address.created:
-          description: Simulates an [`address.created`](https://developer.paddle.com/webhooks/addresses/address-created) event.
+          description: An [`address.created`](https://developer.paddle.com/webhooks/addresses/address-created) event.
         address.imported:
-          description: Simulates an [`address.imported`](https://developer.paddle.com/webhooks/addresses/address-imported) event.
+          description: An [`address.imported`](https://developer.paddle.com/webhooks/addresses/address-imported) event.
         address.updated:
-          description: Simulates an [`address.updated`](https://developer.paddle.com/webhooks/addresses/address-updated) event.
+          description: An [`address.updated`](https://developer.paddle.com/webhooks/addresses/address-updated) event.
         adjustment.created:
-          description: Simulates an [`adjustment.created`](https://developer.paddle.com/webhooks/adjustments/adjustment-created) event.
+          description: An [`adjustment.created`](https://developer.paddle.com/webhooks/adjustments/adjustment-created) event.
         adjustment.updated:
-          description: Simulates an [`adjustment.updated`](https://developer.paddle.com/webhooks/adjustments/adjustment-updated) event.
+          description: An [`adjustment.updated`](https://developer.paddle.com/webhooks/adjustments/adjustment-updated) event.
         business.created:
-          description: Simulates a [`business.created`](https://developer.paddle.com/webhooks/businesses/business-created) event.
+          description: A [`business.created`](https://developer.paddle.com/webhooks/businesses/business-created) event.
         business.imported:
-          description: Simulates a [`business.imported`](https://developer.paddle.com/webhooks/businesses/business-imported) event.
+          description: A [`business.imported`](https://developer.paddle.com/webhooks/businesses/business-imported) event.
         business.updated:
-          description: Simulates a [`business.updated`](https://developer.paddle.com/webhooks/businesses/business-updated) event.
+          description: A [`business.updated`](https://developer.paddle.com/webhooks/businesses/business-updated) event.
         customer.created:
-          description: Simulates a [`customer.created`](https://developer.paddle.com/webhooks/customers/customer-created) event.
+          description: A [`customer.created`](https://developer.paddle.com/webhooks/customers/customer-created) event.
         customer.imported:
-          description: Simulates a [`customer.imported`](https://developer.paddle.com/webhooks/customers/customer-imported) event.
+          description: A [`customer.imported`](https://developer.paddle.com/webhooks/customers/customer-imported) event.
         customer.updated:
-          description: Simulates a [`customer.updated`](https://developer.paddle.com/webhooks/customers/customer-updated) event.
+          description: A [`customer.updated`](https://developer.paddle.com/webhooks/customers/customer-updated) event.
         discount.created:
-          description: Simulates a [`discount.created`](https://developer.paddle.com/webhooks/discounts/discount-created) event.
+          description: A [`discount.created`](https://developer.paddle.com/webhooks/discounts/discount-created) event.
         discount.imported:
-          description: Simulates a [`discount.imported`](https://developer.paddle.com/webhooks/discounts/discount-imported) event.
+          description: A [`discount.imported`](https://developer.paddle.com/webhooks/discounts/discount-imported) event.
         discount.updated:
-          description: Simulates a [`discount.updated`](https://developer.paddle.com/webhooks/discounts/discount-updated) event.
+          description: A [`discount.updated`](https://developer.paddle.com/webhooks/discounts/discount-updated) event.
         payout.created:
-          description: Simulates a [`payout.created`](https://developer.paddle.com/webhooks/payouts/payout-created) event.
+          description: A [`payout.created`](https://developer.paddle.com/webhooks/payouts/payout-created) event.
         payout.paid:
-          description: Simulates a [`payout.paid`](https://developer.paddle.com/webhooks/payouts/payout-paid) event.
+          description: A [`payout.paid`](https://developer.paddle.com/webhooks/payouts/payout-paid) event.
         price.created:
-          description: Simulates a [`price.created`](https://developer.paddle.com/webhooks/prices/price-created) event.
+          description: A [`price.created`](https://developer.paddle.com/webhooks/prices/price-created) event.
         price.imported:
-          description: Simulates a [`price.imported`](https://developer.paddle.com/webhooks/prices/price-imported) event.
+          description: A [`price.imported`](https://developer.paddle.com/webhooks/prices/price-imported) event.
         price.updated:
-          description: Simulates a [`price.updated`](https://developer.paddle.com/webhooks/prices/price-updated) event.
+          description: A [`price.updated`](https://developer.paddle.com/webhooks/prices/price-updated) event.
         product.created:
-          description: Simulates a [`product.created`](https://developer.paddle.com/webhooks/products/product-created) event.
+          description: A [`product.created`](https://developer.paddle.com/webhooks/products/product-created) event.
         product.imported:
-          description: Simulates a [`product.imported`](https://developer.paddle.com/webhooks/products/product-imported) event.
+          description: A [`product.imported`](https://developer.paddle.com/webhooks/products/product-imported) event.
         product.updated:
-          description: Simulates a [`product.created`](https://developer.paddle.com/webhooks/products/product-updated) event.
+          description: A [`product.created`](https://developer.paddle.com/webhooks/products/product-updated) event.
         report.created:
-          description: Simulates a [`report.created`](https://developer.paddle.com/webhooks/reports/report-created) event.
+          description: A [`report.created`](https://developer.paddle.com/webhooks/reports/report-created) event.
         report.updated:
-          description: Simulates a [`report.updated`](https://developer.paddle.com/webhooks/reports/report-updated) event.
+          description: A [`report.updated`](https://developer.paddle.com/webhooks/reports/report-updated) event.
         subscription.activated:
-          description: Simulates a [`subscription.activated`](https://developer.paddle.com/webhooks/subscriptions/subscription-activated) event.
+          description: A [`subscription.activated`](https://developer.paddle.com/webhooks/subscriptions/subscription-activated) event.
         subscription.canceled:
-          description: Simulates a [`subscription.canceled`](https://developer.paddle.com/webhooks/subscriptions/subscription-canceled) event.
+          description: A [`subscription.canceled`](https://developer.paddle.com/webhooks/subscriptions/subscription-canceled) event.
         subscription.created:
-          description: Simulates a [`subscription.created`](https://developer.paddle.com/webhooks/subscriptions/subscription-created) event.
+          description: A [`subscription.created`](https://developer.paddle.com/webhooks/subscriptions/subscription-created) event.
         subscription.imported:
-          description: Simulates a [`subscription.imported`](https://developer.paddle.com/webhooks/subscriptions/subscription-imported) event.
+          description: A [`subscription.imported`](https://developer.paddle.com/webhooks/subscriptions/subscription-imported) event.
         subscription.past_due:
-          description: Simulates a [`subscription.past_due`](https://developer.paddle.com/webhooks/subscriptions/subscription-past-due) event.
+          description: A [`subscription.past_due`](https://developer.paddle.com/webhooks/subscriptions/subscription-past-due) event.
         subscription.paused:
-          description: Simulates a [`subscription.paused`](https://developer.paddle.com/webhooks/subscriptions/subscription-paused) event.
+          description: A [`subscription.paused`](https://developer.paddle.com/webhooks/subscriptions/subscription-paused) event.
         subscription.resumed:
-          description: Simulates a [`subscription.resumed`](https://developer.paddle.com/webhooks/subscriptions/subscription-resumed) event.
+          description: A [`subscription.resumed`](https://developer.paddle.com/webhooks/subscriptions/subscription-resumed) event.
         subscription.trialing:
-          description: Simulates a [`subscription.trialing`](https://developer.paddle.com/webhooks/subscriptions/subscription-trialing) event.
+          description: A [`subscription.trialing`](https://developer.paddle.com/webhooks/subscriptions/subscription-trialing) event.
         subscription.updated:
-          description: Simulates a [`subscription.updated`](https://developer.paddle.com/webhooks/subscriptions/subscription-updated) event.
+          description: A [`subscription.updated`](https://developer.paddle.com/webhooks/subscriptions/subscription-updated) event.
         transaction.billed:
-          description: Simulates a [`transaction.billed`](https://developer.paddle.com/webhooks/transactions/transaction-billed) event.
+          description: A [`transaction.billed`](https://developer.paddle.com/webhooks/transactions/transaction-billed) event.
         transaction.canceled:
-          description: Simulates a [`transaction.canceled`](https://developer.paddle.com/webhooks/transactions/transaction-canceled) event.
+          description: A [`transaction.canceled`](https://developer.paddle.com/webhooks/transactions/transaction-canceled) event.
         transaction.completed:
-          description: Simulates a [`transaction.completed`](https://developer.paddle.com/webhooks/transactions/transaction-completed) event.
+          description: A [`transaction.completed`](https://developer.paddle.com/webhooks/transactions/transaction-completed) event.
         transaction.created:
-          description: Simulates a [`transaction.created`](https://developer.paddle.com/webhooks/transactions/transaction-created) event.
+          description: A [`transaction.created`](https://developer.paddle.com/webhooks/transactions/transaction-created) event.
         transaction.paid:
-          description: Simulates a [`transaction.paid`](https://developer.paddle.com/webhooks/transactions/transaction-paid) event.
+          description: A [`transaction.paid`](https://developer.paddle.com/webhooks/transactions/transaction-paid) event.
         transaction.past_due:
-          description: Simulates a [`transaction.past_due`](https://developer.paddle.com/webhooks/transactions/transaction-past-due) event.
+          description: A [`transaction.past_due`](https://developer.paddle.com/webhooks/transactions/transaction-past-due) event.
         transaction.payment_failed:
-          description: Simulates a [`transaction.payment_failed`](https://developer.paddle.com/webhooks/transactions/transaction-payment-failed) event.
+          description: A [`transaction.payment_failed`](https://developer.paddle.com/webhooks/transactions/transaction-payment-failed) event.
         transaction.ready:
-          description: Simulates a [`transaction.ready`](https://developer.paddle.com/webhooks/transactions/transaction-ready) event.
+          description: A [`transaction.ready`](https://developer.paddle.com/webhooks/transactions/transaction-ready) event.
         transaction.updated:
-          description: Simulates a [`transaction.updated`](https://developer.paddle.com/webhooks/transactions/transaction-updated) event.
+          description: A [`transaction.updated`](https://developer.paddle.com/webhooks/transactions/transaction-updated) event.
     image_url:
       title: Image Url
       description: A URL to an image.
@@ -26051,7 +26064,7 @@ components:
           $ref: "#/components/schemas/notification_setting_id"
           readOnly: true
         description:
-          description: Short description for this notification destination. Shown in the Paddle web app.
+          description: Short description for this notification destination. Shown in the Paddle dashboard.
           type: string
           minLength: 1
           maxLength: 256
@@ -26075,7 +26088,7 @@ components:
           description: Whether Paddle should try to deliver events to this notification destination.
           default: true
         api_version:
-          description: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Cannot be a version older than your account default.
+          description: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Can't be a version older than your account default.
           type: integer
           minimum: 1
         include_sensitive_fields:
@@ -26144,7 +26157,7 @@ components:
           default: true
           readOnly: true
         api_version:
-          description: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Cannot be a version older than your account default. If omitted, defaults to your account default version.
+          description: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Can't be a version older than your account default. If omitted, defaults to your account default version.
           type: integer
           minimum: 1
         include_sensitive_fields:
@@ -26203,7 +26216,7 @@ components:
           description: Whether Paddle should try to deliver events to this notification destination.
           default: true
         api_version:
-          description: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Cannot be a version older than your account default. Defaults to your account default if omitted.
+          description: API version that returned objects for events should conform to. Must be a valid version of the Paddle API. Can't be a version older than your account default. Defaults to your account default if omitted.
           type: integer
           minimum: 1
         include_sensitive_fields:
@@ -26700,7 +26713,7 @@ components:
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         type:
           $ref: "#/components/schemas/catalog-type"
-          description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app. If omitted, defaults to `standard`.
+          description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard. If omitted, defaults to `standard`.
         name:
           type:
             - string
@@ -27298,7 +27311,7 @@ components:
           maxLength: 2048
         type:
           $ref: "#/components/schemas/catalog-type"
-          description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle web app. If omitted, defaults to `standard`.
+          description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard. If omitted, defaults to `standard`.
         tax_category:
           $ref: "#/components/schemas/tax_category"
         image_url:
@@ -28727,7 +28740,7 @@ components:
       readOnly: true
       x-enum-descriptions:
         active:
-          description: Subscription is active. Paddle is billing for this subscription and related transactions are not past due.
+          description: Subscription is active. Paddle is billing for this subscription and related transactions aren't past due.
         canceled:
           description: Subscription is canceled. Automatically set by Paddle when a subscription is canceled. When a subscription is set to cancel on the next billing period, a scheduled change for the cancellation is created. The subscription status moves to canceled when the scheduled change takes effect.
         past_due:
@@ -28934,7 +28947,7 @@ components:
                 - $ref: "#/components/schemas/subscription_next_transaction"
                 - type: "null"
               x-included: true
-              description: Preview of the next transaction for this subscription. May include prorated charges that are not yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
+              description: Preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges. Returned when the `include` parameter is used with the `next_transaction` value. `null` if the subscription is scheduled to cancel or pause.
             recurring_transaction_details:
               x-included: true
               description: Preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges. Returned when the `include` parameter is used with the `recurring_transaction_details` value.
@@ -29389,7 +29402,7 @@ components:
 
         Payload includes the complete subscription entity, except `management_urls`. Subscription management links are temporary, so they're not included. [Get a subscription using the API](/api-reference/subscriptions/get-subscription) to get management links for a subscription.
 
-        It also includes a `transaction_id` field, which contains the Paddle ID of the completed or billed transaction that caused Paddle to create this subscription. You can use this to match the created subscription with related transaction events [as part of provisioning](/build/subscriptions/provision-access-webhooks). Other subscription events do not include this field, and it is not returned by the API when working with subscription entities.
+        It also includes a `transaction_id` field, which contains the Paddle ID of the completed or billed transaction that caused Paddle to create this subscription. You can use this to match the created subscription with related transaction events [as part of provisioning](/build/subscriptions/provision-access-webhooks). Other subscription events don't include this field, and it is not returned by the API when working with subscription entities.
       x-stoplight:
         id: p4t9l7r2j0aqs
       type: object
@@ -30393,7 +30406,7 @@ components:
       x-stoplight:
         id: gca4y12vqze9w
       title: Next transaction
-      description: Preview of the next transaction for this subscription. May include prorated charges that are not yet billed and one-time charges. `null` if the subscription is scheduled to cancel or pause.
+      description: Preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges. `null` if the subscription is scheduled to cancel or pause.
       properties:
         billing_period:
           $ref: "#/components/schemas/time_period"
@@ -30470,8 +30483,10 @@ components:
               - type: object
                 properties:
                   proration:
-                    $ref: "#/components/schemas/transaction_item_proration"
                     description: How proration was calculated for this item.
+                    oneOf:
+                      - $ref: "#/components/schemas/transaction_item_proration"
+                      - type: "null"
     subscription_scheduled_change:
       title: Subscription scheduled change
       x-stoplight:
@@ -30540,8 +30555,10 @@ components:
               - type: object
                 properties:
                   proration:
-                    $ref: "#/components/schemas/transaction_item_proration"
                     description: How proration was calculated for this item.
+                    oneOf:
+                      - $ref: "#/components/schemas/transaction_item_proration"
+                      - type: "null"
       readOnly: true
     subscription_update_item:
       title: SubscriptionUpdateItem
@@ -30847,7 +30864,7 @@ components:
               type:
                 - string
                 - "null"
-              description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+              description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
         created_at:
           $ref: "#/components/schemas/created_at"
           readOnly: true
@@ -30858,7 +30875,7 @@ components:
           oneOf:
             - $ref: "#/components/schemas/timestamp"
             - type: "null"
-          description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+          description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
           readOnly: true
         revised_at:
           oneOf:
@@ -30999,7 +31016,7 @@ components:
               description: |-
                 Checkout URL to use for the payment link for this transaction. Pass the URL for an approved domain, or omit to use your default payment URL.
 
-                Paddle returns a unique payment link composed of the URL passed or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                Paddle returns a unique payment link composed of the URL passed or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
         created_at:
           $ref: "#/components/schemas/created_at"
           readOnly: true
@@ -31010,7 +31027,7 @@ components:
           oneOf:
             - $ref: "#/components/schemas/timestamp"
             - type: "null"
-          description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+          description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
           readOnly: true
       required:
         - items
@@ -31549,7 +31566,7 @@ components:
               description: |-
                 Checkout URL to use for the payment link for this transaction. Pass the URL for an approved domain, or `null` to set to your default payment URL.
 
-                Paddle returns a unique payment link composed of the URL passed or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                Paddle returns a unique payment link composed of the URL passed or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
         created_at:
           $ref: "#/components/schemas/created_at"
           readOnly: true
@@ -31560,7 +31577,7 @@ components:
           oneOf:
             - $ref: "#/components/schemas/timestamp"
             - type: "null"
-          description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+          description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
           readOnly: true
       x-tags:
         - "v1: Entities"
@@ -31575,7 +31592,7 @@ components:
         Transactions are marked as billed when:
 
         * You update its status to `billed` using the API.
-        * You send an invoice (a manually-collected transaction) using the Paddle web app.
+        * You send an invoice (a manually-collected transaction) using the Paddle dashboard.
 
         Billed transactions get an invoice number. They're considered legal records, so they can't be deleted or changed.
 
@@ -31695,7 +31712,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -31706,7 +31723,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -31729,7 +31746,7 @@ components:
         Transactions are marked as canceled when:
 
         * You update its status to `canceled` using the API.
-        * You cancel an invoice (a manually-collected transaction) using the Paddle web app.
+        * You cancel an invoice (a manually-collected transaction) using the Paddle dashboard.
       x-stoplight:
         id: 0ep6kf7ecsq37
       type: object
@@ -31842,7 +31859,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -31853,7 +31870,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -31992,7 +32009,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32003,7 +32020,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -32021,7 +32038,7 @@ components:
         Occurs when a transaction is created. Paddle creates a transaction when:
 
         * Customers open checkout.
-        * You create an invoice in the Paddle web app.
+        * You create an invoice in the Paddle dashboard.
 
         You may also create a transaction using the API:
 
@@ -32142,7 +32159,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32153,7 +32170,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -32291,7 +32308,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32302,7 +32319,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -32434,7 +32451,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32445,7 +32462,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -32585,7 +32602,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32596,7 +32613,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -32731,7 +32748,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32742,7 +32759,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -32752,6 +32769,144 @@ components:
                   readOnly: true
       examples:
         - $ref: "#/components/examples/transaction-ready"
+      x-tags:
+        - "v1: Transaction Notifications"
+    transaction.revised:
+      title: transaction.revised
+      description: Occurs when a transaction is revised.
+      x-stoplight:
+        id: t3p9l5r7j1xvq
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+              readOnly: true
+            data:
+              type: object
+              title: Transaction Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/transaction_id"
+                  readOnly: true
+                status:
+                  $ref: "#/components/schemas/status-transaction"
+                customer_id:
+                  oneOf:
+                    - $ref: "#/components/schemas/customer_id"
+                    - type: "null"
+                  description: Paddle ID of the customer that this transaction is for, prefixed with `ctm_`.
+                address_id:
+                  oneOf:
+                    - $ref: "#/components/schemas/address_id"
+                    - type: "null"
+                  description: Paddle ID of the address that this transaction is for, prefixed with `add_`.
+                business_id:
+                  oneOf:
+                    - $ref: "#/components/schemas/business_id"
+                    - type: "null"
+                  description: Paddle ID of the business that this transaction is for, prefixed with `biz_`.
+                custom_data:
+                  description: Your own structured key-value data.
+                  oneOf:
+                    - $ref: "#/components/schemas/custom_data"
+                    - type: "null"
+                currency_code:
+                  description: Supported three-letter ISO 4217 currency code. Must be `USD`, `EUR`, or `GBP` if `collection_mode` is `manual`.
+                  $ref: "#/components/schemas/currency_code"
+                origin:
+                  $ref: "#/components/schemas/origin-transaction"
+                  readOnly: true
+                subscription_id:
+                  oneOf:
+                    - $ref: "#/components/schemas/subscription_id"
+                    - type: "null"
+                  description: Paddle ID of the subscription that this transaction is for, prefixed with `sub_`.
+                  readOnly: true
+                invoice_id:
+                  type:
+                    - string
+                    - "null"
+                  description: Paddle ID of the invoice that this transaction is related to, prefixed with `inv_`. Used for compatibility with the Paddle Invoice API, which is now deprecated. This field is scheduled to be removed in the next version of the Paddle API.
+                  deprecated: true
+                  pattern: ^inv_[a-z\d]{26}$
+                  examples:
+                    - inv_01ghbk4xjn4qdsmstcwzgcgg35
+                  readOnly: true
+                invoice_number:
+                  type:
+                    - string
+                    - "null"
+                  examples:
+                    - 123-45678
+                  description: Invoice number for this transaction. Automatically generated by Paddle when you mark a transaction as `billed` where `collection_mode` is `manual`.
+                  readOnly: true
+                collection_mode:
+                  $ref: "#/components/schemas/collection_mode"
+                  description: How payment is collected for this transaction. `automatic` for checkout, `manual` for invoices.
+                discount_id:
+                  oneOf:
+                    - $ref: "#/components/schemas/discount_id"
+                    - type: "null"
+                  description: Paddle ID of the discount applied to this transaction, prefixed with `dsc_`.
+                billing_details:
+                  description: Details for invoicing. Required if `collection_mode` is `manual`.
+                  oneOf:
+                    - $ref: "#/components/schemas/billing_details"
+                    - type: "null"
+                billing_period:
+                  oneOf:
+                    - $ref: "#/components/schemas/time_period"
+                    - type: "null"
+                  description: Time period that this transaction is for. Set automatically by Paddle for subscription renewals to describe the period that charges are for.
+                items:
+                  description: List of items on this transaction. For calculated totals, use `details.line_items`.
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  items:
+                    $ref: "#/components/schemas/transaction_item"
+                details:
+                  $ref: "#/components/schemas/transaction_details"
+                  readOnly: true
+                payments:
+                  type: array
+                  description: List of payment attempts for this transaction, including successful payments. Sorted by `created_at` in descending order, so most recent attempts are returned first.
+                  items:
+                    $ref: "#/components/schemas/transaction_payment_attempt"
+                  readOnly: true
+                checkout:
+                  description: Paddle Checkout details for this transaction. Returned for automatically-collected transactions and where `billing_details.enable_checkout` is `true` for manually-collected transactions; `null` otherwise.
+                  type:
+                    - object
+                    - "null"
+                  properties:
+                    url:
+                      type:
+                        - string
+                        - "null"
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                  readOnly: true
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+                  readOnly: true
+                billed_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
+                  readOnly: true
+                revised_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when a transaction was revised. Revisions describe an update to customer information for a billed or completed transaction. `null` if not revised. Set automatically by Paddle.
+                  readOnly: true
+      examples:
+        - $ref: "#/components/examples/transaction-revised"
       x-tags:
         - "v1: Transaction Notifications"
     transaction.updated:
@@ -32876,7 +33031,7 @@ components:
                       type:
                         - string
                         - "null"
-                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `_?txn=` and the Paddle ID for this transaction.
+                      description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
                   readOnly: true
@@ -32887,7 +33042,7 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/timestamp"
                     - type: "null"
-                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that are not `billed` or `completed`. Set automatically by Paddle.
+                  description: RFC 3339 datetime string of when this transaction was marked as `billed`. `null` for transactions that aren't `billed` or `completed`. Set automatically by Paddle.
                   readOnly: true
                 revised_at:
                   oneOf:
@@ -33515,6 +33670,11 @@ components:
           $ref: "#/components/schemas/product-preview"
           description: Related product entity for this transaction line item price.
           readOnly: true
+        proration:
+          description: How proration was calculated for this item.
+          oneOf:
+            - $ref: "#/components/schemas/transaction_item_proration"
+            - type: "null"
     transaction_pricing_preview_base:
       type: object
       x-stoplight:
@@ -33679,7 +33839,7 @@ components:
       x-stoplight:
         id: qg9ug3cbhii7q
       title: Transaction totals
-      description: Breakdown of the total for a transaction. These numbers can become negative when dealing with subscription updates that result in credit.
+      description: Breakdown of the total for a transaction. These numbers can be negative when dealing with subscription updates that result in credit.
       allOf:
         - $ref: "#/components/schemas/totals"
         - type: object
@@ -33727,7 +33887,7 @@ components:
       x-stoplight:
         id: fjbokwtxa11iz
       type: object
-      description: Breakdown of the payout totals for a transaction after adjustments. `null` until the transaction is `completed`.
+      description: Breakdown of the totals for a transaction after adjustments.
       properties:
         subtotal:
           type: string
