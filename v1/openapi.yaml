@@ -8458,6 +8458,8 @@ paths:
 
             Valid fields for ordering: `id` (for `event_id`).
         - $ref: "#/components/parameters/per_page_query"
+      x-stoplight:
+        id: 99wzk9wauh4s8
   /notifications:
     get:
       summary: List notifications
@@ -9621,6 +9623,10 @@ paths:
                         type: subscription_creation
                         status: active
                         payload: null
+                        config:
+                          subscription_creation:
+                            options:
+                              customer_simulated_as: existing_email_matched
                         last_run_at: null
                         created_at: "2024-09-18T11:11:55.265125Z"
                         updated_at: "2024-09-18T11:54:18.543265Z"
@@ -9693,6 +9699,52 @@ paths:
                       updated_at: "2024-09-18T12:00:25.616392Z"
                     meta:
                       request_id: 72351248-13bf-45be-befe-b3a5b5234588
+                Scenario with config - 201 Created:
+                  summary: Create a scenario simulation with config (201)
+                  value:
+                    data:
+                      id: ntfsim_01j82g2mggsgjpb3mjg0xq6p5k
+                      notification_setting_id: ntfset_01j82d983j814ypzx7m1fw2jpz
+                      name: Create a subscription renewal simulation with config
+                      type: subscription_renewal
+                      status: active
+                      config:
+                        subscription_creation:
+                          entities:
+                            customer_id: ctm_01grnn4zta5a1mf02jjze7y2ys
+                            address_id: add_01gm302t81w94gyjpjpqypkzkf
+                            business_id: biz_01grrebrzaee2qj2fqqhmcyzaj
+                            payment_method_id: paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1
+                            discount_id: dsc_01gv5kpg05xp104ek2fmgjwttf
+                            items:
+                              - price_id: pri_01gsz8z1q1n00f12qt82y31smh
+                                quantity: 5
+                      last_run_at: null
+                      created_at: "2024-09-18T12:00:25.616392Z"
+                      updated_at: "2024-09-18T12:00:25.616392Z"
+                    meta:
+                      request_id: 72351248-13bf-45be-befe-b3a5b5234588
+                Scenario with config resources and options - 201 Created:
+                  summary: Create a scenario simulation with config (201)
+                  value:
+                    data:
+                      id: ntfsim_01j82g2mggsgjpb3mjg0xq6p5k
+                      notification_setting_id: ntfset_01j82d983j814ypzx7m1fw2jpz
+                      name: Create a subscription renewal simulation with config
+                      type: subscription_renewal
+                      status: active
+                      config:
+                        subscription_renewal:
+                          entities:
+                            subscription_id: sub_01h04vsc0qhwtsbsxh3422wjs4
+                          options:
+                            payment_outcome: recovered_updated_payment_method
+                            dunning_exhausted_action: null
+                      last_run_at: null
+                      created_at: "2024-09-18T12:00:25.616392Z"
+                      updated_at: "2024-09-18T12:00:25.616392Z"
+                    meta:
+                      request_id: 72351248-13bf-45be-befe-b3a5b5234588
         default:
           $ref: "#/components/responses/error"
       requestBody:
@@ -9703,6 +9755,64 @@ paths:
             examples:
               Standard:
                 $ref: "#/components/examples/create-simulation-standard"
+              Subscription creation scenario with config:
+                summary: Create a subscription creation simulation with config
+                description: Creates a subscription creation simulation with config
+                value:
+                  notification_setting_id: ntfset_01j82d983j814ypzx7m1fw2jpz
+                  name: Create a subscription creation simulation with config
+                  type: subscription_creation
+                  config:
+                    subscription_creation:
+                      entities:
+                        customer_id: ctm_01grnn4zta5a1mf02jjze7y2ys
+                        address_id: add_01gm302t81w94gyjpjpqypkzkf
+                        business_id: biz_01grrebrzaee2qj2fqqhmcyzaj
+                        payment_method_id: paymtd_01hkm9xwqpbbpr1ksmvg3sx3v1
+                        discount_id: dsc_01gv5kpg05xp104ek2fmgjwttf
+                        items:
+                          - price_id: pri_01gsz8z1q1n00f12qt82y31smh
+                            quantity: 5
+              Subscription renewal scenario with config:
+                summary: Create a subscription renewal simulation with subscription ID
+                description: Creates a subscription renewal simulation with subscription ID
+                value:
+                  notification_setting_id: ntfset_01j82d983j814ypzx7m1fw2jpz
+                  name: Create a subscription renewal simulation with subscription ID
+                  type: subscription_renewal
+                  config:
+                    subscription_renewal:
+                      entities:
+                        subscription_id: sub_01h04vsc0qhwtsbsxh3422wjs4
+                      options:
+                        payment_outcome: success
+              Subscription failed renewal scenario with config:
+                summary: Create a subscription failed renewal simulation with subscription ID
+                description: Creates a failed subscription renewal simulation with subscription ID
+                value:
+                  notification_setting_id: ntfset_01j82d983j814ypzx7m1fw2jpz
+                  name: Create a failed subscription renewal simulation with subscription ID
+                  type: subscription_renewal
+                  config:
+                    subscription_renewal:
+                      entities:
+                        subscription_id: sub_01h04vsc0qhwtsbsxh3422wjs4
+                      options:
+                        payment_outcome: failed
+                        dunning_exhausted_action: cancel
+              Subscription recovered renewal scenario with config:
+                summary: Create a recovered subscription renewal simulation with subscription ID
+                description: Creates a recovered subscription renewal simulation with subscription ID
+                value:
+                  notification_setting_id: ntfset_01j82d983j814ypzx7m1fw2jpz
+                  name: Create a recovered subscription renewal simulation with subscription ID
+                  type: subscription_renewal
+                  config:
+                    subscription_renewal:
+                      entities:
+                        subscription_id: sub_01h04vsc0qhwtsbsxh3422wjs4
+                      options:
+                        payment_outcome: recovered_updated_payment_method
       tags:
         - Simulations
       description: |-
@@ -9745,6 +9855,10 @@ paths:
                       type: subscription_creation
                       status: active
                       payload: null
+                      config:
+                        subscription_creation:
+                          options:
+                            customer_simulated_as: existing_email_matched
                       last_run_at: null
                       created_at: "2024-09-18T11:11:55.265125Z"
                       updated_at: "2024-09-18T11:54:18.543265Z"
@@ -18954,50 +19068,50 @@ components:
           id: txn_01hv8m0mnx3sj85e7gxc6kga03
           items:
             - price:
-                id: pri_01gsz91wy9k1yn7kx82aafwvea
-                name: Annual (per seat)
+                id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                name: Monthly (per seat)
+                type: standard
+                status: active
+                quantity:
+                  maximum: 999
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T13:55:22.538367Z"
+                product_id: pro_01gsz4t5hdjse780zja8vvr7jg
+                unit_price:
+                  amount: "3000"
+                  currency_code: USD
+                updated_at: "2024-04-11T13:54:52.254748Z"
+                custom_data: null
+                description: Monthly
+                trial_period: null
+                billing_cycle:
+                  interval: month
+                  frequency: 1
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 10
+              proration: null
+            - price:
+                id: pri_01h1vjfevh5etwq3rb416a23h2
+                name: Monthly (recurring addon)
                 type: standard
                 status: active
                 quantity:
                   maximum: 100
                   minimum: 1
                 tax_mode: account_setting
-                created_at: "2023-02-23T13:57:54.249913Z"
-                product_id: pro_01gsz4vmqbjk3x4vvtafffd540
+                created_at: "2023-06-01T13:31:12.625056Z"
+                product_id: pro_01h1vjes1y163xfj1rh1tkfb65
                 unit_price:
-                  amount: "50000"
+                  amount: "10000"
                   currency_code: USD
-                updated_at: "2024-04-05T14:32:00.471447Z"
+                updated_at: "2024-04-09T07:23:00.907834Z"
                 custom_data: null
-                description: Annual
+                description: Monthly
                 trial_period: null
                 billing_cycle:
-                  interval: year
-                  frequency: 1
-                unit_price_overrides: []
-                import_meta: null
-              quantity: 50
-              proration: null
-            - price:
-                id: pri_01gsz96z29d88jrmsf2ztbfgjg
-                name: Annual (recurring addon)
-                type: standard
-                status: active
-                quantity:
-                  maximum: 1
-                  minimum: 1
-                tax_mode: account_setting
-                created_at: "2023-02-23T14:00:40.265185Z"
-                product_id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                unit_price:
-                  amount: "300000"
-                  currency_code: USD
-                updated_at: "2024-03-25T14:31:18.587603Z"
-                custom_data: null
-                description: Annual (recurring addon)
-                trial_period: null
-                billing_cycle:
-                  interval: year
+                  interval: month
                   frequency: 1
                 unit_price_overrides: []
                 import_meta: null
@@ -19031,83 +19145,85 @@ components:
           details:
             totals:
               fee: null
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               credit: "0"
-              balance: "2763149"
-              discount: "281990"
+              balance: "65215"
+              discount: "0"
               earnings: null
-              subtotal: "2819900"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
               credit_to_balance: "0"
             line_items:
-              - id: txnitm_01hv8vzz0sjdj6grvpxyyjsmvf
+              - id: txnitm_01hv8wt98jahpbm1t1tzr06z6n
                 totals:
-                  tax: "199687"
-                  total: "2449687"
-                  discount: "250000"
-                  subtotal: "2500000"
+                  tax: "2662"
+                  total: "32662"
+                  discount: "0"
+                  subtotal: "30000"
                 product:
-                  id: pro_01gsz4vmqbjk3x4vvtafffd540
-                  name: AeroEdit Enterprise
+                  id: pro_01gsz4t5hdjse780zja8vvr7jg
+                  name: AeroEdit Pro
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/Ws808ziTS76a6YbnMkiK_enterprise.png
-                  created_at: "2023-02-23T12:44:34.923Z"
-                  updated_at: "2024-04-05T15:58:28.309Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
+                  created_at: "2023-02-23T12:43:46.605Z"
+                  updated_at: "2024-04-05T15:53:44.687Z"
                   custom_data:
                     features:
-                      sso: true
+                      sso: false
                       route_planning: true
-                      payment_by_invoice: true
+                      payment_by_invoice: false
                       aircraft_performance: true
                       compliance_monitoring: true
                       flight_log_management: true
-                    suggested_addons: []
-                    upgrade_description: Ready to reach new heights? Upgrade to enterprise to unlock single sign-on, payment by invoice, and dedicated account management.
-                  description: The ultimate solution for organizations, featuring all Pro capabilities plus multi-user support, advanced data storage capabilities, plus personalized onboarding, dedicated account management, and the ability to pay via invoice.
+                    suggested_addons:
+                      - pro_01h1vjes1y163xfj1rh1tkfb65
+                      - pro_01gsz97mq9pa4fkyy0wqenepkz
+                    upgrade_description: Move from Basic to Pro to take advantage of aircraft performance, advanced route planning, and compliance monitoring.
+                  description: Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz91wy9k1yn7kx82aafwvea
-                quantity: 50
+                price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                quantity: 10
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "3994"
-                  total: "48994"
-                  discount: "5000"
-                  subtotal: "50000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy1fzm46f
+                  tax: "266"
+                  total: "3266"
+                  discount: "0"
+                  subtotal: "3000"
+              - id: txnitm_01hv8wt98jahpbm1t1v1sd067y
                 totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
                 product:
-                  id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                  name: VIP support
+                  id: pro_01h1vjes1y163xfj1rh1tkfb65
+                  name: Analytics addon
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/qgyipKJwRtq98YNboipo_vip-support.png
-                  created_at: "2023-02-23T13:58:17.615Z"
-                  updated_at: "2024-04-05T15:44:02.893Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png
+                  created_at: "2023-06-01T13:30:50.302Z"
+                  updated_at: "2024-04-05T15:47:17.163Z"
                   custom_data: null
-                  description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
+                  description: Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz96z29d88jrmsf2ztbfgjg
+                price_id: pri_01h1vjfevh5etwq3rb416a23h2
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy6g84gyw
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
+              - id: txnitm_01hv8wt98jahpbm1t1v67vqnb6
                 totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
                 product:
                   id: pro_01gsz97mq9pa4fkyy0wqenepkz
@@ -19125,25 +19241,25 @@ components:
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
             payout_totals: null
             tax_rates_used:
               - totals:
-                  tax: "225239"
-                  total: "2763149"
-                  discount: "281990"
-                  subtotal: "2819900"
+                  tax: "5315"
+                  total: "65215"
+                  discount: "0"
+                  subtotal: "59900"
                 tax_rate: "0.08875"
             adjusted_totals:
               fee: "0"
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               earnings: "0"
-              subtotal: "2537910"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
           checkout:
             url: null
@@ -19183,50 +19299,50 @@ components:
           id: txn_01hv8m0mnx3sj85e7gxc6kga03
           items:
             - price:
-                id: pri_01gsz91wy9k1yn7kx82aafwvea
-                name: Annual (per seat)
+                id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                name: Monthly (per seat)
+                type: standard
+                status: active
+                quantity:
+                  maximum: 999
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T13:55:22.538367Z"
+                product_id: pro_01gsz4t5hdjse780zja8vvr7jg
+                unit_price:
+                  amount: "3000"
+                  currency_code: USD
+                updated_at: "2024-04-11T13:54:52.254748Z"
+                custom_data: null
+                description: Monthly
+                trial_period: null
+                billing_cycle:
+                  interval: month
+                  frequency: 1
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 10
+              proration: null
+            - price:
+                id: pri_01h1vjfevh5etwq3rb416a23h2
+                name: Monthly (recurring addon)
                 type: standard
                 status: active
                 quantity:
                   maximum: 100
                   minimum: 1
                 tax_mode: account_setting
-                created_at: "2023-02-23T13:57:54.249913Z"
-                product_id: pro_01gsz4vmqbjk3x4vvtafffd540
+                created_at: "2023-06-01T13:31:12.625056Z"
+                product_id: pro_01h1vjes1y163xfj1rh1tkfb65
                 unit_price:
-                  amount: "50000"
+                  amount: "10000"
                   currency_code: USD
-                updated_at: "2024-04-05T14:32:00.471447Z"
+                updated_at: "2024-04-09T07:23:00.907834Z"
                 custom_data: null
-                description: Annual
+                description: Monthly
                 trial_period: null
                 billing_cycle:
-                  interval: year
-                  frequency: 1
-                unit_price_overrides: []
-                import_meta: null
-              quantity: 50
-              proration: null
-            - price:
-                id: pri_01gsz96z29d88jrmsf2ztbfgjg
-                name: Annual (recurring addon)
-                type: standard
-                status: active
-                quantity:
-                  maximum: 1
-                  minimum: 1
-                tax_mode: account_setting
-                created_at: "2023-02-23T14:00:40.265185Z"
-                product_id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                unit_price:
-                  amount: "300000"
-                  currency_code: USD
-                updated_at: "2024-03-25T14:31:18.587603Z"
-                custom_data: null
-                description: Annual (recurring addon)
-                trial_period: null
-                billing_cycle:
-                  interval: year
+                  interval: month
                   frequency: 1
                 unit_price_overrides: []
                 import_meta: null
@@ -19260,83 +19376,85 @@ components:
           details:
             totals:
               fee: null
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               credit: "0"
-              balance: "2763149"
-              discount: "281990"
+              balance: "65215"
+              discount: "0"
               earnings: null
-              subtotal: "2819900"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
               credit_to_balance: "0"
             line_items:
-              - id: txnitm_01hv8vzz0sjdj6grvpxyyjsmvf
+              - id: txnitm_01hv8wt98jahpbm1t1tzr06z6n
                 totals:
-                  tax: "199687"
-                  total: "2449687"
-                  discount: "250000"
-                  subtotal: "2500000"
+                  tax: "2662"
+                  total: "32662"
+                  discount: "0"
+                  subtotal: "30000"
                 product:
-                  id: pro_01gsz4vmqbjk3x4vvtafffd540
-                  name: AeroEdit Enterprise
+                  id: pro_01gsz4t5hdjse780zja8vvr7jg
+                  name: AeroEdit Pro
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/Ws808ziTS76a6YbnMkiK_enterprise.png
-                  created_at: "2023-02-23T12:44:34.923Z"
-                  updated_at: "2024-04-05T15:58:28.309Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
+                  created_at: "2023-02-23T12:43:46.605Z"
+                  updated_at: "2024-04-05T15:53:44.687Z"
                   custom_data:
                     features:
-                      sso: true
+                      sso: false
                       route_planning: true
-                      payment_by_invoice: true
+                      payment_by_invoice: false
                       aircraft_performance: true
                       compliance_monitoring: true
                       flight_log_management: true
-                    suggested_addons: []
-                    upgrade_description: Ready to reach new heights? Upgrade to enterprise to unlock single sign-on, payment by invoice, and dedicated account management.
-                  description: The ultimate solution for organizations, featuring all Pro capabilities plus multi-user support, advanced data storage capabilities, plus personalized onboarding, dedicated account management, and the ability to pay via invoice.
+                    suggested_addons:
+                      - pro_01h1vjes1y163xfj1rh1tkfb65
+                      - pro_01gsz97mq9pa4fkyy0wqenepkz
+                    upgrade_description: Move from Basic to Pro to take advantage of aircraft performance, advanced route planning, and compliance monitoring.
+                  description: Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz91wy9k1yn7kx82aafwvea
-                quantity: 50
+                price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                quantity: 10
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "3994"
-                  total: "48994"
-                  discount: "5000"
-                  subtotal: "50000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy1fzm46f
+                  tax: "266"
+                  total: "3266"
+                  discount: "0"
+                  subtotal: "3000"
+              - id: txnitm_01hv8wt98jahpbm1t1v1sd067y
                 totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
                 product:
-                  id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                  name: VIP support
+                  id: pro_01h1vjes1y163xfj1rh1tkfb65
+                  name: Analytics addon
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/qgyipKJwRtq98YNboipo_vip-support.png
-                  created_at: "2023-02-23T13:58:17.615Z"
-                  updated_at: "2024-04-05T15:44:02.893Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png
+                  created_at: "2023-06-01T13:30:50.302Z"
+                  updated_at: "2024-04-05T15:47:17.163Z"
                   custom_data: null
-                  description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
+                  description: Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz96z29d88jrmsf2ztbfgjg
+                price_id: pri_01h1vjfevh5etwq3rb416a23h2
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy6g84gyw
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
+              - id: txnitm_01hv8wt98jahpbm1t1v67vqnb6
                 totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
                 product:
                   id: pro_01gsz97mq9pa4fkyy0wqenepkz
@@ -19354,25 +19472,25 @@ components:
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
             payout_totals: null
             tax_rates_used:
               - totals:
-                  tax: "225239"
-                  total: "2763149"
-                  discount: "281990"
-                  subtotal: "2819900"
+                  tax: "5315"
+                  total: "65215"
+                  discount: "0"
+                  subtotal: "59900"
                 tax_rate: "0.08875"
             adjusted_totals:
               fee: "0"
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               earnings: "0"
-              subtotal: "2537910"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
           checkout:
             url: null
@@ -19757,23 +19875,23 @@ components:
           details:
             totals:
               fee: null
-              tax: "9585"
-              total: "57509"
+              tax: "5315"
+              total: "65215"
               credit: "0"
-              balance: "57509"
+              balance: "65215"
               discount: "0"
               earnings: null
-              subtotal: "47924"
-              grand_total: "57509"
-              currency_code: GBP
+              subtotal: "59900"
+              grand_total: "65215"
+              currency_code: USD
               credit_to_balance: "0"
             line_items:
-              - id: txnitm_01hv8wpts6n6wkcr973fmt6gt7
+              - id: txnitm_01hv8wt98jahpbm1t1tzr06z6n
                 totals:
-                  tax: "4800"
-                  total: "28800"
+                  tax: "2662"
+                  total: "32662"
                   discount: "0"
-                  subtotal: "24000"
+                  subtotal: "30000"
                 product:
                   id: pro_01gsz4t5hdjse780zja8vvr7jg
                   name: AeroEdit Pro
@@ -19799,18 +19917,18 @@ components:
                   import_meta: null
                 price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
                 quantity: 10
-                tax_rate: "0.2"
+                tax_rate: "0.08875"
                 unit_totals:
-                  tax: "480"
-                  total: "2880"
+                  tax: "266"
+                  total: "3266"
                   discount: "0"
-                  subtotal: "2400"
-              - id: txnitm_01hv8wpts6n6wkcr973jywgjzx
+                  subtotal: "3000"
+              - id: txnitm_01hv8wt98jahpbm1t1v1sd067y
                 totals:
-                  tax: "1600"
-                  total: "9601"
+                  tax: "887"
+                  total: "10887"
                   discount: "0"
-                  subtotal: "8001"
+                  subtotal: "10000"
                 product:
                   id: pro_01h1vjes1y163xfj1rh1tkfb65
                   name: Analytics addon
@@ -19825,18 +19943,18 @@ components:
                   import_meta: null
                 price_id: pri_01h1vjfevh5etwq3rb416a23h2
                 quantity: 1
-                tax_rate: "0.2"
+                tax_rate: "0.08875"
                 unit_totals:
-                  tax: "1600"
-                  total: "9601"
+                  tax: "887"
+                  total: "10887"
                   discount: "0"
-                  subtotal: "8001"
-              - id: txnitm_01hv8wpts6n6wkcr973nc9r7dm
+                  subtotal: "10000"
+              - id: txnitm_01hv8wt98jahpbm1t1v67vqnb6
                 totals:
-                  tax: "3185"
-                  total: "19108"
+                  tax: "1766"
+                  total: "21666"
                   discount: "0"
-                  subtotal: "15923"
+                  subtotal: "19900"
                 product:
                   id: pro_01gsz97mq9pa4fkyy0wqenepkz
                   name: Custom domains
@@ -19851,28 +19969,28 @@ components:
                   import_meta: null
                 price_id: pri_01gsz98e27ak2tyhexptwc58yk
                 quantity: 1
-                tax_rate: "0.2"
+                tax_rate: "0.08875"
                 unit_totals:
-                  tax: "3185"
-                  total: "19108"
+                  tax: "1766"
+                  total: "21666"
                   discount: "0"
-                  subtotal: "15923"
+                  subtotal: "19900"
             payout_totals: null
             tax_rates_used:
               - totals:
-                  tax: "9585"
-                  total: "57509"
+                  tax: "5315"
+                  total: "65215"
                   discount: "0"
-                  subtotal: "47924"
-                tax_rate: "0.2"
+                  subtotal: "59900"
+                tax_rate: "0.08875"
             adjusted_totals:
               fee: "0"
-              tax: "9585"
-              total: "57509"
+              tax: "5315"
+              total: "65215"
               earnings: "0"
-              subtotal: "47924"
-              grand_total: "57509"
-              currency_code: GBP
+              subtotal: "59900"
+              grand_total: "65215"
+              currency_code: USD
           checkout:
             url: https://aeroedit.com/pay?_ptxn=txn_01hv8wptq8987qeep44cyrewp9
           payments: []
@@ -19886,7 +20004,7 @@ components:
           custom_data: null
           customer_id: null
           discount_id: null
-          currency_code: GBP
+          currency_code: USD
           billing_period: null
           invoice_number: null
           billing_details: null
@@ -20830,50 +20948,50 @@ components:
           id: txn_01hv8m0mnx3sj85e7gxc6kga03
           items:
             - price:
-                id: pri_01gsz91wy9k1yn7kx82aafwvea
-                name: Annual (per seat)
+                id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                name: Monthly (per seat)
+                type: standard
+                status: active
+                quantity:
+                  maximum: 999
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T13:55:22.538367Z"
+                product_id: pro_01gsz4t5hdjse780zja8vvr7jg
+                unit_price:
+                  amount: "3000"
+                  currency_code: USD
+                updated_at: "2024-04-11T13:54:52.254748Z"
+                custom_data: null
+                description: Monthly
+                trial_period: null
+                billing_cycle:
+                  interval: month
+                  frequency: 1
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 10
+              proration: null
+            - price:
+                id: pri_01h1vjfevh5etwq3rb416a23h2
+                name: Monthly (recurring addon)
                 type: standard
                 status: active
                 quantity:
                   maximum: 100
                   minimum: 1
                 tax_mode: account_setting
-                created_at: "2023-02-23T13:57:54.249913Z"
-                product_id: pro_01gsz4vmqbjk3x4vvtafffd540
+                created_at: "2023-06-01T13:31:12.625056Z"
+                product_id: pro_01h1vjes1y163xfj1rh1tkfb65
                 unit_price:
-                  amount: "50000"
+                  amount: "10000"
                   currency_code: USD
-                updated_at: "2024-04-05T14:32:00.471447Z"
+                updated_at: "2024-04-09T07:23:00.907834Z"
                 custom_data: null
-                description: Annual
+                description: Monthly
                 trial_period: null
                 billing_cycle:
-                  interval: year
-                  frequency: 1
-                unit_price_overrides: []
-                import_meta: null
-              quantity: 50
-              proration: null
-            - price:
-                id: pri_01gsz96z29d88jrmsf2ztbfgjg
-                name: Annual (recurring addon)
-                type: standard
-                status: active
-                quantity:
-                  maximum: 1
-                  minimum: 1
-                tax_mode: account_setting
-                created_at: "2023-02-23T14:00:40.265185Z"
-                product_id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                unit_price:
-                  amount: "300000"
-                  currency_code: USD
-                updated_at: "2024-03-25T14:31:18.587603Z"
-                custom_data: null
-                description: Annual (recurring addon)
-                trial_period: null
-                billing_cycle:
-                  interval: year
+                  interval: month
                   frequency: 1
                 unit_price_overrides: []
                 import_meta: null
@@ -20907,83 +21025,85 @@ components:
           details:
             totals:
               fee: null
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               credit: "0"
-              balance: "2763149"
-              discount: "281990"
+              balance: "65215"
+              discount: "0"
               earnings: null
-              subtotal: "2819900"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
               credit_to_balance: "0"
             line_items:
-              - id: txnitm_01hv8vzz0sjdj6grvpxyyjsmvf
+              - id: txnitm_01hv8wt98jahpbm1t1tzr06z6n
                 totals:
-                  tax: "199687"
-                  total: "2449687"
-                  discount: "250000"
-                  subtotal: "2500000"
+                  tax: "2662"
+                  total: "32662"
+                  discount: "0"
+                  subtotal: "30000"
                 product:
-                  id: pro_01gsz4vmqbjk3x4vvtafffd540
-                  name: AeroEdit Enterprise
+                  id: pro_01gsz4t5hdjse780zja8vvr7jg
+                  name: AeroEdit Pro
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/Ws808ziTS76a6YbnMkiK_enterprise.png
-                  created_at: "2023-02-23T12:44:34.923Z"
-                  updated_at: "2024-04-05T15:58:28.309Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
+                  created_at: "2023-02-23T12:43:46.605Z"
+                  updated_at: "2024-04-05T15:53:44.687Z"
                   custom_data:
                     features:
-                      sso: true
+                      sso: false
                       route_planning: true
-                      payment_by_invoice: true
+                      payment_by_invoice: false
                       aircraft_performance: true
                       compliance_monitoring: true
                       flight_log_management: true
-                    suggested_addons: []
-                    upgrade_description: Ready to reach new heights? Upgrade to enterprise to unlock single sign-on, payment by invoice, and dedicated account management.
-                  description: The ultimate solution for organizations, featuring all Pro capabilities plus multi-user support, advanced data storage capabilities, plus personalized onboarding, dedicated account management, and the ability to pay via invoice.
+                    suggested_addons:
+                      - pro_01h1vjes1y163xfj1rh1tkfb65
+                      - pro_01gsz97mq9pa4fkyy0wqenepkz
+                    upgrade_description: Move from Basic to Pro to take advantage of aircraft performance, advanced route planning, and compliance monitoring.
+                  description: Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz91wy9k1yn7kx82aafwvea
-                quantity: 50
+                price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                quantity: 10
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "3994"
-                  total: "48994"
-                  discount: "5000"
-                  subtotal: "50000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy1fzm46f
+                  tax: "266"
+                  total: "3266"
+                  discount: "0"
+                  subtotal: "3000"
+              - id: txnitm_01hv8wt98jahpbm1t1v1sd067y
                 totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
                 product:
-                  id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                  name: VIP support
+                  id: pro_01h1vjes1y163xfj1rh1tkfb65
+                  name: Analytics addon
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/qgyipKJwRtq98YNboipo_vip-support.png
-                  created_at: "2023-02-23T13:58:17.615Z"
-                  updated_at: "2024-04-05T15:44:02.893Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png
+                  created_at: "2023-06-01T13:30:50.302Z"
+                  updated_at: "2024-04-05T15:47:17.163Z"
                   custom_data: null
-                  description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
+                  description: Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz96z29d88jrmsf2ztbfgjg
+                price_id: pri_01h1vjfevh5etwq3rb416a23h2
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy6g84gyw
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
+              - id: txnitm_01hv8wt98jahpbm1t1v67vqnb6
                 totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
                 product:
                   id: pro_01gsz97mq9pa4fkyy0wqenepkz
@@ -21001,25 +21121,25 @@ components:
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
             payout_totals: null
             tax_rates_used:
               - totals:
-                  tax: "225239"
-                  total: "2763149"
-                  discount: "281990"
-                  subtotal: "2819900"
+                  tax: "5315"
+                  total: "65215"
+                  discount: "0"
+                  subtotal: "59900"
                 tax_rate: "0.08875"
             adjusted_totals:
               fee: "0"
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               earnings: "0"
-              subtotal: "2537910"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
           checkout:
             url: null
@@ -21059,50 +21179,50 @@ components:
           id: txn_01hv8m0mnx3sj85e7gxc6kga03
           items:
             - price:
-                id: pri_01gsz91wy9k1yn7kx82aafwvea
-                name: Annual (per seat)
+                id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                name: Monthly (per seat)
+                type: standard
+                status: active
+                quantity:
+                  maximum: 999
+                  minimum: 1
+                tax_mode: account_setting
+                created_at: "2023-02-23T13:55:22.538367Z"
+                product_id: pro_01gsz4t5hdjse780zja8vvr7jg
+                unit_price:
+                  amount: "3000"
+                  currency_code: USD
+                updated_at: "2024-04-11T13:54:52.254748Z"
+                custom_data: null
+                description: Monthly
+                trial_period: null
+                billing_cycle:
+                  interval: month
+                  frequency: 1
+                unit_price_overrides: []
+                import_meta: null
+              quantity: 10
+              proration: null
+            - price:
+                id: pri_01h1vjfevh5etwq3rb416a23h2
+                name: Monthly (recurring addon)
                 type: standard
                 status: active
                 quantity:
                   maximum: 100
                   minimum: 1
                 tax_mode: account_setting
-                created_at: "2023-02-23T13:57:54.249913Z"
-                product_id: pro_01gsz4vmqbjk3x4vvtafffd540
+                created_at: "2023-06-01T13:31:12.625056Z"
+                product_id: pro_01h1vjes1y163xfj1rh1tkfb65
                 unit_price:
-                  amount: "50000"
+                  amount: "10000"
                   currency_code: USD
-                updated_at: "2024-04-05T14:32:00.471447Z"
+                updated_at: "2024-04-09T07:23:00.907834Z"
                 custom_data: null
-                description: Annual
+                description: Monthly
                 trial_period: null
                 billing_cycle:
-                  interval: year
-                  frequency: 1
-                unit_price_overrides: []
-                import_meta: null
-              quantity: 50
-              proration: null
-            - price:
-                id: pri_01gsz96z29d88jrmsf2ztbfgjg
-                name: Annual (recurring addon)
-                type: standard
-                status: active
-                quantity:
-                  maximum: 1
-                  minimum: 1
-                tax_mode: account_setting
-                created_at: "2023-02-23T14:00:40.265185Z"
-                product_id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                unit_price:
-                  amount: "300000"
-                  currency_code: USD
-                updated_at: "2024-03-25T14:31:18.587603Z"
-                custom_data: null
-                description: Annual (recurring addon)
-                trial_period: null
-                billing_cycle:
-                  interval: year
+                  interval: month
                   frequency: 1
                 unit_price_overrides: []
                 import_meta: null
@@ -21136,83 +21256,85 @@ components:
           details:
             totals:
               fee: null
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               credit: "0"
-              balance: "2763149"
-              discount: "281990"
+              balance: "65215"
+              discount: "0"
               earnings: null
-              subtotal: "2819900"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
               credit_to_balance: "0"
             line_items:
-              - id: txnitm_01hv8vzz0sjdj6grvpxyyjsmvf
+              - id: txnitm_01hv8wt98jahpbm1t1tzr06z6n
                 totals:
-                  tax: "199687"
-                  total: "2449687"
-                  discount: "250000"
-                  subtotal: "2500000"
+                  tax: "2662"
+                  total: "32662"
+                  discount: "0"
+                  subtotal: "30000"
                 product:
-                  id: pro_01gsz4vmqbjk3x4vvtafffd540
-                  name: AeroEdit Enterprise
+                  id: pro_01gsz4t5hdjse780zja8vvr7jg
+                  name: AeroEdit Pro
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/Ws808ziTS76a6YbnMkiK_enterprise.png
-                  created_at: "2023-02-23T12:44:34.923Z"
-                  updated_at: "2024-04-05T15:58:28.309Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
+                  created_at: "2023-02-23T12:43:46.605Z"
+                  updated_at: "2024-04-05T15:53:44.687Z"
                   custom_data:
                     features:
-                      sso: true
+                      sso: false
                       route_planning: true
-                      payment_by_invoice: true
+                      payment_by_invoice: false
                       aircraft_performance: true
                       compliance_monitoring: true
                       flight_log_management: true
-                    suggested_addons: []
-                    upgrade_description: Ready to reach new heights? Upgrade to enterprise to unlock single sign-on, payment by invoice, and dedicated account management.
-                  description: The ultimate solution for organizations, featuring all Pro capabilities plus multi-user support, advanced data storage capabilities, plus personalized onboarding, dedicated account management, and the ability to pay via invoice.
+                    suggested_addons:
+                      - pro_01h1vjes1y163xfj1rh1tkfb65
+                      - pro_01gsz97mq9pa4fkyy0wqenepkz
+                    upgrade_description: Move from Basic to Pro to take advantage of aircraft performance, advanced route planning, and compliance monitoring.
+                  description: Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz91wy9k1yn7kx82aafwvea
-                quantity: 50
+                price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
+                quantity: 10
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "3994"
-                  total: "48994"
-                  discount: "5000"
-                  subtotal: "50000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy1fzm46f
+                  tax: "266"
+                  total: "3266"
+                  discount: "0"
+                  subtotal: "3000"
+              - id: txnitm_01hv8wt98jahpbm1t1v1sd067y
                 totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
                 product:
-                  id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                  name: VIP support
+                  id: pro_01h1vjes1y163xfj1rh1tkfb65
+                  name: Analytics addon
                   type: standard
                   status: active
-                  image_url: https://paddle.s3.amazonaws.com/user/165798/qgyipKJwRtq98YNboipo_vip-support.png
-                  created_at: "2023-02-23T13:58:17.615Z"
-                  updated_at: "2024-04-05T15:44:02.893Z"
+                  image_url: https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png
+                  created_at: "2023-06-01T13:30:50.302Z"
+                  updated_at: "2024-04-05T15:47:17.163Z"
                   custom_data: null
-                  description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
+                  description: Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.
                   tax_category: standard
                   import_meta: null
-                price_id: pri_01gsz96z29d88jrmsf2ztbfgjg
+                price_id: pri_01h1vjfevh5etwq3rb416a23h2
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "23962"
-                  total: "293962"
-                  discount: "30000"
-                  subtotal: "300000"
-              - id: txnitm_01hv8vzz0sjdj6grvpy6g84gyw
+                  tax: "887"
+                  total: "10887"
+                  discount: "0"
+                  subtotal: "10000"
+              - id: txnitm_01hv8wt98jahpbm1t1v67vqnb6
                 totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
                 product:
                   id: pro_01gsz97mq9pa4fkyy0wqenepkz
@@ -21230,25 +21352,25 @@ components:
                 quantity: 1
                 tax_rate: "0.08875"
                 unit_totals:
-                  tax: "1590"
-                  total: "19500"
-                  discount: "1990"
+                  tax: "1766"
+                  total: "21666"
+                  discount: "0"
                   subtotal: "19900"
             payout_totals: null
             tax_rates_used:
               - totals:
-                  tax: "225239"
-                  total: "2763149"
-                  discount: "281990"
-                  subtotal: "2819900"
+                  tax: "5315"
+                  total: "65215"
+                  discount: "0"
+                  subtotal: "59900"
                 tax_rate: "0.08875"
             adjusted_totals:
               fee: "0"
-              tax: "225239"
-              total: "2763149"
+              tax: "5315"
+              total: "65215"
               earnings: "0"
-              subtotal: "2537910"
-              grand_total: "2763149"
+              subtotal: "59900"
+              grand_total: "65215"
               currency_code: USD
           checkout:
             url: null
@@ -22508,7 +22630,7 @@ components:
           type:
             - string
             - "null"
-          description: Amount adjusted for this transaction item. Required when item type is `partial`.
+          description: Amount adjusted for this transaction item. Required when item `type` is `partial`.
         proration:
           oneOf:
             - $ref: "#/components/schemas/transaction_item_proration"
@@ -23251,7 +23373,7 @@ components:
           description: Visa
     catalog-type:
       title: CatalogType
-      description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard.
+      description: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard.
       x-stoplight:
         id: ys1jc2h1xvweb
       type: string
@@ -23281,7 +23403,7 @@ components:
       title: Country code
       x-stoplight:
         id: vxve8rsuyn2dd
-      description: Supported two-letter ISO 3166-1 alpha-2 country code.
+      description: Two-letter ISO 3166-1 alpha-2 country code.
       oneOf:
         - $ref: "#/components/schemas/country_code_supported"
     country_code_supported:
@@ -23289,6 +23411,7 @@ components:
       x-stoplight:
         id: yuizz6abxmhy4
       type: string
+      description: Two-letter ISO 3166-1 alpha-2 representation of a supported country.
       enum:
         - AD
         - AE
@@ -25770,6 +25893,17 @@ components:
           description: A [`transaction.ready`](https://developer.paddle.com/webhooks/transactions/transaction-ready) event.
         transaction.updated:
           description: A [`transaction.updated`](https://developer.paddle.com/webhooks/transactions/transaction-updated) event.
+    external_id:
+      title: External ID
+      x-stoplight:
+        id: f1b5a9kqrd38m
+      description: Reference or identifier for this entity from the provider where it was imported from.
+      type: string
+      examples:
+        - 9b95b0b8-e10f-441a-862e-1936a6d818ab
+      maxLength: 200
+      minLength: 1
+      readOnly: true
     image_url:
       title: Image Url
       description: A URL to an image.
@@ -25784,21 +25918,12 @@ components:
       type: object
       properties:
         external_id:
-          description: Reference or identifier for this entity from the solution where it was imported from.
-          type:
-            - string
-            - "null"
-          examples:
-            - 9b95b0b8-e10f-441a-862e-1936a6d818ab
-          maxLength: 200
-          minLength: 1
+          oneOf:
+            - $ref: "#/components/schemas/external_id"
+            - type: "null"
         imported_from:
-          description: Name of the platform where this entity was imported from.
-          type: string
-          examples:
-            - billing_platform
-          maxLength: 200
-          minLength: 1
+          description: Name of the platform or provider where this entity was imported from.
+          $ref: "#/components/schemas/migration_provider"
       required:
         - imported_from
     item-subscription:
@@ -25905,6 +26030,31 @@ components:
             - $ref: "#/components/schemas/card"
             - type: "null"
           description: Information about the credit or debit card used to pay. `null` unless `type` is `card`.
+    migration_provider:
+      title: MigrationProvider
+      x-stoplight:
+        id: q2r5j6bfyc73g
+      type: string
+      oneOf:
+        - $ref: "#/components/schemas/migration_provider_public"
+      description: Platform or provider that a migration is from.
+      maxLength: 200
+      minLength: 1
+      readOnly: true
+    migration_provider_public:
+      title: MigrationProviderPublic
+      x-stoplight:
+        id: a3r7t5glqc48w
+      type: string
+      enum:
+        - paddle_classic
+      x-enum-descriptions:
+        paddle_classic:
+          description: This entity was imported from Paddle Classic.
+      description: Platform or provider that a migration is from.
+      maxLength: 200
+      minLength: 1
+      readOnly: true
     money:
       title: Money
       description: A base representation of monetary value unformatted in the lowest denomination with currency code.
@@ -26657,7 +26807,7 @@ components:
             - type: "null"
         trial_period:
           oneOf:
-            - $ref: "#/components/schemas/duration"
+            - $ref: "#/components/schemas/price_trial_duration"
             - type: "null"
           description: Trial period for the product related to this price. The billing cycle begins once the trial period is over. `null` for no trial period. Requires `billing_cycle`.
         tax_mode:
@@ -26713,7 +26863,7 @@ components:
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         type:
           $ref: "#/components/schemas/catalog-type"
-          description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard. If omitted, defaults to `standard`.
+          description: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
         name:
           type:
             - string
@@ -26731,7 +26881,7 @@ components:
             - type: "null"
         trial_period:
           oneOf:
-            - $ref: "#/components/schemas/duration"
+            - $ref: "#/components/schemas/price_trial_duration"
             - type: "null"
           description: |-
             Trial period for the product related to this price. The billing cycle begins once the trial period is over.
@@ -27235,6 +27385,25 @@ components:
       required:
         - minimum
         - maximum
+    price_trial_duration:
+      title: Price Trial Duration
+      type: object
+      properties:
+        interval:
+          description: Unit of time.
+          type: string
+          enum:
+            - day
+            - week
+            - month
+            - year
+        frequency:
+          description: Amount of time.
+          type: integer
+          minimum: 1
+      required:
+        - interval
+        - frequency
     product:
       title: Product
       description: Represents a product entity.
@@ -27311,7 +27480,7 @@ components:
           maxLength: 2048
         type:
           $ref: "#/components/schemas/catalog-type"
-          description: Type of item. Standard items are considered part of your catalog and are shown on the Paddle dashboard. If omitted, defaults to `standard`.
+          description: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
         tax_category:
           $ref: "#/components/schemas/tax_category"
         image_url:
@@ -28102,6 +28271,613 @@ components:
           description: Scenario simulations play all events sent for a subscription lifecycle event.
       x-tags:
         - "v1: Entities"
+    simulation-config-entities-subscription-creation:
+      type: object
+      title: Subscription creation config
+      description: Configuration resources for subscription creation simulations
+      additionalProperties: false
+      properties:
+        customer_id:
+          description: Paddle ID of a customer. Adds customer details to webhook payloads.
+          oneOf:
+            - $ref: "#/components/schemas/customer_id"
+            - type: "null"
+        address_id:
+          description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/address_id"
+            - type: "null"
+        business_id:
+          description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/business_id"
+            - type: "null"
+        payment_method_id:
+          description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/payment_method_id"
+            - type: "null"
+        discount_id:
+          description: Paddle ID of a discount. Adds discount details (including price calculations) to webhook payloads. Requires `items` or `transaction_id` for the discount to be applied.
+          oneOf:
+            - $ref: "#/components/schemas/discount_id"
+            - type: "null"
+        transaction_id:
+          description: Paddle ID of a transaction. Bases the subscription on the transaction.
+          oneOf:
+            - $ref: "#/components/schemas/transaction_id"
+            - type: "null"
+        items:
+          description: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
+          oneOf:
+            - type: array
+              minItems: 1
+              maxItems: 100
+              items:
+                title: Catalog item
+                description: Existing price to include on the subscription.
+                $ref: "#/components/schemas/subscription_item_create_with_price_id"
+            - type: "null"
+    simulation-config-entities-subscription-creation-items:
+      type: object
+      title: Subscription creation config for items
+      description: Configuration resources for subscription creation simulations with items
+      additionalProperties: false
+      properties:
+        customer_id:
+          description: Paddle ID of a customer. Adds customer details to webhook payloads.
+          oneOf:
+            - $ref: "#/components/schemas/customer_id"
+            - type: "null"
+        address_id:
+          description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/address_id"
+            - type: "null"
+        business_id:
+          description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/business_id"
+            - type: "null"
+        payment_method_id:
+          description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/payment_method_id"
+            - type: "null"
+        discount_id:
+          description: Paddle ID of a discount. Adds discount details (including price calculations) to webhook payloads. Requires `items` or `transaction_id` for the discount to be applied.
+          oneOf:
+            - $ref: "#/components/schemas/discount_id"
+            - type: "null"
+        items:
+          description: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            title: Catalog item
+            description: Existing price to include on the subscription.
+            $ref: "#/components/schemas/subscription_item_create_with_price_id"
+        transaction_id:
+          description: Paddle ID of an existing transaction. Simulates passing a transaction ID to Paddle.js.
+          type: "null"
+    simulation-config-entities-subscription-creation-no-prices:
+      type: object
+      title: Subscription creation config without prices
+      description: Configuration resources for subscription creation simulations
+      additionalProperties: false
+      properties:
+        customer_id:
+          description: Paddle ID of a customer. Adds customer details to webhook payloads.
+          oneOf:
+            - $ref: "#/components/schemas/customer_id"
+            - type: "null"
+        address_id:
+          description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/address_id"
+            - type: "null"
+        business_id:
+          description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/business_id"
+            - type: "null"
+        payment_method_id:
+          description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/payment_method_id"
+            - type: "null"
+        discount_id:
+          description: Paddle ID of an existing discount to apply to the simulated subscription.
+          type: "null"
+        items:
+          description: Items for the simulated subscription. Only existing products and prices can be simulated. Non-catalog items are not supported
+          type: "null"
+        transaction_id:
+          description: Paddle ID of an existing transaction. Simulates passing a transaction ID to Paddle.js.
+          type: "null"
+    simulation-config-entities-subscription-creation-transaction:
+      type: object
+      title: Subscription creation config for transaction
+      description: Configuration resources for subscription creation simulations with existing transaction
+      additionalProperties: false
+      properties:
+        customer_id:
+          description: Paddle ID of a customer. Adds customer details to webhook payloads.
+          oneOf:
+            - $ref: "#/components/schemas/customer_id"
+            - type: "null"
+        address_id:
+          description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/address_id"
+            - type: "null"
+        business_id:
+          description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/business_id"
+            - type: "null"
+        payment_method_id:
+          description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
+          oneOf:
+            - $ref: "#/components/schemas/payment_method_id"
+            - type: "null"
+        discount_id:
+          description: Paddle ID of a discount. Adds discount details (including price calculations) to webhook payloads. Requires `items` or `transaction_id` for the discount to be applied.
+          oneOf:
+            - $ref: "#/components/schemas/discount_id"
+            - type: "null"
+        transaction_id:
+          description: Paddle ID of a transaction. Bases the subscription from this transaction.
+          $ref: "#/components/schemas/transaction_id"
+        items:
+          description: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
+          type: "null"
+    simulation-config-options-payment:
+      type: object
+      title: Payment outcome options
+      description: Options to configure simulations based on the payment outcome.
+      additionalProperties: false
+      properties:
+        payment_outcome:
+          type: string
+          default: success
+          description: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
+          enum:
+            - success
+            - recovered_existing_payment_method
+            - recovered_updated_payment_method
+            - failed
+          x-enum-descriptions:
+            success:
+              description: Simulates as if the payment for the subscription is successful.
+            recovered_existing_payment_method:
+              description: Simulates as if the payment for the subscription fails initially and the payment is recovered when retrying the existing payment method.
+            recovered_updated_payment_method:
+              description: Simulates as if the payment for the subscription fails initially and the customer updates their payment method to successfully pay.
+            failed:
+              description: Simulates as if the payment for the subscription is unsuccessful after all payment recovery attempts are exhausted.
+        dunning_exhausted_action:
+          description: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`.
+          default: null
+          oneOf:
+            - type: string
+              default: subscription_canceled
+              enum:
+                - subscription_paused
+                - subscription_canceled
+              x-enum-descriptions:
+                subscription_paused:
+                  description: Simulates as if the subscription is paused after all payment recovery attempts are exhausted.
+                subscription_canceled:
+                  description: Simulates as if the subscription is paused after all payment recovery attempts are exhausted.
+            - type: "null"
+    simulation-config-options-payment-failed:
+      type: object
+      title: Failed payment outcome options
+      description: Options for when the payment outcome is failed.
+      additionalProperties: false
+      properties:
+        payment_outcome:
+          type: string
+          description: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
+          enum:
+            - failed
+          x-enum-descriptions:
+            failed:
+              description: Simulates as if the payment for the subscription is unsuccessful after all payment recovery attempts are exhausted.
+        dunning_exhausted_action:
+          description: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. If omitted, defaults to `subscription_canceled`.
+          type: string
+          default: subscription_canceled
+          enum:
+            - subscription_paused
+            - subscription_canceled
+          x-enum-descriptions:
+            subscription_paused:
+              description: Simulates as if the subscription is paused after all payment recovery attempts are exhausted.
+            subscription_canceled:
+              description: Simulates as if the subscription is paused after all payment recovery attempts are exhausted.
+    simulation-config-options-payment-recovered-existing:
+      type: object
+      title: Recovered from existing payment method payment outcome options
+      description: Options for when the payment is recovered from an existing payment method.
+      additionalProperties: false
+      properties:
+        payment_outcome:
+          type: string
+          description: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
+          enum:
+            - recovered_existing_payment_method
+          x-enum-descriptions:
+            recovered_existing_payment_method:
+              description: Simulates as if the payment for the subscription fails initially and the payment is recovered when retrying the existing payment method.
+        dunning_exhausted_action:
+          type: "null"
+          description: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`.
+    simulation-config-options-payment-recovered-updated:
+      type: object
+      title: Recovered from updated payment method payment outcome options
+      description: Options for when the payment is recovered from an updated payment method.
+      additionalProperties: false
+      properties:
+        payment_outcome:
+          type: string
+          description: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
+          enum:
+            - recovered_updated_payment_method
+          x-enum-descriptions:
+            recovered_updated_payment_method:
+              description: Simulates as if the payment for the subscription fails initially and the customer updates their payment method to successfully pay.
+        dunning_exhausted_action:
+          type: "null"
+          description: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`.
+    simulation-config-options-payment-success:
+      type: object
+      title: Successful payment outcome options
+      description: Options for when the payment outcome is successful.
+      additionalProperties: false
+      properties:
+        payment_outcome:
+          type: string
+          default: success
+          description: Determines which webhooks are sent based on the outcome of the payment. If omitted, defaults to `success`.
+          enum:
+            - success
+          x-enum-descriptions:
+            success:
+              description: Simulates as if the payment for the subscription is successful.
+        dunning_exhausted_action:
+          type: "null"
+          description: Determines which webhooks are sent based on what happens to the subscription when payment recovery attempts are exhausted. Only applies when `payment_outcome` is `failed`. If omitted, defaults to `null`.
+    simulation-config-subscription-cancellation:
+      type: object
+      title: Subscription canceled config
+      description: Configuration for subscription canceled simulations.
+      additionalProperties: false
+      properties:
+        entities:
+          description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+          type: object
+          additionalProperties: false
+          properties:
+            subscription_id:
+              description: Paddle ID of a subscription to simulate as canceled. Adds details of that subscription to webhook payloads.
+              oneOf:
+                - $ref: "#/components/schemas/subscription_id"
+                - type: "null"
+        options:
+          description: Options that determine which webhooks are sent as part of a simulation.
+          type: object
+          additionalProperties: false
+          properties:
+            effective_from:
+              type:
+                - string
+              default: immediately
+              description: Determines which webhooks are sent based on when the subscription is paused or canceled. If omitted, defaults to `immediately`.
+              enum:
+                - next_billing_period
+                - immediately
+              x-enum-descriptions:
+                next_billing_period:
+                  description: Simulates as if the subscription cancels at the start of next billing period.
+                immediately:
+                  description: Simulates as if the subscription cancels immediately.
+            has_past_due_transaction:
+              type: boolean
+              default: false
+              description: Whether a simulated subscription has a past due transaction (`true`) or not (`false`), which determines whether events occur for canceling past due transactions. If omitted, defaults to `false`.
+    simulation-config-subscription-cancellation-create:
+      type: object
+      title: Subscription canceled config
+      description: Configuration for subscription canceled simulations.
+      additionalProperties: false
+      properties:
+        subscription_cancellation:
+          type: object
+          $ref: "#/components/schemas/simulation-config-subscription-cancellation"
+        subscription_creation:
+          type: "null"
+          readOnly: true
+        subscription_pause:
+          type: "null"
+          readOnly: true
+        subscription_renewal:
+          type: "null"
+          readOnly: true
+        subscription_resume:
+          type: "null"
+          readOnly: true
+    simulation-config-subscription-creation:
+      type: object
+      title: Subscription creation config
+      description: Configuration for subscription creation simulations.
+      additionalProperties: false
+      properties:
+        entities:
+          description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+          $ref: "#/components/schemas/simulation-config-entities-subscription-creation"
+        options:
+          description: Options that determine which webhooks are sent as part of a simulation.
+          $ref: "#/components/schemas/simulation-config-subscription-creation-options"
+    simulation-config-subscription-creation-create:
+      type: object
+      title: Subscription creation config
+      description: Configuration for subscription creation simulations.
+      additionalProperties: false
+      properties:
+        subscription_creation:
+          description: Configuration for subscription creation simulations.
+          type: object
+          properties:
+            entities:
+              description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+              anyOf:
+                - $ref: "#/components/schemas/simulation-config-entities-subscription-creation-no-prices"
+                - $ref: "#/components/schemas/simulation-config-entities-subscription-creation-items"
+                - $ref: "#/components/schemas/simulation-config-entities-subscription-creation-transaction"
+            options:
+              description: Options that determine which webhooks are sent as part of a simulation.
+              $ref: "#/components/schemas/simulation-config-subscription-creation-options"
+        subscription_cancellation:
+          type: "null"
+          readOnly: true
+        subscription_pause:
+          type: "null"
+          readOnly: true
+        subscription_renewal:
+          type: "null"
+          readOnly: true
+        subscription_resume:
+          type: "null"
+          readOnly: true
+    simulation-config-subscription-creation-options:
+      type: object
+      title: Subscription creation options
+      description: Options to configure subscription creation simulations.
+      additionalProperties: false
+      properties:
+        customer_simulated_as:
+          description: Determines which webhooks are sent based on whether a new or existing customer subscribes, and how their details are entered if they're an existing customer. If omitted, defaults to `new`.
+          type: string
+          default: new
+          enum:
+            - new
+            - existing_email_matched
+            - existing_details_prefilled
+          x-enum-descriptions:
+            new:
+              description: Simulates as if a new customer enters their details at checkout and Paddle creates a new customer.
+            existing_email_matched:
+              description: Simulates as if an existing customer enters their details at checkout. Paddle matches it to an existing customer based on the email supplied and creates a new address for that customer.
+            existing_details_prefilled:
+              description: Simulates as if existing customer details are prefilled at checkout by passing them to Paddle.js.
+        business_simulated_as:
+          description: Determines which webhooks are sent based on whether a new, existing, or no business was provided. If omitted, defaults to `not_provided`.
+          type: string
+          default: not_provided
+          enum:
+            - not_provided
+            - new
+            - existing_details_prefilled
+          x-enum-descriptions:
+            not_provided:
+              description: Simulates as if no business is provided.
+            new:
+              description: Simulates as if a customer enters their business details at checkout and Paddle creates a new business.
+            existing_details_prefilled:
+              description: Simulates as if an existing business is prefilled at checkout by passing it to Paddle.js.
+        discount_simulated_as:
+          description: Determines which webhooks are sent based on whether a discount is used and how it's entered. If omitted, defaults to `none`.
+          type: string
+          default: none
+          enum:
+            - not_provided
+            - prefilled
+            - entered_by_customer
+          x-enum-descriptions:
+            not_provided:
+              description: Simulates as if no discount is entered.
+            prefilled:
+              description: Simulates as if a discount is prefilled at checkout by passing it to Paddle.js. Requires `entities.discount_id`.
+            entered_by_customer:
+              description: Simulates as if a customer entered a discount at checkout. Requires `entities.discount_id`.
+    simulation-config-subscription-pause:
+      type: object
+      title: Subscription paused config
+      description: Configuration for subscription paused simulations.
+      additionalProperties: false
+      properties:
+        entities:
+          description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+          type: object
+          additionalProperties: false
+          properties:
+            subscription_id:
+              description: Paddle ID of a subscription to simulate as paused. Adds details of that subscription to webhook payloads.
+              oneOf:
+                - $ref: "#/components/schemas/subscription_id"
+                - type: "null"
+        options:
+          description: Options that determine which webhooks are sent as part of a simulation.
+          type: object
+          additionalProperties: false
+          properties:
+            effective_from:
+              type:
+                - string
+              default: immediately
+              description: Determines which webhooks are sent based on when the subscription is paused or canceled. If omitted, defaults to `immediately`.
+              enum:
+                - next_billing_period
+                - immediately
+              x-enum-descriptions:
+                next_billing_period:
+                  description: Simulates as if the subscription pauses at the start of next billing period.
+                immediately:
+                  description: Simulates as if the subscription pauses immediately.
+            has_past_due_transaction:
+              type: boolean
+              default: false
+              description: Whether a simulated subscription has a past due transaction (`true`) or not (`false`), which determines whether events occur for canceling past due transactions. If omitted, defaults to `false`.
+    simulation-config-subscription-pause-create:
+      type: object
+      title: Subscription paused config
+      description: Configuration for subscription paused simulations.
+      additionalProperties: false
+      properties:
+        subscription_pause:
+          type: object
+          $ref: "#/components/schemas/simulation-config-subscription-pause"
+        subscription_cancellation:
+          type: "null"
+          readOnly: true
+        subscription_creation:
+          type: "null"
+          readOnly: true
+        subscription_renewal:
+          type: "null"
+          readOnly: true
+        subscription_resume:
+          type: "null"
+          readOnly: true
+    simulation-config-subscription-renewal:
+      type: object
+      title: Subscription renewal config
+      description: Configuration for subscription renewed simulations.
+      additionalProperties: false
+      properties:
+        entities:
+          description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+          type: object
+          additionalProperties: false
+          properties:
+            subscription_id:
+              description: Paddle ID of a subscription to simulate as renewed. Adds details of that subscription to webhook payloads.
+              oneOf:
+                - $ref: "#/components/schemas/subscription_id"
+                - type: "null"
+        options:
+          description: Options that determine which webhooks are sent as part of a simulation.
+          $ref: "#/components/schemas/simulation-config-options-payment"
+    simulation-config-subscription-renewal-create:
+      type: object
+      title: Subscription renewal config
+      description: Configuration for subscription renewed simulations.
+      additionalProperties: false
+      properties:
+        subscription_renewal:
+          type: object
+          description: Configuration for subscription renewed simulations.
+          properties:
+            entities:
+              description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+              type: object
+              additionalProperties: false
+              properties:
+                subscription_id:
+                  description: Paddle ID of a subscription to simulate as renewed. Adds details of that subscription to webhook payloads.
+                  oneOf:
+                    - $ref: "#/components/schemas/subscription_id"
+                    - type: "null"
+            options:
+              description: Options that determine which webhooks are sent as part of a simulation.
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-options-payment-success"
+                - $ref: "#/components/schemas/simulation-config-options-payment-failed"
+                - $ref: "#/components/schemas/simulation-config-options-payment-recovered-existing"
+                - $ref: "#/components/schemas/simulation-config-options-payment-recovered-updated"
+        subscription_cancellation:
+          type: "null"
+          readOnly: true
+        subscription_creation:
+          type: "null"
+          readOnly: true
+        subscription_pause:
+          type: "null"
+          readOnly: true
+        subscription_resume:
+          type: "null"
+          readOnly: true
+    simulation-config-subscription-resume:
+      type: object
+      title: Subscription resumed config
+      description: Configuration for subscription resumed simulations.
+      additionalProperties: false
+      properties:
+        entities:
+          description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+          type: object
+          additionalProperties: false
+          properties:
+            subscription_id:
+              description: Paddle ID of a subscription to simulate as resumed. Adds details of that subscription to webhook payloads.
+              oneOf:
+                - $ref: "#/components/schemas/subscription_id"
+                - type: "null"
+        options:
+          description: Options that determine which webhooks are sent as part of a simulation.
+          $ref: "#/components/schemas/simulation-config-options-payment"
+    simulation-config-subscription-resume-create:
+      type: object
+      title: Subscription resumed config
+      description: Configuration for subscription resumed simulations.
+      additionalProperties: false
+      properties:
+        subscription_resume:
+          type: object
+          description: Configuration for subscription resumed simulations.
+          properties:
+            entities:
+              description: Adds details of existing Paddle entities to webhook payloads sent in the simulation.
+              type: object
+              additionalProperties: false
+              properties:
+                subscription_id:
+                  description: Paddle ID of a subscription to simulate as resumed. Adds details of that subscription to webhook payloads.
+                  oneOf:
+                    - $ref: "#/components/schemas/subscription_id"
+                    - type: "null"
+            options:
+              description: Options that determine which webhooks are sent as part of a simulation.
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-options-payment-success"
+                - $ref: "#/components/schemas/simulation-config-options-payment-failed"
+                - $ref: "#/components/schemas/simulation-config-options-payment-recovered-existing"
+                - $ref: "#/components/schemas/simulation-config-options-payment-recovered-updated"
+        subscription_cancellation:
+          type: "null"
+          readOnly: true
+        subscription_creation:
+          type: "null"
+          readOnly: true
+        subscription_pause:
+          type: "null"
+          readOnly: true
+        subscription_renewal:
+          type: "null"
+          readOnly: true
     simulation-create:
       title: SimulationCreate
       description: Represents a simulation entity when creating.
@@ -28305,6 +29081,9 @@ components:
           type:
             - "null"
           description: Simulation payload. `null` for scenarios.
+        config:
+          $ref: "#/components/schemas/simulation_scenario_config"
+          description: Configuration for this scenario simulation. Determines which granular flow is simulated and what entities are used to populate webhook payloads with.
         last_run_at:
           description: RFC 3339 datetime string of when this simulation was last run. `null` until run. Set automatically by Paddle.
           oneOf:
@@ -28329,6 +29108,9 @@ components:
         type:
           $ref: "#/components/schemas/simulation_scenario_events_type"
           description: Scenario for this simulation. Scenario simulations play all events sent for a subscription lifecycle event.
+        config:
+          $ref: "#/components/schemas/simulation_scenario_create_config"
+          description: Configuration for this scenario simulation. Use to simulate more granular flows and populate payloads with your own entity data. If omitted, Paddle simulates the default scenario flow and populates payloads with demo examples.
       required:
         - notification_setting_id
         - type
@@ -28352,6 +29134,9 @@ components:
         type:
           $ref: "#/components/schemas/simulation_scenario_events_type"
           description: Scenario for this simulation. Scenario simulations play all events sent for a subscription lifecycle event.
+        config:
+          $ref: "#/components/schemas/simulation_scenario_create_config"
+          description: Configuration for this scenario simulation. Use to simulate more granular flows and populate payloads with your own entity data. If omitted, Paddle simulates the default scenario flow and populates payloads with demo examples.
       x-tags:
         - "v1: Entities"
     simulation-standard-events:
@@ -28379,6 +29164,10 @@ components:
             - type: object
             - type: "null"
           description: Simulation payload.
+        config:
+          type:
+            - "null"
+          description: Configuration for scenario simulations. `null` for single events.
         last_run_at:
           description: RFC 3339 datetime string of when this simulation was last run. `null` until run. Set automatically by Paddle.
           oneOf:
@@ -28509,6 +29298,51 @@ components:
           description: Simulation run is completed. Paddle attempted to send events that are part of this simulation.
         canceled:
           description: Simulation run is canceled. Simulation run was canceled before all events were sent.
+    simulation_scenario_config:
+      title: SimulationScenarioConfig
+      description: Configuration for this scenario simulation. Determines which granular flow is simulated and what entities are used to populate webhook payloads with.
+      oneOf:
+        - type: object
+          properties:
+            subscription_cancellation:
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-subscription-cancellation"
+                - type: "null"
+            subscription_creation:
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-subscription-creation"
+                - type: "null"
+            subscription_pause:
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-subscription-pause"
+                - type: "null"
+            subscription_renewal:
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-subscription-renewal"
+                - type: "null"
+            subscription_resume:
+              oneOf:
+                - $ref: "#/components/schemas/simulation-config-subscription-resume"
+                - type: "null"
+        - type: "null"
+    simulation_scenario_create_config:
+      title: SimulationScenarioCreateConfig
+      description: Configuration for this scenario simulation. Use to simulate more granular flows and populate payloads with your own entity data.
+      discriminator:
+        propertyName: type
+        mapping:
+          subscription_cancellation: "#/components/schemas/simulation-config-subscription-cancellation-create"
+          subscription_creation: "#/components/schemas/simulation-config-subscription-creation-create"
+          subscription_renewal: "#/components/schemas/simulation-config-subscription-renewal-create"
+          subscription_pause: "#/components/schemas/simulation-config-subscription-pause-create"
+          subscription_resume: "#/components/schemas/simulation-config-subscription-resume-create"
+      oneOf:
+        - $ref: "#/components/schemas/simulation-config-subscription-cancellation-create"
+        - $ref: "#/components/schemas/simulation-config-subscription-creation-create"
+        - $ref: "#/components/schemas/simulation-config-subscription-pause-create"
+        - $ref: "#/components/schemas/simulation-config-subscription-renewal-create"
+        - $ref: "#/components/schemas/simulation-config-subscription-resume-create"
+        - type: "null"
     simulation_scenario_events_type:
       title: SimulationScenarioType
       description: Scenario for a simulation.
@@ -28960,6 +29794,8 @@ components:
       x-stoplight:
         id: bje4qpv7zcxrk
       type: object
+      x-tags:
+        - "v1: Entities"
       properties:
         status:
           $ref: "#/components/schemas/status-subscription"
@@ -29082,8 +29918,6 @@ components:
             - $ref: "#/components/schemas/import_meta"
             - type: "null"
           readOnly: true
-      x-tags:
-        - "v1: Entities"
     subscription-update:
       title: SubscriptionUpdate
       description: Represents a subscription entity when updating subscriptions.
@@ -31344,6 +32178,7 @@ components:
       additionalProperties: false
       properties:
         customer:
+          title: TransactionRevisionCustomer
           description: Revised customer information for this transaction.
           type: object
           properties:
@@ -31353,6 +32188,7 @@ components:
               examples:
                 - Sam Miller
         business:
+          title: TransactionRevisionBusiness
           description: Revised business information for this transaction.
           type: object
           properties:
@@ -31368,6 +32204,7 @@ components:
               examples:
                 - AB0123456789
         address:
+          title: TransactionRevisionAddress
           description: Revised address information for this transaction.
           type: object
           properties:
@@ -33819,7 +34656,7 @@ components:
           required:
             - items
     transaction_pricing_preview_response:
-      title: Price preview response
+      title: PricePreview
       x-stoplight:
         id: hdu0yqel6vc9x
       allOf:
