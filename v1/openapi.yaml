@@ -4846,7 +4846,7 @@ paths:
                         updated_at: "2024-04-12T06:51:26.153Z"
                         import_meta:
                           external_id: 59f25141-28c3-4447-b77c-dae5677537f0
-                          imported_from: billing_platform
+                          imported_from: paddle_classic
                       - id: add_01hv8gwdfkw5z6d1yy6pa3xyrz
                         status: active
                         customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
@@ -16687,7 +16687,6 @@ components:
         type: array
         items:
           type: string
-          default: active
           enum:
             - pending
             - ready
@@ -16970,7 +16969,7 @@ components:
           description: Sales Office
           import_meta:
             external_id: 59f25141-28c3-4447-b77c-dae5677537f0
-            imported_from: billing_platform
+            imported_from: paddle_classic
           postal_code: "85051"
           second_line: null
           country_code: US
@@ -17126,7 +17125,7 @@ components:
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
           import_meta:
             external_id: 1fc0727f-d3d5-43a0-907a-f3c002535ca0
-            imported_from: billing_platform
+            imported_from: paddle_classic
           company_number: "555829503785"
           tax_identifier: "555810433"
     business-updated:
@@ -17375,7 +17374,7 @@ components:
           custom_data: null
           import_meta:
             external_id: 4f626321-f3af-46f6-925e-d1cb315e89f0
-            imported_from: billing_platform
+            imported_from: paddle_classic
           marketing_consent: false
     customer-updated:
       summary: customer.updated
@@ -17444,7 +17443,7 @@ components:
           custom_data: null
           import_meta:
             external_id: fc1ba9bc-8ddb-11ee-b9d1-0242ac120002
-            imported_from: billing_platform
+            imported_from: paddle_classic
           expires_at: "2023-06-12T09:18:00Z"
           created_at: "2023-03-10T08:13:06.655Z"
           updated_at: "2023-06-05T09:18:46.63Z"
@@ -17623,7 +17622,7 @@ components:
             maximum: 1
           import_meta:
             external_id: fc1ba9bc-8ddb-11ee-b9d1-0242ac120002
-            imported_from: billing_platform
+            imported_from: paddle_classic
           created_at: "2024-01-01T13:31:34.071379Z"
           updated_at: "2024-01-01T13:31:34.071379Z"
     price-preview-standard:
@@ -17729,7 +17728,7 @@ components:
           status: active
           import_meta:
             external_id: 16a2c842-8ddc-11ee-b9d1-0242ac120002
-            imported_from: billing_platform
+            imported_from: paddle_classic
           created_at: "2024-01-28T10:54:46.181Z"
           updated_at: "2024-01-28T10:54:46.181Z"
     product-updated:
@@ -18375,7 +18374,7 @@ components:
           customer_id: ctm_01hv6y1jedq4p1n0yqn5ba3ky4
           import_meta:
             external_id: 018c166c-4a55-78bd-ac69-d058a45303fb
-            imported_from: billing_platform
+            imported_from: paddle_classic
           billing_cycle:
             interval: month
             frequency: 1
@@ -22168,6 +22167,7 @@ components:
           description: List of items on this adjustment. Required if `type` is not populated or set to `partial`.
           type: array
           minItems: 1
+          maxItems: 100
           items:
             allOf:
               - type: object
@@ -22211,6 +22211,9 @@ components:
           $ref: "#/components/schemas/adjustment_action"
         type:
           $ref: "#/components/schemas/adjustment_type"
+        tax_mode:
+          $ref: "#/components/schemas/adjustment_tax_mode"
+          writeOnly: true
         transaction_id:
           $ref: "#/components/schemas/transaction_id"
           description: |-
@@ -22255,6 +22258,7 @@ components:
             - array
             - "null"
           minItems: 1
+          maxItems: 100
           items:
             allOf:
               - type: object
@@ -22295,9 +22299,13 @@ components:
         transaction_id:
           $ref: "#/components/schemas/transaction_id"
           description: Paddle ID for this transaction entity that this adjustment relates to, prefixed with `txn_`.
+        tax_mode:
+          $ref: "#/components/schemas/adjustment_tax_mode"
+          writeOnly: true
         items:
           description: List of transaction items that this adjustment is for.
           type: array
+          maxItems: 100
           items:
             $ref: "#/components/schemas/adjustment_item"
         totals:
@@ -22421,6 +22429,7 @@ components:
                   description: List of items on this adjustment.
                   type: array
                   minItems: 1
+                  maxItems: 100
                   items:
                     allOf:
                       - type: object
@@ -22520,6 +22529,7 @@ components:
                   description: List of items on this adjustment.
                   type: array
                   minItems: 1
+                  maxItems: 100
                   items:
                     allOf:
                       - type: object
@@ -22738,6 +22748,25 @@ components:
         currency_code:
           $ref: "#/components/schemas/currency_code-payout"
           description: Three-letter ISO 4217 currency code used for the payout for this transaction. If your primary currency has changed, this reflects the primary currency at the time the transaction was billed.
+    adjustment_tax_mode:
+      title: Tax mode
+      type: string
+      description: |-
+        Whether the amounts to be adjusted are inclusive or exclusive of tax. If `internal`, adjusted amounts are considered to be inclusive of tax. If `external`, Paddle calculates the tax and adds it to the amounts provided.
+
+        Only valid for adjustments where the `type` is `partial`.
+
+        If omitted, defaults to `internal`.
+      writeOnly: true
+      enum:
+        - external
+        - internal
+      default: internal
+      x-enum-descriptions:
+        external:
+          description: Amounts are exclusive of tax.
+        internal:
+          description: Amounts are inclusive of tax.
     adjustment_totals:
       title: AdjustmentTotals
       description: Breakdown of the total for an adjustment.
@@ -22888,6 +22917,7 @@ components:
           default: active
         contacts:
           type: array
+          maxItems: 100
           description: List of contacts related to this business, typically used for sending invoices.
           uniqueItems: true
           items:
@@ -22956,6 +22986,7 @@ components:
           type:
             - array
             - "null"
+          maxItems: 100
           description: List of contacts related to this business, typically used for sending invoices.
           uniqueItems: true
           items:
@@ -23018,6 +23049,7 @@ components:
           type:
             - array
             - "null"
+          maxItems: 100
           description: List of contacts related to this business, typically used for sending invoices.
           uniqueItems: true
           items:
@@ -23086,6 +23118,7 @@ components:
                   default: active
                 contacts:
                   type: array
+                  maxItems: 100
                   description: List of contacts related to this business, typically used for sending invoices.
                   uniqueItems: true
                   items:
@@ -23169,6 +23202,7 @@ components:
                   default: active
                 contacts:
                   type: array
+                  maxItems: 100
                   description: List of contacts related to this business, typically used for sending invoices.
                   uniqueItems: true
                   items:
@@ -23252,6 +23286,7 @@ components:
                   default: active
                 contacts:
                   type: array
+                  maxItems: 100
                   description: List of contacts related to this business, typically used for sending invoices.
                   uniqueItems: true
                   items:
@@ -24881,7 +24916,7 @@ components:
           type: string
           description: Short description for this discount for your reference. Not shown to customers.
           minLength: 1
-          maxLength: 254
+          maxLength: 500
         enabled_for_checkout:
           type: boolean
           default: true
@@ -24998,14 +25033,14 @@ components:
           type: string
           description: Short description for this discount for your reference. Not shown to customers.
           minLength: 1
-          maxLength: 254
+          maxLength: 500
         enabled_for_checkout:
           type: boolean
           default: true
           description: Whether this discount can be redeemed by customers at checkout (`true`) or not (`false`).
         code:
           description: |-
-            Unique code that customers can use to redeem this discount at checkout. Use letters and numbers only, up to 16 characters. Not case-sensitive.
+            Unique code that customers can use to redeem this discount at checkout. Use letters and numbers only, up to 32 characters. Not case-sensitive.
 
             If omitted and `enabled_for_checkout` is `true`, Paddle generates a random 10-character code.
           oneOf:
@@ -25153,7 +25188,8 @@ components:
                 description:
                   type: string
                   description: Short description for this discount for your reference. Not shown to customers.
-                  maxLength: 254
+                  maxLength: 500
+                  minLength: 1
                 enabled_for_checkout:
                   type: boolean
                   default: true
@@ -25163,8 +25199,9 @@ components:
                   type:
                     - string
                     - "null"
-                  pattern: ^[a-zA-Z0-9]{1,16}$
-                  maxLength: 16
+                  pattern: ^[a-zA-Z0-9]{1,32}$
+                  minLength: 1
+                  maxLength: 32
                 type:
                   title: DiscountType
                   description: Type of discount. Determines how this discount impacts the checkout or transaction total.
@@ -25270,7 +25307,8 @@ components:
                 description:
                   type: string
                   description: Short description for this discount for your reference. Not shown to customers.
-                  maxLength: 254
+                  maxLength: 500
+                  minLength: 1
                 enabled_for_checkout:
                   type: boolean
                   default: true
@@ -25280,8 +25318,9 @@ components:
                   type:
                     - string
                     - "null"
-                  pattern: ^[a-zA-Z0-9]{1,16}$
-                  maxLength: 16
+                  pattern: ^[a-zA-Z0-9]{1,32}$
+                  minLength: 1
+                  maxLength: 32
                 type:
                   title: DiscountType
                   description: Type of discount. Determines how this discount impacts the checkout or transaction total.
@@ -25387,7 +25426,8 @@ components:
                 description:
                   type: string
                   description: Short description for this discount for your reference. Not shown to customers. Not case-sensitive.
-                  maxLength: 254
+                  maxLength: 500
+                  minLength: 1
                 enabled_for_checkout:
                   type: boolean
                   default: true
@@ -25397,8 +25437,9 @@ components:
                   type:
                     - string
                     - "null"
-                  pattern: ^[a-zA-Z0-9]{1,16}$
-                  maxLength: 16
+                  pattern: ^[a-zA-Z0-9]{1,32}$
+                  minLength: 1
+                  maxLength: 32
                 type:
                   title: DiscountType
                   description: Type of discount. Determines how this discount impacts the checkout or transaction total.
@@ -25479,11 +25520,12 @@ components:
         - "v1: Discount Notifications"
     discount_code:
       title: Discount code
-      description: Unique code that customers can use to apply this discount at checkout. Use letters and numbers only, up to 16 characters. Not case-sensitive.
+      description: Unique code that customers can use to apply this discount at checkout. Use letters and numbers only, up to 32 characters. Not case-sensitive.
       x-stoplight:
         id: 14zhj2lijux3v
       pattern: ^[a-zA-Z0-9]{1,32}$
       type: string
+      minLength: 1
       maxLength: 32
     discount_id:
       title: Discount ID
@@ -25564,7 +25606,8 @@ components:
       description: Email address for this entity.
       type: string
       format: email
-      maxLength: 1024
+      maxLength: 320
+      minLength: 1
       examples:
         - test@paddle.com
     empty_string:
@@ -26217,7 +26260,7 @@ components:
           description: Short description for this notification destination. Shown in the Paddle dashboard.
           type: string
           minLength: 1
-          maxLength: 256
+          maxLength: 500
         type:
           title: NotificationSettingType
           description: Where notifications should be sent for this destination.
@@ -26232,6 +26275,8 @@ components:
               description: Deliver to a webhook endpoint.
         destination:
           type: string
+          maxLength: 2048
+          minLength: 1
           description: Webhook endpoint URL or email address.
         active:
           type: boolean
@@ -26285,7 +26330,7 @@ components:
           description: Short description for this notification destination. Shown in the Paddle Dashboard.
           type: string
           minLength: 1
-          maxLength: 256
+          maxLength: 500
         type:
           title: NotificationSettingType
           description: Where notifications should be sent for this destination.
@@ -26300,6 +26345,8 @@ components:
               description: Deliver to a webhook endpoint.
         destination:
           type: string
+          maxLength: 2048
+          minLength: 1
           description: Webhook endpoint URL or email address.
         active:
           type: boolean
@@ -26357,9 +26404,11 @@ components:
           description: Short description for this notification destination. Shown in the Paddle Dashboard.
           type: string
           minLength: 1
-          maxLength: 256
+          maxLength: 500
         destination:
           type: string
+          maxLength: 2048
+          minLength: 1
           description: Webhook endpoint URL or email address.
         active:
           type: boolean
@@ -26503,7 +26552,6 @@ components:
         - per_page
         - next
         - has_more
-        - estimated_total
     payment_method.deleted:
       title: payment_method.deleted
       description: Occurs when a payment method is deleted.
@@ -26794,7 +26842,7 @@ components:
         description:
           type: string
           minLength: 2
-          maxLength: 200
+          maxLength: 500
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         type:
           $ref: "#/components/schemas/catalog-type"
@@ -26818,6 +26866,7 @@ components:
         unit_price_overrides:
           description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
           type: array
+          maxItems: 250
           items:
             $ref: "#/components/schemas/unit_price_override"
         quantity:
@@ -26858,19 +26907,14 @@ components:
           readOnly: true
         description:
           minLength: 2
-          maxLength: 200
+          maxLength: 500
           type: string
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         type:
           $ref: "#/components/schemas/catalog-type"
           description: Type of item. Standard items are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
         name:
-          type:
-            - string
-            - "null"
-          minLength: 1
-          maxLength: 50
-          description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+          $ref: "#/components/schemas/price_name"
         product_id:
           $ref: "#/components/schemas/product_id"
           description: Paddle ID for the product that this price is for, prefixed with `pro_`.
@@ -26895,6 +26939,7 @@ components:
         unit_price_overrides:
           description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
           type: array
+          maxItems: 250
           items:
             $ref: "#/components/schemas/unit_price_override"
         quantity:
@@ -26955,7 +27000,7 @@ components:
         description:
           type: string
           minLength: 2
-          maxLength: 200
+          maxLength: 500
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         type:
           $ref: "#/components/schemas/catalog-type"
@@ -26979,6 +27024,7 @@ components:
         unit_price_overrides:
           description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
           type: array
+          maxItems: 250
           items:
             $ref: "#/components/schemas/unit_price_override"
         quantity:
@@ -27015,17 +27061,12 @@ components:
         description:
           type: string
           minLength: 2
-          maxLength: 200
+          maxLength: 500
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         type:
           $ref: "#/components/schemas/catalog-type"
         name:
-          type:
-            - string
-            - "null"
-          minLength: 1
-          maxLength: 50
-          description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
+          $ref: "#/components/schemas/price_name"
         billing_cycle:
           description: How often this price should be charged. `null` if price is non-recurring (one-time).
           oneOf:
@@ -27044,6 +27085,7 @@ components:
         unit_price_overrides:
           description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
           type: array
+          maxItems: 250
           items:
             $ref: "#/components/schemas/unit_price_override"
         quantity:
@@ -27087,7 +27129,7 @@ components:
                 description:
                   type: string
                   minLength: 2
-                  maxLength: 200
+                  maxLength: 500
                   description: Internal description for this price, not shown to customers. Typically notes for your team.
                 type:
                   oneOf:
@@ -27098,7 +27140,7 @@ components:
                     - string
                     - "null"
                   minLength: 1
-                  maxLength: 50
+                  maxLength: 150
                   description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
                 billing_cycle:
                   description: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -27118,6 +27160,7 @@ components:
                 unit_price_overrides:
                   description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
                   type: array
+                  maxItems: 250
                   items:
                     $ref: "#/components/schemas/unit_price_override"
                 quantity:
@@ -27181,7 +27224,7 @@ components:
                 description:
                   type: string
                   minLength: 2
-                  maxLength: 200
+                  maxLength: 500
                   description: Internal description for this price, not shown to customers. Typically notes for your team.
                 type:
                   oneOf:
@@ -27192,7 +27235,7 @@ components:
                     - string
                     - "null"
                   minLength: 1
-                  maxLength: 50
+                  maxLength: 150
                   description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
                 billing_cycle:
                   description: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -27212,6 +27255,7 @@ components:
                 unit_price_overrides:
                   description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
                   type: array
+                  maxItems: 250
                   items:
                     $ref: "#/components/schemas/unit_price_override"
                 quantity:
@@ -27275,7 +27319,7 @@ components:
                 description:
                   type: string
                   minLength: 2
-                  maxLength: 200
+                  maxLength: 500
                   description: Internal description for this price, not shown to customers. Typically notes for your team.
                 type:
                   oneOf:
@@ -27286,7 +27330,7 @@ components:
                     - string
                     - "null"
                   minLength: 1
-                  maxLength: 50
+                  maxLength: 150
                   description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
                 billing_cycle:
                   description: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -27306,6 +27350,7 @@ components:
                 unit_price_overrides:
                   description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
                   type: array
+                  maxItems: 250
                   items:
                     $ref: "#/components/schemas/unit_price_override"
                 quantity:
@@ -27355,7 +27400,7 @@ components:
         - string
         - "null"
       minLength: 1
-      maxLength: 50
+      maxLength: 150
       description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
     price_quantity:
       title: price_quantity
@@ -28065,6 +28110,7 @@ components:
       title: AdjustmentsReportFilters
       description: List of filters applied to this report.
       type: array
+      maxItems: 10
       items:
         type: object
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -28101,6 +28147,7 @@ components:
       title: DiscountsReportFilters
       description: List of filters applied to this report.
       type: array
+      maxItems: 10
       items:
         type: object
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -28134,6 +28181,7 @@ components:
       title: ProductPricesReportFilters
       description: List of filters applied to this report.
       type: array
+      maxItems: 10
       items:
         type: object
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `product_updated_at` and `price_updated_at` are greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -28176,6 +28224,7 @@ components:
       title: TransactionsReportFilters
       description: List of filters applied to this report.
       type: array
+      maxItems: 10
       items:
         type: object
         description: Filter criteria for this report. If omitted when creating, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
@@ -29714,6 +29763,8 @@ components:
           readOnly: true
           description: List of items on this subscription. Only recurring items are returned.
           type: array
+          maxItems: 100
+          minItems: 1
           items:
             $ref: "#/components/schemas/item-subscription"
         custom_data:
@@ -29751,6 +29802,8 @@ components:
 
             Non-catalog items can be for existing products, or you can pass a product object as part of your price to charge for a non-catalog product.
           type: array
+          maxItems: 100
+          minItems: 1
           items:
             oneOf:
               - title: Catalog item
@@ -29884,6 +29937,8 @@ components:
           readOnly: true
           description: List of items on this subscription. Only recurring items are returned.
           type: array
+          maxItems: 100
+          minItems: 1
           items:
             $ref: "#/components/schemas/item-subscription"
         custom_data:
@@ -29973,6 +30028,7 @@ components:
           description: List of items on this subscription. Only recurring items may be added. Send the complete list of items that should be on this subscription, including existing items to retain.
           type: array
           minItems: 1
+          maxItems: 100
           items:
             oneOf:
               - title: Catalog item
@@ -30096,6 +30152,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30213,6 +30271,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30333,6 +30393,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30448,6 +30510,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30561,6 +30625,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30678,6 +30744,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30793,6 +30861,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -30906,6 +30976,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -31019,6 +31091,8 @@ components:
                   readOnly: true
                   description: List of items on this subscription. Only recurring items are returned.
                   type: array
+                  maxItems: 100
+                  minItems: 1
                   items:
                     $ref: "#/components/schemas/item-subscription"
                 custom_data:
@@ -31698,6 +31772,8 @@ components:
               type:
                 - string
                 - "null"
+              maxLength: 2048
+              minLength: 1
               description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
         created_at:
           $ref: "#/components/schemas/created_at"
@@ -31847,6 +31923,8 @@ components:
               type:
                 - string
                 - "null"
+              maxLength: 2048
+              minLength: 1
               description: |-
                 Checkout URL to use for the payment link for this transaction. Pass the URL for an approved domain, or omit to use your default payment URL.
 
@@ -32096,7 +32174,7 @@ components:
       properties:
         description:
           minLength: 2
-          maxLength: 200
+          maxLength: 500
           type: string
           description: Internal description for this price, not shown to customers. Typically notes for your team.
         name:
@@ -32104,7 +32182,7 @@ components:
             - string
             - "null"
           minLength: 1
-          maxLength: 50
+          maxLength: 150
           description: Name of this price, shown to customers at checkout and on invoices. Typically describes how often the related product bills.
         billing_cycle:
           description: How often this price should be charged. `null` if price is non-recurring (one-time).
@@ -32124,6 +32202,7 @@ components:
         unit_price_overrides:
           description: List of unit price overrides. Use to override the base price with a custom price and currency for a country or group of countries.
           type: array
+          maxItems: 250
           items:
             $ref: "#/components/schemas/unit_price_override"
         quantity:
@@ -32400,6 +32479,8 @@ components:
               type:
                 - string
                 - "null"
+              maxLength: 2048
+              minLength: 1
               description: |-
                 Checkout URL to use for the payment link for this transaction. Pass the URL for an approved domain, or `null` to set to your default payment URL.
 
@@ -32549,6 +32630,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -32696,6 +32779,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -32846,6 +32931,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -32996,6 +33083,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -33145,6 +33234,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -33288,6 +33379,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -33439,6 +33532,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -33585,6 +33680,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -33723,6 +33820,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
@@ -33868,6 +33967,8 @@ components:
                       type:
                         - string
                         - "null"
+                      maxLength: 2048
+                      minLength: 1
                       description: Paddle Checkout URL for this transaction, composed of the URL passed in the request or your default payment URL + `?_ptxn=` and the Paddle ID for this transaction.
                 created_at:
                   $ref: "#/components/schemas/created_at"
