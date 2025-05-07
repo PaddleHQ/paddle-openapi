@@ -126,6 +126,8 @@ paths:
         url: https://developer.paddle.com/api-reference/products/list-products
       tags:
         - Products
+      x-permissions:
+        - product.read
       responses:
         "200":
           description: OK
@@ -281,6 +283,8 @@ paths:
         url: https://developer.paddle.com/api-reference/products/create-product
       tags:
         - Products
+      x-permissions:
+        - product.write
       responses:
         "201":
           description: Created
@@ -347,6 +351,8 @@ paths:
       - $ref: "#/components/parameters/product_id_path"
     get:
       summary: Get a product
+      x-permissions:
+        - product.read
       externalDocs:
         description: Get a product
         url: https://developer.paddle.com/api-reference/products/get-product
@@ -415,6 +421,8 @@ paths:
         description: Update a product
         url: https://developer.paddle.com/api-reference/products/update-product
       operationId: update-product
+      x-permissions:
+        - product.write
       responses:
         "200":
           description: OK
@@ -485,6 +493,8 @@ paths:
         url: https://developer.paddle.com/api-reference/prices/list-prices
       tags:
         - Prices
+      x-permissions:
+        - price.read
       responses:
         "200":
           description: OK
@@ -783,6 +793,8 @@ paths:
       externalDocs:
         description: Create a price
         url: https://developer.paddle.com/api-reference/prices/create-price
+      x-permissions:
+        - price.write
       responses:
         "201":
           description: Created
@@ -859,6 +871,8 @@ paths:
         url: https://developer.paddle.com/api-reference/prices/get-price
       tags:
         - Prices
+      x-permissions:
+        - price.read
       responses:
         "200":
           description: OK
@@ -918,6 +932,8 @@ paths:
         description: Update a price
         url: https://developer.paddle.com/api-reference/prices/update-price
       operationId: update-price
+      x-permissions:
+        - price.write
       responses:
         "200":
           description: OK
@@ -1000,6 +1016,8 @@ paths:
         url: https://developer.paddle.com/api-reference/transactions/list-transactions
       tags:
         - Transactions
+      x-permissions:
+        - transaction.read
       responses:
         "200":
           description: OK
@@ -2403,6 +2421,8 @@ paths:
         description: Create a transaction
         url: https://developer.paddle.com/api-reference/transactions/create-transaction
       operationId: create-transaction
+      x-permissions:
+        - transaction.write
       responses:
         "201":
           description: Created
@@ -2683,6 +2703,8 @@ paths:
         description: Preview prices
         url: https://developer.paddle.com/api-reference/pricing-preview/preview-prices
       operationId: preview-prices
+      x-permissions:
+        - transaction.read
       responses:
         "200":
           description: OK
@@ -2922,6 +2944,8 @@ paths:
         description: Preview a transaction
         url: https://developer.paddle.com/api-reference/transactions/preview-transaction
       operationId: preview-transaction-create
+      x-permissions:
+        - transaction.read
       responses:
         "200":
           description: OK
@@ -3189,6 +3213,8 @@ paths:
         url: https://developer.paddle.com/api-reference/transactions/get-transaction
       tags:
         - Transactions
+      x-permissions:
+        - transaction.read
       responses:
         "200":
           description: OK
@@ -3492,6 +3518,8 @@ paths:
         description: Update a transaction
         url: https://developer.paddle.com/api-reference/transactions/update-transaction
       operationId: update-transaction
+      x-permissions:
+        - transaction.write
       responses:
         "200":
           description: OK
@@ -3767,6 +3795,8 @@ paths:
     post:
       summary: Revise customer information on a billed or completed transaction
       operationId: revise-transaction
+      x-permissions:
+        - transaction.write
       responses:
         "200":
           description: OK
@@ -4094,6 +4124,8 @@ paths:
         url: https://developer.paddle.com/api-reference/adjustments/create-adjustment
       tags:
         - Adjustments
+      x-permissions:
+        - adjustment.write
       responses:
         "201":
           description: Created
@@ -4184,6 +4216,8 @@ paths:
         url: https://developer.paddle.com/api-reference/adjustments/list-adjustments
       tags:
         - Adjustments
+      x-permissions:
+        - adjustment.read
       operationId: list-adjustments
       responses:
         "200":
@@ -4457,6 +4491,8 @@ paths:
         id: 80e7b984830b7
       tags:
         - Adjustments
+      x-permissions:
+        - adjustment.read
       parameters:
         - $ref: "#/components/parameters/disposition_query"
       responses:
@@ -4503,6 +4539,8 @@ paths:
       summary: List credit balances for a customer
       tags:
         - Customers
+      x-permissions:
+        - customer.read
       operationId: list-credit-balances
       responses:
         "200":
@@ -4560,6 +4598,8 @@ paths:
       externalDocs:
         description: List customers
         url: https://developer.paddle.com/api-reference/customers/list-customers
+      x-permissions:
+        - customer.read
       responses:
         "200":
           description: OK
@@ -4649,6 +4689,8 @@ paths:
       summary: Create a customer
       tags:
         - Customers
+      x-permissions:
+        - customer.write
       externalDocs:
         description: Create a customer
         url: https://developer.paddle.com/api-reference/customers/create-customer
@@ -4707,6 +4749,8 @@ paths:
       summary: Get a customer
       tags:
         - Customers
+      x-permissions:
+        - customer.read
       externalDocs:
         description: Get a customer
         url: https://developer.paddle.com/api-reference/customers/get-customer
@@ -4751,6 +4795,8 @@ paths:
       summary: Update a customer
       tags:
         - Customers
+      x-permissions:
+        - customer.write
       externalDocs:
         description: Update a customer
         url: https://developer.paddle.com/api-reference/customers/update-customer
@@ -4809,6 +4855,8 @@ paths:
       externalDocs:
         description: List addresses for a customer
         url: https://developer.paddle.com/api-reference/addresses/list-addresses
+      x-permissions:
+        - address.read
       responses:
         "200":
           description: OK
@@ -4902,6 +4950,8 @@ paths:
         By default, Paddle returns addresses that are `active`. Use the `status` query parameter to return addresses that are archived.
     post:
       summary: Create an address for a customer
+      x-permissions:
+        - address.write
       externalDocs:
         description: Create an address for a customer
         url: https://developer.paddle.com/api-reference/addresses/create-address
@@ -4969,6 +5019,8 @@ paths:
       externalDocs:
         description: Get an address for a customer
         url: https://developer.paddle.com/api-reference/addresses/get-address
+      x-permissions:
+        - address.read
       responses:
         "200":
           description: OK
@@ -5017,6 +5069,8 @@ paths:
         description: Update an address for a customer
         url: https://developer.paddle.com/api-reference/addresses/update-adddress
       operationId: update-address
+      x-permissions:
+        - address.write
       responses:
         "200":
           description: OK
@@ -5075,6 +5129,8 @@ paths:
       - $ref: "#/components/parameters/customer_id_path"
     post:
       summary: Generate an authentication token for a customer
+      x-permissions:
+        - customer_auth_token.write
       responses:
         "200":
           description: OK
@@ -5111,6 +5167,8 @@ paths:
       - $ref: "#/components/parameters/customer_id_path"
     get:
       summary: List businesses for a customer
+      x-permissions:
+        - business.read
       externalDocs:
         description: List businesses for a customer
         url: https://developer.paddle.com/api-reference/businesses/list-businesses
@@ -5197,6 +5255,8 @@ paths:
         description: Create a business for a customer
         url: https://developer.paddle.com/api-reference/businesses/create-business
       operationId: create-business
+      x-permissions:
+        - business.write
       responses:
         "201":
           description: Created
@@ -5257,6 +5317,8 @@ paths:
       externalDocs:
         description: Get a business for a customer
         url: https://developer.paddle.com/api-reference/businesses/get-business
+      x-permissions:
+        - business.read
       responses:
         "200":
           description: OK
@@ -5309,6 +5371,8 @@ paths:
         description: Update a business for a customer
         url: https://developer.paddle.com/api-reference/businesses/update-business
       operationId: update-business
+      x-permissions:
+        - business.write
       responses:
         "200":
           description: OK
@@ -5370,6 +5434,8 @@ paths:
       - $ref: "#/components/parameters/customer_id_path"
     get:
       summary: List payment methods for a customer
+      x-permissions:
+        - payment_method.read
       description: |-
         Returns a paginated list of payment methods that a customer has saved.  Use the query parameters to page through results.
 
@@ -5438,6 +5504,8 @@ paths:
       - $ref: "#/components/parameters/payment_method_id_path"
     get:
       summary: Get a payment method for a customer
+      x-permissions:
+        - payment_method.read
       responses:
         "200":
           description: OK
@@ -5483,6 +5551,8 @@ paths:
     delete:
       summary: Delete a payment method for a customer
       operationId: delete-customer-payment-method
+      x-permissions:
+        - payment_method.write
       responses:
         "204":
           description: No Content
@@ -5504,6 +5574,8 @@ paths:
       - $ref: "#/components/parameters/customer_id_path"
     post:
       summary: Create a customer portal session
+      x-permissions:
+        - customer_portal_session.write
       requestBody:
         content:
           application/json:
@@ -5548,9 +5620,22 @@ paths:
           $ref: "#/components/responses/error"
       operationId: create-customer-portal-session
       description: |-
-        Creates a customer portal session for a customer. You can use this to generate authenticated links for a customer
-        so that they're automatically signed in to the portal. Typically used when linking to the customer portal from
-        your app where customers are already authenticated.
+        Creates a customer portal session for a customer.
+
+        The [customer portal](https://developer.paddle.com/concepts/customer-portal) is a secure, Paddle-hosted site that allows
+        customers to manage their own subscriptions, payments, and account information without you having to build custom billing screens.
+
+        Customers can:
+
+        * View transaction history
+        * Download invoices
+        * Update payment methods
+        * Manage their subscriptions including making changes or cancellations
+        * Revise details on completed transactions
+
+        You can create a customer portal session to generate authenticated links for a customer
+        so that they're automatically signed in to the portal. It's typically used when linking to
+        the customer portal from your app where customers are already authenticated.
 
         You can include an array of `subscription_ids` to generate authenticated portal links that let customers make
         changes to their subscriptions. You can use these links as part of subscription management workflows rather than
@@ -5570,6 +5655,8 @@ paths:
         url: https://developer.paddle.com/api-reference/notification-settings/list-notification-settings
       tags:
         - Notification settings
+      x-permissions:
+        - notification_setting.read
       parameters:
         - $ref: "#/components/parameters/after_query"
         - $ref: "#/components/parameters/per_page_notification_settings_query"
@@ -5700,6 +5787,8 @@ paths:
       externalDocs:
         description: Create a notification setting
         url: https://developer.paddle.com/api-reference/notification-settings/create-notification-setting
+      x-permissions:
+        - notification_setting.write
       responses:
         "201":
           description: Created
@@ -5833,6 +5922,8 @@ paths:
       externalDocs:
         description: Get a notification setting
         url: https://developer.paddle.com/api-reference/notification-settings/get-notification-setting
+      x-permissions:
+        - notification_setting.read
       tags:
         - Notification settings
       responses:
@@ -5952,6 +6043,8 @@ paths:
         description: Update a notification setting
         url: https://developer.paddle.com/api-reference/notification-settings/update-notification-setting
       operationId: update-notification-setting
+      x-permissions:
+        - notification_setting.write
       responses:
         "200":
           description: OK
@@ -6085,6 +6178,8 @@ paths:
         description: Delete a notification setting
         url: https://developer.paddle.com/api-reference/notification-settings/delete-notification-setting
       operationId: delete-notification-setting
+      x-permissions:
+        - notification_setting.write
       responses:
         "204":
           description: No Content
@@ -6109,6 +6204,7 @@ paths:
         url: https://developer.paddle.com/api-reference/event-types/list-event-types
       tags:
         - Event types
+      x-permissions: []
       responses:
         "200":
           description: OK
@@ -6358,6 +6454,8 @@ paths:
         url: https://developer.paddle.com/api-reference/events/list-events
       tags:
         - Events
+      x-permissions:
+        - notification.read
       responses:
         "200":
           description: OK
@@ -8468,6 +8566,8 @@ paths:
         url: https://developer.paddle.com/api-reference/notifications/list-notifications
       tags:
         - Notifications
+      x-permissions:
+        - notification.read
       responses:
         "200":
           description: OK
@@ -8983,6 +9083,8 @@ paths:
         url: https://developer.paddle.com/api-reference/notifications/get-notification
       tags:
         - Notifications
+      x-permissions:
+        - notification.read
       responses:
         "200":
           description: OK
@@ -9053,6 +9155,8 @@ paths:
         url: https://developer.paddle.com/api-reference/notification-logs/list-notification-logs
       tags:
         - Notification logs
+      x-permissions:
+        - notification.read
       responses:
         "200":
           description: OK
@@ -9152,6 +9256,8 @@ paths:
         description: Replay a notification
         url: https://developer.paddle.com/api-reference/notifications/replay-notification
       operationId: replay-notification
+      x-permissions:
+        - notification.write
       responses:
         "202":
           description: Accepted
@@ -9195,6 +9301,7 @@ paths:
         url: https://developer.paddle.com/api-reference/simulation-types/list-simulation-types
       tags:
         - Simulation types
+      x-permissions: []
       responses:
         "200":
           description: OK
@@ -9586,6 +9693,8 @@ paths:
         url: https://developer.paddle.com/api-reference/simulations/list-simulations
       tags:
         - Simulations
+      x-permissions:
+        - notification_simulation.read
       responses:
         "200":
           description: OK
@@ -9654,6 +9763,8 @@ paths:
       externalDocs:
         description: Create a simulation
         url: https://developer.paddle.com/api-reference/simulations/create-simulation
+      x-permissions:
+        - notification_simulation.write
       responses:
         "201":
           description: Created
@@ -9818,6 +9929,17 @@ paths:
       description: |-
         Creates a new simulation for a notification setting (notification destination).
 
+        For scenario simulations, you can optionally include a `config.entities` object in the request body with entity IDs to populate
+        simulated webhook payloads with real data. The API key making the request needs read permissions:
+
+        * For the entities you provided, or the request fails.
+        * For related entities which aren't nested in the entities you provided, or static examples will be used instead.
+
+        For example, when creating a subscription renewal scenario simulation with an API key that has a `subscription.read` permission but not a `transaction.read` permission,
+        the request succeeds and the subscription data will be used in simulated payloads, but the related transaction data won't be used in payloads and falls back to a static example.
+
+        If you don't provide a `config.entities` object, simulated webhook payloads are populated with static examples.
+
         If successful, your response includes a copy of the new simulation entity.
   /simulations/{simulation_id}:
     parameters:
@@ -9829,6 +9951,8 @@ paths:
         url: https://developer.paddle.com/api-reference/simulations/get-simulation
       tags:
         - Simulations
+      x-permissions:
+        - notification_simulation.read
       responses:
         "200":
           description: OK
@@ -9874,6 +9998,8 @@ paths:
       externalDocs:
         description: Update a simulation
         url: https://developer.paddle.com/api-reference/simulations/update-simulation
+      x-permissions:
+        - notification_simulation.write
       responses:
         "200":
           description: OK
@@ -9955,6 +10081,17 @@ paths:
       description: |-
         Updates a simulation using its ID.
 
+        For scenario simulations, you can optionally include a `config.entities` object in the request body with entity IDs to populate
+        simulated webhook payloads with real data. The API key making the request needs read permissions:
+
+        * For the entities you provided, or the request fails.
+        * For related entities which aren't nested in the entities you provided, or static examples will be used instead.
+
+        For example, when updating a subscription renewal scenario simulation with an API key that has a `subscription.read` permission but not a `transaction.read` permission,
+        the request succeeds and the subscription data will be used in simulated payloads, but the related transaction data won't be used in payloads and falls back to a static example.
+
+        If you don't provide a `config.entities` object, simulated webhook payloads are populated with static examples.
+
         If successful, your response includes a copy of the updated simulation entity.
   /simulations/{simulation_id}/runs:
     parameters:
@@ -9966,6 +10103,8 @@ paths:
         url: https://developer.paddle.com/api-reference/simulation-runs/list-simulation-runs
       tags:
         - Simulation runs
+      x-permissions:
+        - notification_simulation.read
       responses:
         "200":
           description: OK
@@ -10024,6 +10163,8 @@ paths:
       externalDocs:
         description: Create a run for a simulation
         url: https://developer.paddle.com/api-reference/simulation-runs/create-simulation-run
+      x-permissions:
+        - notification_simulation.write
       responses:
         "201":
           description: Created
@@ -10070,6 +10211,8 @@ paths:
         url: https://developer.paddle.com/api-reference/simulation-runs/get-simulation-run
       tags:
         - Simulation runs
+      x-permissions:
+        - notification_simulation.read
       responses:
         "200":
           description: OK
@@ -10117,6 +10260,8 @@ paths:
         url: https://developer.paddle.com/api-reference/simulation-events/list-simulation-events
       tags:
         - Simulation run events
+      x-permissions:
+        - notification_simulation.read
       responses:
         "200":
           description: OK
@@ -10213,6 +10358,8 @@ paths:
         url: https://developer.paddle.com/api-reference/simulation-events/get-simulation-event
       tags:
         - Simulation run events
+      x-permissions:
+        - notification_simulation.read
       responses:
         "200":
           description: OK
@@ -10299,6 +10446,8 @@ paths:
       externalDocs:
         description: Replay an event for a simulation run
         url: https://developer.paddle.com/api-reference/simulation-events/replay-simulation-run-event
+      x-permissions:
+        - notification_simulation.write
       responses:
         "202":
           description: Accepted
@@ -10359,6 +10508,7 @@ paths:
       security: []
       tags:
         - IP addresses
+      x-permissions: []
       responses:
         "200":
           description: OK
@@ -10410,6 +10560,8 @@ paths:
         url: https://developer.paddle.com/api-reference/transactions/get-invoice-pdf
       tags:
         - Transactions
+      x-permissions:
+        - transaction.read
       responses:
         "200":
           description: OK
@@ -10468,6 +10620,8 @@ paths:
       tags:
         - Discounts
       operationId: list-discounts
+      x-permissions:
+        - discount.read
       description: |-
         Returns a paginated list of discounts. Use the query parameters to page through results.
 
@@ -10500,6 +10654,7 @@ paths:
                         enabled_for_checkout: true
                         code: 10OFFPRO
                         type: flat_per_seat
+                        mode: standard
                         amount: "1000"
                         currency_code: USD
                         recur: false
@@ -10519,6 +10674,7 @@ paths:
                         enabled_for_checkout: true
                         code: 98XFAUR91R
                         type: percentage
+                        mode: standard
                         amount: "10"
                         currency_code: null
                         recur: true
@@ -10537,6 +10693,7 @@ paths:
                         enabled_for_checkout: true
                         code: BF2024
                         type: percentage
+                        mode: standard
                         amount: "10"
                         currency_code: USD
                         recur: false
@@ -10555,6 +10712,7 @@ paths:
                         enabled_for_checkout: false
                         code: null
                         type: percentage
+                        mode: standard
                         amount: "10"
                         currency_code: null
                         recur: true
@@ -10588,12 +10746,15 @@ paths:
             Valid fields for ordering: `created_at` and `id`.
         - $ref: "#/components/parameters/per_page_query"
         - $ref: "#/components/parameters/status_discount_query"
+        - $ref: "#/components/parameters/mode_discount_query"
     post:
       summary: Create a discount
       externalDocs:
         description: Create a discount
         url: https://developer.paddle.com/api-reference/discounts/create-discount
       operationId: create-discount
+      x-permissions:
+        - discount.write
       responses:
         "201":
           description: OK
@@ -10620,6 +10781,7 @@ paths:
                       enabled_for_checkout: true
                       code: SEWRGPB9WY
                       type: percentage
+                      mode: standard
                       amount: "10"
                       currency_code: null
                       recur: true
@@ -10660,6 +10822,8 @@ paths:
         url: https://developer.paddle.com/api-reference/discounts/get-discount
       tags:
         - Discounts
+      x-permissions:
+        - discount.read
       responses:
         "200":
           description: OK
@@ -10686,6 +10850,7 @@ paths:
                       enabled_for_checkout: true
                       code: SPRINGSALE
                       type: percentage
+                      mode: standard
                       amount: "10"
                       currency_code: null
                       recur: true
@@ -10712,6 +10877,8 @@ paths:
       externalDocs:
         description: Update a discount
         url: https://developer.paddle.com/api-reference/discounts/update-discount
+      x-permissions:
+        - discount.write
       requestBody:
         content:
           application/json:
@@ -10746,6 +10913,7 @@ paths:
                       enabled_for_checkout: true
                       code: SPRINGSALE
                       type: percentage
+                      mode: standard
                       amount: "10"
                       currency_code: null
                       recur: true
@@ -10770,6 +10938,8 @@ paths:
         Updates a discount using its ID.
 
         If successful, your response includes a copy of the updated discount entity.
+
+        To update a checkout recovery discount, configure your checkout recovery settings in the dashboard.
   /subscriptions/{subscription_id}:
     parameters:
       - $ref: "#/components/parameters/subscription_id_path"
@@ -10780,6 +10950,8 @@ paths:
         url: https://developer.paddle.com/api-reference/subscriptions/get-subscription
       tags:
         - Subscriptions
+      x-permissions:
+        - subscription.read
       responses:
         "200":
           description: OK
@@ -10943,6 +11115,8 @@ paths:
         description: Update a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/update-subscription
       operationId: update-subscription
+      x-permissions:
+        - subscription.write
       description: |-
         Updates a subscription using its ID.
 
@@ -11164,6 +11338,8 @@ paths:
         url: https://developer.paddle.com/api-reference/subscriptions/list-subscriptions
       tags:
         - Subscriptions
+      x-permissions:
+        - subscription.read
       responses:
         "200":
           description: OK
@@ -11863,6 +12039,8 @@ paths:
         description: Cancel a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/cancel-subscription
       operationId: cancel-subscription
+      x-permissions:
+        - subscription.write
       responses:
         "200":
           description: OK
@@ -12085,6 +12263,8 @@ paths:
         description: Pause a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/pause-subscription
       operationId: pause-subscription
+      x-permissions:
+        - subscription.write
       responses:
         "200":
           description: OK
@@ -12320,6 +12500,8 @@ paths:
         description: Resume a paused subscription
         url: https://developer.paddle.com/api-reference/subscriptions/resume-subscription
       operationId: resume-subscription
+      x-permissions:
+        - subscription.write
       responses:
         "200":
           description: OK
@@ -12538,10 +12720,14 @@ paths:
               Standard:
                 $ref: "#/components/examples/resume-subscription-standard"
   /subscriptions/{subscription_id}/activate:
+    x-permissions:
+      - subscription.write
     parameters:
       - $ref: "#/components/parameters/subscription_id_path"
     post:
       summary: Activate a trialing subscription
+      x-permissions:
+        - subscription.write
       operationId: activate-subscription
       responses:
         "200":
@@ -12685,6 +12871,8 @@ paths:
         description: Get a transaction to update payment method
         url: https://developer.paddle.com/api-reference/subscriptions/update-payment-method
       operationId: get-subscription-update-payment-method-transaction
+      x-permissions:
+        - transaction.write
       description: |-
         Returns a transaction that you can pass to a checkout to let customers update their payment details. Only for subscriptions where `collection_mode` is `automatic`.
 
@@ -12694,6 +12882,8 @@ paths:
         * Where a subscription is `active`, it creates a new zero amount transaction for the items on a subscription.
 
         You can use the returned `checkout.url`, or pass the returned transaction ID to Paddle.js to open a checkout to present customers with a way of updating their payment details.
+
+        The `customer`, `address`, `business`, `discount`, `adjustments` and `adjustments_totals` properties are only returned in the response if the API key has read permissions for those related entities.
       responses:
         "200":
           description: OK
@@ -12709,21 +12899,29 @@ paths:
                         properties:
                           customer:
                             $ref: "#/components/schemas/customer"
-                            description: Related customer for this transaction.
+                            description: Related customer for this transaction. Only returned if the API key has a Customers (Read) permission.
                           address:
                             $ref: "#/components/schemas/address"
-                            description: Related address for this transaction.
+                            description: Related address for this transaction. Only returned if the API key has an Addresses (Read) permission.
                           business:
                             $ref: "#/components/schemas/business"
-                            description: Only returned if a business exists for this transaction.
+                            description: Related business for this transaction. Only returned if a business exists for this transaction and the API key has a Businesses (Read) permission.
                           discount:
                             $ref: "#/components/schemas/discount"
-                            description: Only returned if a discount exists for this transaction.
+                            description: Related discount for this transaction. Only returned if a discount exists for this transaction and the API key has a Discounts (Read) permission.
                           adjustments:
                             type: array
-                            description: Only returned if adjustments exist for this transaction.
+                            description: Related adjustments for this transaction. Only returned if adjustments exist for this transaction and the API key has an Adjustments (Read) permission.
                             items:
                               $ref: "#/components/schemas/adjustment"
+                          adjustments_totals:
+                            $ref: "#/components/schemas/transaction_adjustments_totals_include"
+                            description: Object containing totals for all adjustments on this transaction. Only returned if the API key has an Adjustments (Read) permission.
+                          available_payment_methods:
+                            type: array
+                            description: List of payment methods available for this transaction.
+                            items:
+                              $ref: "#/components/schemas/payment_method_type"
                   meta:
                     $ref: "#/components/schemas/meta"
                 required:
@@ -12735,95 +12933,40 @@ paths:
                   description: This example is a new zero-amount transaction for an `active` subscription.
                   value:
                     data:
-                      id: txn_01hv8zbfzrnfr6b4hfexhk4e7h
+                      id: txn_01jspbekkwn03q6zp8bezp3tv2
                       status: ready
-                      customer_id: ctm_01hv8wt8nffez4p2t6typn4a5j
-                      address_id: add_01hv8y4jk511j9g2n9a2mexjbx
+                      customer_id: ctm_01jspbafm96p2ppbe85921nf6p
+                      address_id: add_01jspbafmrn485m030p7kx9dbr
                       business_id: null
                       custom_data: null
                       origin: subscription_payment_method_change
                       collection_mode: automatic
-                      subscription_id: sub_01hv8y5ehszzq0yv20ttx3166y
+                      subscription_id: sub_01jspbbyjtkycfmjf7ye85yvp2
                       invoice_id: null
                       invoice_number: null
                       discount_id: null
                       billing_details: null
                       billing_period:
-                        starts_at: "2024-04-12T10:37:59.556997Z"
-                        ends_at: "2024-04-12T10:37:59.556997Z"
+                        starts_at: "2025-04-25T11:29:46.915899Z"
+                        ends_at: "2025-04-25T11:29:46.915899Z"
                       currency_code: USD
-                      created_at: "2024-04-12T10:58:47.887499702Z"
-                      updated_at: "2024-04-12T10:58:47.887499702Z"
+                      created_at: "2025-04-25T11:31:14.986430069Z"
+                      updated_at: "2025-04-25T11:31:14.986430069Z"
                       billed_at: null
+                      revised_at: null
                       items:
                         - price:
-                            id: pri_01gsz8x8sawmvhz1pv30nge1ke
-                            product_id: pro_01gsz4t5hdjse780zja8vvr7jg
+                            id: pri_01jspaymrp8mpq0fxdgwxy5vwh
+                            product_id: pro_01jspay5m2ry6s10w1m9xfthvz
                             type: standard
-                            description: Monthly
-                            name: Monthly (per seat)
+                            description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
+                            name: AeroEdit VIP
                             billing_cycle:
                               interval: month
                               frequency: 1
                             tax_mode: account_setting
                             unit_price:
-                              amount: "3000"
-                              currency_code: USD
-                            unit_price_overrides: []
-                            custom_data: null
-                            status: active
-                            quantity:
-                              minimum: 1
-                              maximum: 999
-                            import_meta: null
-                            created_at: "2023-02-23T13:55:22.538367Z"
-                            updated_at: "2024-04-11T13:54:52.254748Z"
-                          quantity: 20
-                          proration:
-                            rate: "0"
-                            billing_period:
-                              starts_at: "2024-04-12T10:37:59.556997Z"
-                              ends_at: "2024-05-12T10:37:59.556997Z"
-                        - price:
-                            id: pri_01h1vjfevh5etwq3rb416a23h2
-                            product_id: pro_01h1vjes1y163xfj1rh1tkfb65
-                            type: standard
-                            description: Monthly
-                            name: Monthly (recurring addon)
-                            billing_cycle:
-                              interval: month
-                              frequency: 1
-                            tax_mode: account_setting
-                            unit_price:
-                              amount: "10000"
-                              currency_code: USD
-                            unit_price_overrides: []
-                            custom_data: null
-                            status: active
-                            quantity:
-                              minimum: 1
-                              maximum: 100
-                            import_meta: null
-                            created_at: "2023-06-01T13:31:12.625056Z"
-                            updated_at: "2024-04-09T07:23:00.907834Z"
-                          quantity: 1
-                          proration:
-                            rate: "0"
-                            billing_period:
-                              starts_at: "2024-04-12T10:37:59.556997Z"
-                              ends_at: "2024-05-12T10:37:59.556997Z"
-                        - price:
-                            id: pri_01gsz95g2zrkagg294kpstx54r
-                            product_id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                            type: standard
-                            description: Monthly (recurring addon)
-                            name: Monthly (recurring addon)
-                            billing_cycle:
-                              interval: month
-                              frequency: 1
-                            tax_mode: account_setting
-                            unit_price:
-                              amount: "25000"
+                              amount: "30000"
                               currency_code: USD
                             unit_price_overrides: []
                             custom_data: null
@@ -12832,14 +12975,14 @@ paths:
                               minimum: 1
                               maximum: 1
                             import_meta: null
-                            created_at: "2023-02-23T13:59:52.159927Z"
-                            updated_at: "2024-04-09T07:27:48.018296Z"
+                            created_at: "2025-04-25T11:22:31.574394Z"
+                            updated_at: "2025-04-25T11:22:31.574395Z"
                           quantity: 1
                           proration:
                             rate: "0"
                             billing_period:
-                              starts_at: "2024-04-12T10:37:59.556997Z"
-                              ends_at: "2024-05-12T10:37:59.556997Z"
+                              starts_at: "2025-04-25T11:29:46.915899Z"
+                              ends_at: "2025-05-25T11:29:46.915899Z"
                       details:
                         tax_rates_used:
                           - tax_rate: "0.08875"
@@ -12865,56 +13008,14 @@ paths:
                           tax: "0"
                           total: "0"
                           grand_total: "0"
-                          fee: "0"
-                          earnings: "0"
+                          fee: null
+                          earnings: null
                           currency_code: USD
                         payout_totals: null
                         adjusted_payout_totals: null
                         line_items:
-                          - id: txnitm_01hv8zbgdft8kg2f075389f9c5
-                            price_id: pri_01gsz8x8sawmvhz1pv30nge1ke
-                            quantity: 20
-                            totals:
-                              subtotal: "0"
-                              tax: "0"
-                              discount: "0"
-                              total: "0"
-                            product:
-                              id: pro_01gsz4t5hdjse780zja8vvr7jg
-                              name: AeroEdit Pro
-                              type: standard
-                              tax_category: standard
-                              description: Designed for professional pilots, including all features plus in Basic plus compliance monitoring, route optimization, and third-party integrations.
-                              image_url: https://paddle.s3.amazonaws.com/user/165798/bT1XUOJAQhOUxGs83cbk_pro.png
-                              custom_data:
-                                features:
-                                  aircraft_performance: true
-                                  compliance_monitoring: true
-                                  flight_log_management: true
-                                  payment_by_invoice: false
-                                  route_planning: true
-                                  sso: false
-                                suggested_addons:
-                                  - pro_01h1vjes1y163xfj1rh1tkfb65
-                                  - pro_01gsz97mq9pa4fkyy0wqenepkz
-                                upgrade_description: Move from Basic to Pro to take advantage of aircraft performance, advanced route planning, and compliance monitoring.
-                              status: active
-                              import_meta: null
-                              created_at: "2023-02-23T12:43:46.605Z"
-                              updated_at: "2024-04-05T15:53:44.687Z"
-                            tax_rate: "0.08875"
-                            unit_totals:
-                              subtotal: "0"
-                              discount: "0"
-                              tax: "0"
-                              total: "0"
-                            proration:
-                              rate: "0"
-                              billing_period:
-                                starts_at: "2024-04-12T10:37:59.556997Z"
-                                ends_at: "2024-05-12T10:37:59.556997Z"
-                          - id: txnitm_01hv8zbgdft8kg2f0757eb8rtf
-                            price_id: pri_01h1vjfevh5etwq3rb416a23h2
+                          - id: txnitm_01jspbekwp0ajkz6qxj4wdmzf3
+                            price_id: pri_01jspaymrp8mpq0fxdgwxy5vwh
                             quantity: 1
                             totals:
                               subtotal: "0"
@@ -12922,39 +13023,8 @@ paths:
                               discount: "0"
                               total: "0"
                             product:
-                              id: pro_01h1vjes1y163xfj1rh1tkfb65
-                              name: Analytics addon
-                              type: standard
-                              tax_category: standard
-                              description: Unlock advanced insights into your flight data with enhanced analytics and reporting features. Includes customizable reporting templates and trend analysis across flights.
-                              image_url: https://paddle.s3.amazonaws.com/user/165798/97dRpA6SXzcE6ekK9CAr_analytics.png
-                              custom_data: null
-                              status: active
-                              import_meta: null
-                              created_at: "2023-06-01T13:30:50.302Z"
-                              updated_at: "2024-04-05T15:47:17.163Z"
-                            tax_rate: "0.08875"
-                            unit_totals:
-                              subtotal: "0"
-                              discount: "0"
-                              tax: "0"
-                              total: "0"
-                            proration:
-                              rate: "0"
-                              billing_period:
-                                starts_at: "2024-04-12T10:37:59.556997Z"
-                                ends_at: "2024-05-12T10:37:59.556997Z"
-                          - id: txnitm_01hv8zbgdft8kg2f075bcx4v03
-                            price_id: pri_01gsz95g2zrkagg294kpstx54r
-                            quantity: 1
-                            totals:
-                              subtotal: "0"
-                              tax: "0"
-                              discount: "0"
-                              total: "0"
-                            product:
-                              id: pro_01gsz92krfzy3hcx5h5rtgnfwz
-                              name: VIP support
+                              id: pro_01jspay5m2ry6s10w1m9xfthvz
+                              name: AeroEdit VIP
                               type: standard
                               tax_category: standard
                               description: Get exclusive access to our expert team of product specialists, available to help you make the most of your AeroEdit subscription.
@@ -12962,8 +13032,8 @@ paths:
                               custom_data: null
                               status: active
                               import_meta: null
-                              created_at: "2023-02-23T13:58:17.615Z"
-                              updated_at: "2024-04-05T15:44:02.893Z"
+                              created_at: "2025-04-25T11:22:16.066Z"
+                              updated_at: "2025-04-25T11:22:16.066Z"
                             tax_rate: "0.08875"
                             unit_totals:
                               subtotal: "0"
@@ -12973,51 +13043,55 @@ paths:
                             proration:
                               rate: "0"
                               billing_period:
-                                starts_at: "2024-04-12T10:37:59.556997Z"
-                                ends_at: "2024-05-12T10:37:59.556997Z"
+                                starts_at: "2025-04-25T11:29:46.915899Z"
+                                ends_at: "2025-05-25T11:29:46.915899Z"
                       payments: []
                       checkout:
                         url: https://aeroedit.com/pay?_ptxn=txn_01hv8zbfzrnfr6b4hfexhk4e7h
                       customer:
-                        id: ctm_01hv8wt8nffez4p2t6typn4a5j
-                        name: ""
-                        email: michael.mcgovern+20240412@paddle.com
+                        id: ctm_01jspbafm96p2ppbe85921nf6p
+                        name: null
+                        email: sam@example.com
                         locale: en
                         marketing_consent: false
                         custom_data: null
                         status: active
-                        created_at: "2024-04-12T10:14:25.711Z"
-                        updated_at: "2024-04-12T10:14:25.711Z"
+                        created_at: "2025-04-25T11:28:59.529Z"
+                        updated_at: "2025-04-25T11:28:59.529Z"
                         import_meta: null
                       address:
-                        id: add_01hv8y4jk511j9g2n9a2mexjbx
-                        customer_id: ctm_01hv8wt8nffez4p2t6typn4a5j
-                        description: ""
-                        first_line: ""
-                        second_line: ""
-                        city: ""
+                        id: add_01jspbafmrn485m030p7kx9dbr
+                        customer_id: ctm_01jspbafm96p2ppbe85921nf6p
+                        description: null
+                        first_line: null
+                        second_line: null
+                        city: null
                         postal_code: "10021"
-                        region: ""
+                        region: null
                         country_code: US
                         status: active
                         custom_data: null
-                        created_at: "2024-04-12T10:37:32.133Z"
-                        updated_at: "2024-04-12T10:37:32.133Z"
                         import_meta: null
-                      tax_details:
-                        entity: US
-                        registration_number: 30-1210399
-                        postal_code: "10021"
-                        region: ""
-                        state: NY
-                        country_code: US
+                        created_at: "2025-04-25T11:28:59.544Z"
+                        updated_at: "2025-04-25T11:28:59.544Z"
+                      adjustments_totals:
+                        subtotal: "0"
+                        tax: "0"
+                        total: "0"
+                        fee: "0"
+                        earnings: "0"
+                        breakdown:
+                          credit: "0"
+                          refund: "0"
+                          chargeback: "0"
+                        currency_code: USD
                       available_payment_methods:
                         - apple_pay
                         - card
                         - paypal
                         - google_pay
                     meta:
-                      request_id: a6c7f0ca-5b2e-4762-b34f-c5469de5e37d
+                      request_id: c73663c7-7308-4af5-9cf2-4cc9f7372196
         default:
           $ref: "#/components/responses/error"
       tags:
@@ -13031,6 +13105,8 @@ paths:
         description: Preview an update to a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/preview-subscription
       operationId: preview-subscription-update
+      x-permissions:
+        - subscription.read
       responses:
         "200":
           description: OK
@@ -13599,6 +13675,8 @@ paths:
         description: Create a one-time charge for a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/create-one-time-charge
       operationId: create-subscription-charge
+      x-permissions:
+        - subscription.write
       responses:
         "201":
           description: OK
@@ -13822,6 +13900,8 @@ paths:
         description: Preview a one-time charge for a subscription
         url: https://developer.paddle.com/api-reference/subscriptions/preview-subscription-charge
       operationId: preview-subscription-charge
+      x-permissions:
+        - subscription.read
       responses:
         "200":
           description: OK
@@ -14212,6 +14292,8 @@ paths:
         description: Create a report
         url: https://developer.paddle.com/api-reference/reports/create-report
       operationId: create-report
+      x-permissions:
+        - report.write
       description: |-
         Creates a new report.
 
@@ -14278,6 +14360,8 @@ paths:
         description: List reports
         url: https://developer.paddle.com/api-reference/reports/list-reports
       operationId: list-reports
+      x-permissions:
+        - report.read
       description: |-
         Returns a paginated list of reports. Use the query parameters to page through results.
 
@@ -14405,6 +14489,8 @@ paths:
 
         The link returned is not a permanent link. It expires after 3 minutes.
       operationId: get-report-csv
+      x-permissions:
+        - report.read
       responses:
         "200":
           description: Returns a download url for the report
@@ -14448,6 +14534,8 @@ paths:
         description: Get a report
         url: https://developer.paddle.com/api-reference/reports/get-report
       operationId: get-report
+      x-permissions:
+        - report.read
       tags:
         - Reports
       responses:
@@ -14631,6 +14719,146 @@ webhooks:
             examples:
               Standard:
                 $ref: "#/components/examples/adjustment-updated"
+      responses:
+        "200":
+          description: |-
+            Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
+
+            If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
+  api_key.created:
+    post:
+      security: []
+      summary: api_key.created
+      tags:
+        - API Keys
+      description: Occurs when an API key is created.
+      externalDocs:
+        description: api_key.created
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-created
+      operationId: api-key-created
+      parameters:
+        - $ref: "#/components/parameters/Paddle-Signature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/api_key.created"
+            examples:
+              Standard:
+                $ref: "#/components/examples/api-key-created"
+      responses:
+        "200":
+          description: |-
+            Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
+
+            If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
+  api_key.updated:
+    post:
+      security: []
+      summary: api_key.updated
+      tags:
+        - API Keys
+      description: Occurs when an API key is updated.
+      externalDocs:
+        description: api_key.updated
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-updated
+      operationId: api-key-updated
+      parameters:
+        - $ref: "#/components/parameters/Paddle-Signature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/api_key.updated"
+            examples:
+              Standard:
+                $ref: "#/components/examples/api-key-updated"
+      responses:
+        "200":
+          description: |-
+            Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
+
+            If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
+  api_key.expired:
+    post:
+      security: []
+      summary: api_key.expired
+      tags:
+        - API Keys
+      description: Occurs when an API key has expired.
+      externalDocs:
+        description: api_key.expired
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-expired
+      operationId: api-key-expired
+      parameters:
+        - $ref: "#/components/parameters/Paddle-Signature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/api_key.expired"
+            examples:
+              Standard:
+                $ref: "#/components/examples/api-key-expired"
+      responses:
+        "200":
+          description: |-
+            Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
+
+            If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
+  api_key.expiring:
+    post:
+      security: []
+      summary: api_key.expiring
+      tags:
+        - API Keys
+      description: Occurs when an API key expires in 7 days.
+      externalDocs:
+        description: api_key.expiring
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-expiring
+      operationId: api-key-expiring
+      parameters:
+        - $ref: "#/components/parameters/Paddle-Signature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/api_key.expiring"
+            examples:
+              Standard:
+                $ref: "#/components/examples/api-key-expiring"
+      responses:
+        "200":
+          description: |-
+            Respond with an HTTP 200 status code within 5 seconds to let Paddle know that you successfully received the message.
+
+            If your server sends another kind of status code or doesn't respond, Paddle automatically retries using an exponential backoff schedule.
+  api_key.revoked:
+    post:
+      security: []
+      summary: api_key.revoked
+      tags:
+        - API Keys
+      description: Occurs when an API key has been revoked.
+      externalDocs:
+        description: api_key.revoked
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-revoked
+      operationId: api-key-revoked
+      parameters:
+        - $ref: "#/components/parameters/Paddle-Signature"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/api_key.revoked"
+            examples:
+              Standard:
+                $ref: "#/components/examples/api-key-revoked"
       responses:
         "200":
           description: |-
@@ -15929,7 +16157,15 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Get an API key from your Paddle dashboard under [Developer Tools > Authentication](https://vendors.paddle.com/authentication).
+      description: |-
+        Requests are authenticated with API keys. Provide your API key as a Bearer token in the Authorization header.
+
+        API keys are assigned permissions, granting them access to entities and operations.
+        Each endpoint may require one or more permissions, defined with the `x-permissions` extension.
+        Values for include parameters may require specific permissions as defined in the `x-enum-permissions` extension.
+        See all available permissions in the permission schema or [documentation](https://developer.paddle.com/api-reference/about/permissions).
+
+        Get an API key and select the permissions you need from the Paddle dashboard under [Paddle > Developer Tools > Authentication](https://vendors.paddle.com/authentication).
   responses:
     error:
       x-stoplight:
@@ -16219,6 +16455,9 @@ components:
           x-enum-descriptions:
             product:
               description: Include an object with the product related to this price.
+          x-enum-permissions:
+            product:
+              - product.read
     include_product_query:
       x-stoplight:
         id: 7ezkqtw1w5zp5
@@ -16235,6 +16474,9 @@ components:
           x-enum-descriptions:
             prices:
               description: Include an array of prices related to this product.
+          x-enum-permissions:
+            prices:
+              - price.read
     include_simulation_events_query:
       name: include
       in: query
@@ -16248,6 +16490,9 @@ components:
           x-enum-descriptions:
             events:
               description: Include an array of events related to this simulation run in the response.
+          x-enum-permissions:
+            events:
+              - notification_simulation.read
     include_subscription_query:
       x-stoplight:
         id: 67s6iz8n9f15m
@@ -16267,6 +16512,11 @@ components:
               description: Include an object with a preview of the next transaction for this subscription. May include prorated charges that aren't yet billed and one-time charges.
             recurring_transaction_details:
               description: Include an object with a preview of the recurring transaction for this subscription. This is what the customer can expect to be billed when there are no prorated or one-time charges.
+          x-enum-permissions:
+            next_transaction:
+              - transaction.read
+            recurring_transaction_details:
+              - transaction.read
     include_transaction_query:
       x-stoplight:
         id: sipgxwhpq2obe
@@ -16301,6 +16551,17 @@ components:
               description: Include an object for the customer entity related to this transaction. Only included where a `customer_id` is set against the transaction.
             discount:
               description: Include an object for the discount entity related to this transaction. Only included where a `discount_id` is set against the transaction.
+          x-enum-permissions:
+            address:
+              - address.read
+            adjustments:
+              - adjustment.read
+            business:
+              - business.read
+            customer:
+              - customer.read
+            discount:
+              - discount.read
     invoice_number_query:
       x-stoplight:
         id: 23coa12w3kap3
@@ -16314,6 +16575,21 @@ components:
           type: string
           examples:
             - ABC-12345
+    mode_discount_query:
+      name: mode
+      in: query
+      description: Return entities that match the specified mode.
+      schema:
+        title: DiscountMode
+        type: string
+        enum:
+          - custom
+          - standard
+        x-enum-descriptions:
+          custom:
+            description: Return entities where the mode is `custom`. Returned entities can be considered non-catalog. They can be created via the API, or by Paddle for checkout recovery discounts. Not shown in the Paddle dashboard.
+          standard:
+            description: Return entities where the mode is `standard`. Returned entities can be considered part of your catalog and reused across transactions and subscriptions easily.
     notification_id_path:
       x-stoplight:
         id: jbttnw101f5oy
@@ -17084,6 +17360,120 @@ components:
           transaction_id: txn_01hvcc93znj3mpqt1tenkjb04y
           subscription_id: sub_01hvccbx32q2gb40sqx7n42430
           credit_applied_to_balance: null
+    api-key-created:
+      summary: api_key.created
+      value:
+        event_id: evt_01jkdr0rc527wcjdg1txsdxhtf
+        event_type: api_key.created
+        occurred_at: "2025-03-26T06:58:38.517522Z"
+        notification_id: ntf_01jkdr1mgbe62eqkh3p0fq8b0h
+        data:
+          id: apikey_01jkdpbhazdpn3wpcya45as9tg
+          name: CRM integration
+          description: Used to authenticate with the API for storing Paddle customer data in our CRM.
+          status: active
+          key: pdl_live_apikey_01jkdpbhaz****
+          permissions:
+            - address.read
+            - business.read
+            - customer.read
+            - subscription.read
+            - transaction.read
+          expires_at: "2025-06-26T06:58:38.517522Z"
+          last_used_at: null
+          created_at: "2025-03-26T06:58:38.517522Z"
+          updated_at: "2025-03-26T06:58:38.517522Z"
+    api-key-expired:
+      summary: api_key.expired
+      value:
+        event_id: evt_01jkdr0rc527wcjdg1txsdxhth
+        event_type: api_key.expired
+        occurred_at: "2025-03-26T06:58:38.517522Z"
+        notification_id: ntf_01jkdr1mgbe62eqkh3p0fq8b0k
+        data:
+          id: apikey_01jkdpbhazdpn3wpcya45as9tg
+          name: CRM integration
+          description: Used to authenticate with the API for storing Paddle customer data in our CRM.
+          status: expired
+          key: pdl_live_apikey_01jkdpbhaz****
+          permissions:
+            - address.read
+            - business.read
+            - customer.read
+            - subscription.read
+            - transaction.read
+          expires_at: "2025-06-26T06:58:38.517522Z"
+          last_used_at: "2025-06-26T05:54:22.738201Z"
+          created_at: "2025-03-26T06:58:38.517522Z"
+          updated_at: "2025-03-26T06:58:38.517522Z"
+    api-key-expiring:
+      summary: api_key.expiring
+      value:
+        event_id: evt_01jkdr0rc527wcjdg1txsdxhtj
+        event_type: api_key.expiring
+        occurred_at: "2025-06-21T06:58:38.517522Z"
+        notification_id: ntf_01jkdr1mgbe62eqkh3p0fq8b0m
+        data:
+          id: apikey_01jkdpbhazdpn3wpcya45as9tg
+          name: CRM integration
+          description: Used to authenticate with the API for storing Paddle customer data in our CRM.
+          status: active
+          key: pdl_live_apikey_01jkdpbhaz****
+          permissions:
+            - address.read
+            - business.read
+            - customer.read
+            - subscription.read
+            - transaction.read
+          expires_at: "2025-06-26T06:58:38.517522Z"
+          last_used_at: "2025-06-21T05:46:53.238201Z"
+          created_at: "2025-03-26T06:58:38.517522Z"
+          updated_at: "2025-03-26T06:58:38.517522Z"
+    api-key-revoked:
+      summary: api_key.revoked
+      value:
+        event_id: evt_01jkdr0rc527wcjdg1txsdxhtl
+        event_type: api_key.revoked
+        occurred_at: "2025-06-24T12:58:38.746382Z"
+        notification_id: ntf_01jkdr1mgbe62eqkh3p0fq8b0v
+        data:
+          id: apikey_01jkdpbhazdpn3wpcya45as9tg
+          name: CRM integration
+          description: Used to authenticate with the API for storing Paddle customer data in our CRM.
+          status: revoked
+          key: pdl_live_apikey_01jkdpbhaz****
+          permissions:
+            - address.read
+            - business.read
+            - customer.read
+            - subscription.read
+            - transaction.read
+          expires_at: "2025-06-26T06:58:38.517522Z"
+          last_used_at: "2025-06-24T05:54:22.738201Z"
+          created_at: "2025-03-26T06:58:38.517522Z"
+          updated_at: "2025-06-24T12:58:38.746382Z"
+    api-key-updated:
+      summary: api_key.updated
+      value:
+        event_id: evt_01jkdr0rc527wcjdg1txsdxhtg
+        event_type: api_key.updated
+        occurred_at: "2025-04-21T12:37:12.892738Z"
+        notification_id: ntf_01jkdr1mgbe62eqkh3p0fq8b0j
+        data:
+          id: apikey_01jkdpbhazdpn3wpcya45as9tg
+          name: CRM integration
+          description: Used to authenticate with the API for storing Paddle customer and subscription data in our CRM.
+          status: active
+          key: pdl_live_apikey_01jkdpbhaz****
+          permissions:
+            - address.read
+            - business.read
+            - customer.read
+            - subscription.read
+          expires_at: "2025-06-26T06:58:38.517522Z"
+          last_used_at: "2025-04-21T11:35:42.428390Z"
+          created_at: "2025-03-26T06:58:38.517522Z"
+          updated_at: "2025-04-21T12:37:12.892738Z"
     business-created:
       summary: business.created
       value:
@@ -17405,6 +17795,7 @@ components:
           id: dsc_01hv6scyf7qdnzcdq01t2y8dx4
           code: SEWRGPB9WY
           type: percentage
+          mode: standard
           recur: true
           amount: "10"
           status: active
@@ -17433,6 +17824,7 @@ components:
           enabled_for_checkout: true
           code: ZJFYC3K9KT
           type: flat
+          mode: standard
           amount: "1000"
           currency_code: USD
           recur: true
@@ -17458,6 +17850,7 @@ components:
           id: dsc_01hv6scyf7qdnzcdq01t2y8dx4
           code: SPRINGSALE
           type: percentage
+          mode: standard
           recur: true
           amount: "10"
           status: active
@@ -22828,6 +23221,343 @@ components:
         - partial
       description: Type of adjustment. Use `full` to adjust the grand total for the related transaction. Include an `items` array when creating a `partial` adjustment. If omitted, defaults to `partial`.
       default: partial
+    api_key.created:
+      title: api_key.created
+      description: Occurs when an API key is created.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+              readOnly: true
+            data:
+              type: object
+              title: API Key Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/api_key_id"
+                name:
+                  $ref: "#/components/schemas/apikey-name"
+                description:
+                  oneOf:
+                    - $ref: "#/components/schemas/apikey-description"
+                    - type: "null"
+                key:
+                  $ref: "#/components/schemas/apikey-secret-redacted"
+                status:
+                  $ref: "#/components/schemas/apikey-status"
+                permissions:
+                  type: array
+                  description: Permissions assigned to this API key. Determines what actions the API key can perform.
+                  items:
+                    $ref: "#/components/schemas/apikey-permission"
+                expires_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key expires.
+                last_used_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+      examples:
+        - $ref: "#/components/examples/api-key-created"
+      x-tags:
+        - "v1: API Key Notifications"
+    api_key.expired:
+      title: api_key.expired
+      description: Occurs when an API key has expired.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+              readOnly: true
+            data:
+              type: object
+              title: API Key Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/api_key_id"
+                name:
+                  $ref: "#/components/schemas/apikey-name"
+                description:
+                  oneOf:
+                    - $ref: "#/components/schemas/apikey-description"
+                    - type: "null"
+                key:
+                  $ref: "#/components/schemas/apikey-secret-redacted"
+                status:
+                  $ref: "#/components/schemas/apikey-status"
+                permissions:
+                  type: array
+                  description: Permissions assigned to this API key. Determines what actions the API key can perform.
+                  items:
+                    $ref: "#/components/schemas/apikey-permission"
+                expires_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key expires.
+                last_used_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+      examples:
+        - $ref: "#/components/examples/api-key-expired"
+      x-tags:
+        - "v1: API Key Notifications"
+    api_key.expiring:
+      title: api_key.expiring
+      description: Occurs when an API key expires in 7 days.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+              readOnly: true
+            data:
+              type: object
+              title: API Key Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/api_key_id"
+                name:
+                  $ref: "#/components/schemas/apikey-name"
+                description:
+                  oneOf:
+                    - $ref: "#/components/schemas/apikey-description"
+                    - type: "null"
+                key:
+                  $ref: "#/components/schemas/apikey-secret-redacted"
+                status:
+                  $ref: "#/components/schemas/apikey-status"
+                permissions:
+                  type: array
+                  description: Permissions assigned to this API key. Determines what actions the API key can perform.
+                  items:
+                    $ref: "#/components/schemas/apikey-permission"
+                expires_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key expires.
+                last_used_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+      examples:
+        - $ref: "#/components/examples/api-key-expiring"
+      x-tags:
+        - "v1: API Key Notifications"
+    api_key.exposed:
+      title: api_key.exposed
+      description: Occurs when an API key has been exposed.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+              readOnly: true
+            data:
+              type: object
+              title: API Key Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/api_key_id"
+                name:
+                  $ref: "#/components/schemas/apikey-name"
+                description:
+                  oneOf:
+                    - $ref: "#/components/schemas/apikey-description"
+                    - type: "null"
+                key:
+                  $ref: "#/components/schemas/apikey-secret-redacted"
+                status:
+                  $ref: "#/components/schemas/apikey-status"
+                permissions:
+                  type: array
+                  description: Permissions assigned to this API key. Determines what actions the API key can perform.
+                  items:
+                    $ref: "#/components/schemas/apikey-permission"
+                expires_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key expires.
+                last_used_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+      examples: []
+      x-tags:
+        - "v1: API Key Notifications"
+    api_key.revoked:
+      title: api_key.revoked
+      description: Occurs when an API key has been revoked.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+            data:
+              type: object
+              title: API Key Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/api_key_id"
+                name:
+                  $ref: "#/components/schemas/apikey-name"
+                description:
+                  oneOf:
+                    - $ref: "#/components/schemas/apikey-description"
+                    - type: "null"
+                key:
+                  $ref: "#/components/schemas/apikey-secret-redacted"
+                status:
+                  $ref: "#/components/schemas/apikey-status"
+                permissions:
+                  type: array
+                  description: Permissions assigned to this API key. Determines what actions the API key can perform.
+                  items:
+                    $ref: "#/components/schemas/apikey-permission"
+                expires_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key expires.
+                last_used_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+      examples:
+        - $ref: "#/components/examples/api-key-revoked"
+      x-tags:
+        - "v1: API Key Notifications"
+    api_key.updated:
+      title: api_key.updated
+      description: Occurs when an API key is updated.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/event"
+        - properties:
+            notification_id:
+              $ref: "#/components/schemas/notification_id"
+            data:
+              type: object
+              title: API Key Notification
+              properties:
+                id:
+                  $ref: "#/components/schemas/api_key_id"
+                name:
+                  $ref: "#/components/schemas/apikey-name"
+                description:
+                  oneOf:
+                    - $ref: "#/components/schemas/apikey-description"
+                    - type: "null"
+                key:
+                  $ref: "#/components/schemas/apikey-secret-redacted"
+                status:
+                  $ref: "#/components/schemas/apikey-status"
+                permissions:
+                  type: array
+                  description: Permissions assigned to this API key. Determines what actions the API key can perform.
+                  items:
+                    $ref: "#/components/schemas/apikey-permission"
+                expires_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key expires.
+                last_used_at:
+                  oneOf:
+                    - $ref: "#/components/schemas/timestamp"
+                    - type: "null"
+                  description: RFC 3339 datetime string of when this API key was last used (accurate to within 1 hour). `null` if never used.
+                created_at:
+                  $ref: "#/components/schemas/created_at"
+                updated_at:
+                  $ref: "#/components/schemas/updated_at"
+      examples:
+        - $ref: "#/components/examples/api-key-updated"
+      x-tags:
+        - "v1: API Key Notifications"
+    api_key_id:
+      title: API Key ID
+      x-stoplight:
+        id: t931e7dsuc82v
+      description: Unique Paddle ID for this API key entity, prefixed with `apikey_`.
+      type: string
+      examples:
+        - apikey_01gm106t81w94gyjgsaqypkjkl
+      pattern: ^apikey_[a-z\d]{26}$
+    apikey-description:
+      title: ApiKeyDescription
+      type: string
+      minLength: 1
+      maxLength: 250
+      description: Short description of this API key. Typically gives details about what the API key is used for and where it's used.
+    apikey-name:
+      title: ApiKeyName
+      type: string
+      description: Short name of this API key. Typically unique and human-identifiable.
+      minLength: 1
+      maxLength: 150
+    apikey-permission:
+      title: ApiKeyPermission
+      description: Permission assigned to this API key.
+      type: string
+      allOf:
+        - $ref: "#/components/schemas/permission"
+    apikey-secret:
+      title: ApiKeySecret
+      description: An API key, prefixed with `pdl_` and containing `_apikey_ `.
+      type: string
+      pattern: ^pdl_(live|sdbx)_apikey_[a-z\d]{26}_[a-zA-Z\d]{22}_[a-zA-Z\d]{3}$
+    apikey-secret-redacted:
+      title: ApiKeySecretRedacted
+      description: An obfuscated version of this API key, prefixed with `pdl_` and containing `_apikey_ `.
+      type: string
+      pattern: ^[a-z\d_]*\*{4}$
+    apikey-status:
+      title: ApiKeyStatus
+      description: Status of this API key.
+      type: string
+      enum:
+        - active
+        - expired
+        - revoked
+      default: active
     billing_details:
       title: Billing details
       x-stoplight:
@@ -24941,6 +25671,8 @@ components:
               description: Discounts a checkout or transaction by a flat amount per unit, for example -$100 per user. Requires `currency_code`.
             percentage:
               description: Discounts a checkout or transaction by a percentage of the total, for example -10%. Maximum 100%.
+        mode:
+          $ref: "#/components/schemas/discount_mode"
         amount:
           type: string
           description: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
@@ -25061,6 +25793,9 @@ components:
               description: Discounts a checkout or transaction by a flat amount per unit, for example -$100 per user. Requires `currency_code`.
             percentage:
               description: Discounts a checkout or transaction by a percentage of the total, for example -10%. Maximum 100%.
+        mode:
+          $ref: "#/components/schemas/discount_mode"
+          description: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard. If omitted, defaults to `standard`.
         amount:
           type: string
           description: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
@@ -25217,6 +25952,10 @@ components:
                       description: Discounts a checkout or transaction by a flat amount per unit, for example -$100 per user. Requires `currency_code`.
                     percentage:
                       description: Discounts a checkout or transaction by a percentage of the total, for example -10%. Maximum 100%.
+                mode:
+                  oneOf:
+                    - $ref: "#/components/schemas/discount_mode"
+                    - type: "null"
                 amount:
                   type: string
                   description: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
@@ -25336,6 +26075,10 @@ components:
                       description: Discounts a checkout or transaction by a flat amount per unit, for example -$100 per user. Requires `currency_code`.
                     percentage:
                       description: Discounts a checkout or transaction by a percentage of the total, for example -10%. Maximum 100%.
+                mode:
+                  oneOf:
+                    - $ref: "#/components/schemas/discount_mode"
+                    - type: "null"
                 amount:
                   type: string
                   description: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
@@ -25455,6 +26198,10 @@ components:
                       description: Discounts a checkout or transaction by a flat amount per unit, for example -$100 per user. Requires `currency_code`.
                     percentage:
                       description: Discounts a checkout or transaction by a percentage of the total, for example -10%. Maximum 100%.
+                mode:
+                  oneOf:
+                    - $ref: "#/components/schemas/discount_mode"
+                    - type: "null"
                 amount:
                   type: string
                   description: Amount to discount by. For `percentage` discounts, must be an amount between `0.01` and `100`. For `flat` and `flat_per_seat` discounts, amount in the lowest denomination for a currency.
@@ -25536,6 +26283,19 @@ components:
       pattern: ^dsc_[a-z\d]{26}$
       examples:
         - dsc_01gv5kpg05xp104ek2fmgjwttf
+    discount_mode:
+      title: DiscountMode
+      description: Discount mode. Standard discounts are considered part of your catalog and are shown in the Paddle dashboard.
+      type: string
+      enum:
+        - standard
+        - custom
+      x-enum-descriptions:
+        custom:
+          description: Non-catalog discount. Can be created via the API, or by Paddle for checkout recovery discounts. Not returned when listing or shown in the Paddle dashboard.
+        standard:
+          description: Standard discount. Can be considered part of your catalog and reused across transactions and subscriptions easily.
+      default: standard
     document_number:
       type: string
       examples:
@@ -25823,6 +26583,8 @@ components:
         - discount.created
         - discount.imported
         - discount.updated
+        - payment_method.saved
+        - payment_method.deleted
         - payout.created
         - payout.paid
         - price.created
@@ -25850,6 +26612,7 @@ components:
         - transaction.past_due
         - transaction.payment_failed
         - transaction.ready
+        - transaction.revised
         - transaction.updated
       x-enum-descriptions:
         address.created:
@@ -25880,6 +26643,10 @@ components:
           description: A [`discount.imported`](https://developer.paddle.com/webhooks/discounts/discount-imported) event.
         discount.updated:
           description: A [`discount.updated`](https://developer.paddle.com/webhooks/discounts/discount-updated) event.
+        payment_method.saved:
+          description: A [`payment_method.saved`](https://developer.paddle.com/webhooks/payment-methods/payment-method-saved) event.
+        payment_method.deleted:
+          description: A [`payment_method.deleted`](https://developer.paddle.com/webhooks/payment-methods/payment-method-deleted) event.
         payout.created:
           description: A [`payout.created`](https://developer.paddle.com/webhooks/payouts/payout-created) event.
         payout.paid:
@@ -25934,6 +26701,8 @@ components:
           description: A [`transaction.payment_failed`](https://developer.paddle.com/webhooks/transactions/transaction-payment-failed) event.
         transaction.ready:
           description: A [`transaction.ready`](https://developer.paddle.com/webhooks/transactions/transaction-ready) event.
+        transaction.revised:
+          description: A [`transaction.revised`](https://developer.paddle.com/webhooks/transactions/transaction-revised) event.
         transaction.updated:
           description: A [`transaction.updated`](https://developer.paddle.com/webhooks/transactions/transaction-updated) event.
     external_id:
@@ -26824,6 +27593,100 @@ components:
         reference:
           description: PayPal payment method identifier.
           type: string
+    permission:
+      type: string
+      enum:
+        - address.read
+        - address.write
+        - adjustment.read
+        - adjustment.write
+        - business.read
+        - business.write
+        - customer.read
+        - customer.write
+        - customer_auth_token.write
+        - customer_portal_session.write
+        - discount.read
+        - discount.write
+        - notification.read
+        - notification.write
+        - notification_setting.read
+        - notification_setting.write
+        - notification_simulation.read
+        - notification_simulation.write
+        - payment_method.read
+        - payment_method.write
+        - price.read
+        - price.write
+        - product.read
+        - product.write
+        - report.read
+        - report.write
+        - subscription.read
+        - subscription.write
+        - transaction.read
+        - transaction.write
+      x-enum-descriptions:
+        address.read:
+          description: View customer addresses and include address data in API responses.
+        address.write:
+          description: Create and update customer addresses.
+        adjustment.read:
+          description: View adjustments and credit notes for transactions.
+        adjustment.write:
+          description: Create new adjustments for transactions.
+        business.read:
+          description: View customer businesses and include business data in API responses.
+        business.write:
+          description: Create and update customer businesses.
+        customer.read:
+          description: View customers, including credit balances, and include customer data in API responses.
+        customer.write:
+          description: Create new customers and update existing customer information.
+        customer_auth_token.write:
+          description: Generate authentication tokens for customers.
+        customer_portal_session.write:
+          description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
+        discount.read:
+          description: View discounts and include discount data in API responses.
+        discount.write:
+          description: Create new discounts and modify existing discount information.
+        notification.read:
+          description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
+        notification.write:
+          description: Replay notifications.
+        notification_setting.read:
+          description: View settings for notifications.
+        notification_setting.write:
+          description: Create, update, and delete notification settings.
+        notification_simulation.read:
+          description: View notification simulations, simulation runs, and events within a simulation run.
+        notification_simulation.write:
+          description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
+        payment_method.read:
+          description: View saved payment methods for customers.
+        payment_method.write:
+          description: Delete payment methods for customers.
+        price.read:
+          description: View prices and include price data in API responses.
+        price.write:
+          description: Create new prices and modify existing price information.
+        product.read:
+          description: View products and include product data in API responses.
+        product.write:
+          description: Create new products and modify existing product information.
+        report.read:
+          description: View and download report data.
+        report.write:
+          description: Create new reports.
+        subscription.read:
+          description: View subscriptions and preview subscription updates and charges.
+        subscription.write:
+          description: Create one-time charges, update subscriptions, and manage subscription status.
+        transaction.read:
+          description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
+        transaction.write:
+          description: Create, update, and revise transactions, and update payment methods.
     price:
       title: Price
       description: Represents a price entity.
@@ -28331,31 +29194,44 @@ components:
           oneOf:
             - $ref: "#/components/schemas/customer_id"
             - type: "null"
+          x-permissions:
+            - customer.read
         address_id:
           description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/address_id"
             - type: "null"
+          x-permissions:
+            - address.read
         business_id:
           description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/business_id"
             - type: "null"
+          x-permissions:
+            - business.read
         payment_method_id:
           description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/payment_method_id"
             - type: "null"
+          x-permissions:
+            - payment_method.read
         discount_id:
           description: Paddle ID of a discount. Adds discount details (including price calculations) to webhook payloads. Requires `items` or `transaction_id` for the discount to be applied.
           oneOf:
             - $ref: "#/components/schemas/discount_id"
             - type: "null"
+          x-permissions:
+            - discount.read
         transaction_id:
           description: Paddle ID of a transaction. Bases the subscription on the transaction.
           oneOf:
             - $ref: "#/components/schemas/transaction_id"
             - type: "null"
+          x-permissions:
+            - transaction.read
+            - product.read
         items:
           description: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
           oneOf:
@@ -28367,6 +29243,9 @@ components:
                 description: Existing price to include on the subscription.
                 $ref: "#/components/schemas/subscription_item_create_with_price_id"
             - type: "null"
+          x-permissions:
+            - price.read
+            - product.read
     simulation-config-entities-subscription-creation-items:
       type: object
       title: Subscription creation config for items
@@ -28378,26 +29257,36 @@ components:
           oneOf:
             - $ref: "#/components/schemas/customer_id"
             - type: "null"
+          x-permissions:
+            - customer.read
         address_id:
           description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/address_id"
             - type: "null"
+          x-permissions:
+            - address.read
         business_id:
           description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/business_id"
             - type: "null"
+          x-permissions:
+            - business.read
         payment_method_id:
           description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/payment_method_id"
             - type: "null"
+          x-permissions:
+            - payment_method.read
         discount_id:
           description: Paddle ID of a discount. Adds discount details (including price calculations) to webhook payloads. Requires `items` or `transaction_id` for the discount to be applied.
           oneOf:
             - $ref: "#/components/schemas/discount_id"
             - type: "null"
+          x-permissions:
+            - discount.read
         items:
           description: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
           type: array
@@ -28407,6 +29296,9 @@ components:
             title: Catalog item
             description: Existing price to include on the subscription.
             $ref: "#/components/schemas/subscription_item_create_with_price_id"
+          x-permissions:
+            - price.read
+            - product.read
         transaction_id:
           description: Paddle ID of an existing transaction. Simulates passing a transaction ID to Paddle.js.
           type: "null"
@@ -28421,24 +29313,36 @@ components:
           oneOf:
             - $ref: "#/components/schemas/customer_id"
             - type: "null"
+          x-permissions:
+            - customer.read
         address_id:
           description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/address_id"
             - type: "null"
+          x-permissions:
+            - address.read
         business_id:
           description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/business_id"
             - type: "null"
+          x-permissions:
+            - business.read
         payment_method_id:
           description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/payment_method_id"
             - type: "null"
+          x-permissions:
+            - payment_method.read
         discount_id:
           description: Paddle ID of an existing discount to apply to the simulated subscription.
-          type: "null"
+          oneOf:
+            - $ref: "#/components/schemas/discount_id"
+            - type: "null"
+          x-permissions:
+            - discount.read
         items:
           description: Items for the simulated subscription. Only existing products and prices can be simulated. Non-catalog items are not supported
           type: "null"
@@ -28456,29 +29360,42 @@ components:
           oneOf:
             - $ref: "#/components/schemas/customer_id"
             - type: "null"
+          x-permissions:
+            - customer.read
         address_id:
           description: Paddle ID of an address. Adds address details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/address_id"
             - type: "null"
+          x-permissions:
+            - address.read
         business_id:
           description: Paddle ID of a business. Adds business details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/business_id"
             - type: "null"
+          x-permissions:
+            - business.read
         payment_method_id:
           description: Paddle ID of a payment method. Adds payment method details to webhook payloads. Requires `customer_id`.
           oneOf:
             - $ref: "#/components/schemas/payment_method_id"
             - type: "null"
+          x-permissions:
+            - payment_method.read
         discount_id:
           description: Paddle ID of a discount. Adds discount details (including price calculations) to webhook payloads. Requires `items` or `transaction_id` for the discount to be applied.
           oneOf:
             - $ref: "#/components/schemas/discount_id"
             - type: "null"
+          x-permissions:
+            - discount.read
         transaction_id:
           description: Paddle ID of a transaction. Bases the subscription from this transaction.
           $ref: "#/components/schemas/transaction_id"
+          x-permissions:
+            - transaction.read
+            - product.read
         items:
           description: Items to include on the simulated subscription. Only existing products and prices can be simulated. Non-catalog items aren't supported. At least one recurring price must be provided.
           type: "null"
@@ -28615,6 +29532,9 @@ components:
               oneOf:
                 - $ref: "#/components/schemas/subscription_id"
                 - type: "null"
+              x-permissions:
+                - subscription.read
+                - transaction.read
         options:
           description: Options that determine which webhooks are sent as part of a simulation.
           type: object
@@ -28768,6 +29688,9 @@ components:
               oneOf:
                 - $ref: "#/components/schemas/subscription_id"
                 - type: "null"
+              x-permissions:
+                - subscription.read
+                - transaction.read
         options:
           description: Options that determine which webhooks are sent as part of a simulation.
           type: object
@@ -28827,6 +29750,9 @@ components:
               oneOf:
                 - $ref: "#/components/schemas/subscription_id"
                 - type: "null"
+              x-permissions:
+                - subscription.read
+                - transaction.read
         options:
           description: Options that determine which webhooks are sent as part of a simulation.
           $ref: "#/components/schemas/simulation-config-options-payment"
@@ -28850,6 +29776,9 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/subscription_id"
                     - type: "null"
+                  x-permissions:
+                    - subscription.read
+                    - transaction.read
             options:
               description: Options that determine which webhooks are sent as part of a simulation.
               oneOf:
@@ -28885,6 +29814,9 @@ components:
               oneOf:
                 - $ref: "#/components/schemas/subscription_id"
                 - type: "null"
+              x-permissions:
+                - subscription.read
+                - transaction.read
         options:
           description: Options that determine which webhooks are sent as part of a simulation.
           $ref: "#/components/schemas/simulation-config-options-payment"
@@ -28908,6 +29840,9 @@ components:
                   oneOf:
                     - $ref: "#/components/schemas/subscription_id"
                     - type: "null"
+                  x-permissions:
+                    - subscription.read
+                    - transaction.read
             options:
               description: Options that determine which webhooks are sent as part of a simulation.
               oneOf:
