@@ -29660,7 +29660,7 @@ components:
         discount_simulated_as:
           description: Determines which webhooks are sent based on whether a discount is used and how it's entered. If omitted, defaults to `none`.
           type: string
-          default: none
+          default: not_provided
           enum:
             - not_provided
             - prefilled
