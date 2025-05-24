@@ -3767,8 +3767,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/transaction-update"
+              $ref: "#/components/schemas/transaction-update"
             examples:
               Standard:
                 $ref: "#/components/examples/update-transaction-standard"
@@ -4091,8 +4090,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/transaction-revise"
+              $ref: "#/components/schemas/transaction-revise"
             examples:
               Standard:
                 $ref: "#/components/examples/revise-transaction-standard"
