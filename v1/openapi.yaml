@@ -3767,8 +3767,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/transaction-update"
+              $ref: "#/components/schemas/transaction-update"
             examples:
               Standard:
                 $ref: "#/components/examples/update-transaction-standard"
@@ -4091,8 +4090,7 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/transaction-revise"
+              $ref: "#/components/schemas/transaction-revise"
             examples:
               Standard:
                 $ref: "#/components/examples/revise-transaction-standard"
@@ -14299,7 +14297,7 @@ paths:
 
         Reports are created as `pending` initially while Paddle generates your report. They move to `ready` when they're ready to download.
 
-        You can download a report when it's ready using the [get a CSV file for a report operation](#).
+        You can download a report when it's ready using the [get a CSV file for a report operation](https://developer.paddle.com/api-reference/reports/get-report-csv).
 
         If successful, your response includes a copy of the new report entity.
       responses:
@@ -16201,6 +16199,7 @@ components:
           - chargeback
           - chargeback_reverse
           - chargeback_warning
+          - chargeback_warning_reverse
           - credit
           - credit_reverse
           - refund
@@ -16211,6 +16210,8 @@ components:
             description: Return adjustments where the action is `chargeback_reverse`.
           chargeback_warning:
             description: Return adjustments where the action is `chargeback_warning`. Returned adjustments are warnings of upcoming chargebacks for their related transactions.
+          chargeback_warning_reverse:
+            description: Return adjustments where the action is `chargeback_warning_reverse`. Returned adjustments are reversals of chargeback warnings for their related transactions.
           credit:
             description: Return adjustments where the action is `credit`. Returned adjustments are credits for some or all the related transaction.
           credit_reverse:
@@ -22968,6 +22969,7 @@ components:
         - chargeback
         - chargeback_reverse
         - chargeback_warning
+        - chargeback_warning_reverse
         - credit_reverse
       x-enum-descriptions:
         credit:
@@ -22982,6 +22984,9 @@ components:
           readOnly: true
         chargeback_warning:
           description: Warning of an upcoming chargeback for the related transaction. Automatically created by Paddle.
+          readOnly: true
+        chargeback_warning_reverse:
+          description: Reversal of a chargeback warning for the related transaction. Automatically created by Paddle.
           readOnly: true
         credit_reverse:
           description: Reversal of a credit for the related transaction. Automatically created by Paddle.
@@ -23272,7 +23277,7 @@ components:
         - "v1: API Key Notifications"
     api_key.expired:
       title: api_key.expired
-      description: Occurs when an API key has expired.
+      description: Occurs when a private API key has expired.
       type: object
       allOf:
         - $ref: "#/components/schemas/event"
@@ -25211,6 +25216,7 @@ components:
             - apple_pay
             - card
             - google_pay
+            - korea_local
             - paypal
           x-enum-descriptions:
             alipay:
@@ -25221,6 +25227,8 @@ components:
               description: Credit or debit card.
             google_pay:
               description: Google Pay on a supported Android device, Chromebook, or Google Chrome browser.
+            korea_local:
+              description: Korean payment methods, which includes over 20 payment options for the Korean market. Check `underlying_payment_method.korea_local` for information about the Korean payment method used to pay.
             paypal:
               description: PayPal.
         card:
@@ -25233,6 +25241,11 @@ components:
             - $ref: "#/components/schemas/paypal"
             - type: "null"
           description: Information about the PayPal payment method saved. `null` unless `type` is `paypal`.
+        underlying_details:
+          oneOf:
+            - $ref: "#/components/schemas/underlying_details"
+            - type: "null"
+          readOnly: true
         origin:
           title: PaymentMethodOrigin
           type: string
@@ -26574,6 +26587,11 @@ components:
         - address.updated
         - adjustment.created
         - adjustment.updated
+        - api_key.created
+        - api_key.expired
+        - api_key.expiring
+        - api_key.revoked
+        - api_key.updated
         - business.created
         - business.imported
         - business.updated
@@ -26625,6 +26643,16 @@ components:
           description: An [`adjustment.created`](https://developer.paddle.com/webhooks/adjustments/adjustment-created) event.
         adjustment.updated:
           description: An [`adjustment.updated`](https://developer.paddle.com/webhooks/adjustments/adjustment-updated) event.
+        api_key.created:
+          description: An [`api_key.created`](https://developer.paddle.com/webhooks/api-keys/api-key-created) event.
+        api_key.expired:
+          description: An [`api_key.expired`](https://developer.paddle.com/webhooks/api-keys/api-key-expired) event.
+        api_key.expiring:
+          description: An [`api_key.expiring`](https://developer.paddle.com/webhooks/api-keys/api-key-expiring) event.
+        api_key.revoked:
+          description: An [`api_key.revoked`](https://developer.paddle.com/webhooks/api-keys/api-key-revoked) event.
+        api_key.updated:
+          description: An [`api_key.updated`](https://developer.paddle.com/webhooks/api-keys/api-key-updated) event.
         business.created:
           description: A [`business.created`](https://developer.paddle.com/webhooks/businesses/business-created) event.
         business.imported:
@@ -26662,7 +26690,7 @@ components:
         product.imported:
           description: A [`product.imported`](https://developer.paddle.com/webhooks/products/product-imported) event.
         product.updated:
-          description: A [`product.created`](https://developer.paddle.com/webhooks/products/product-updated) event.
+          description: A [`product.updated`](https://developer.paddle.com/webhooks/products/product-updated) event.
         report.created:
           description: A [`report.created`](https://developer.paddle.com/webhooks/reports/report-created) event.
         report.updated:
@@ -26738,6 +26766,30 @@ components:
           $ref: "#/components/schemas/migration_provider"
       required:
         - imported_from
+    import_meta_subscription:
+      title: ImportMetaSubscription
+      x-stoplight:
+        id: 5wv7ewhxecxsh
+      description: Import information for the subscription entity. `null` if this entity is not imported.
+      type: object
+      properties:
+        external_id:
+          oneOf:
+            - $ref: "#/components/schemas/external_id"
+              x-stoplight:
+                id: qw3rkgqfo7y50
+            - type: "null"
+              x-stoplight:
+                id: me7c1cq8ejem7
+          x-stoplight:
+            id: p9l5gdnovolhx
+        imported_from:
+          description: Name of the platform or provider where this entity was imported from.
+          $ref: "#/components/schemas/migration_provider"
+          x-stoplight:
+            id: ru4ti7vsgplel
+      required:
+        - imported_from
     item-subscription:
       title: Subscription item
       description: Represents a subscription item.
@@ -26803,6 +26855,111 @@ components:
           $ref: "#/components/schemas/product"
           description: Related product entity for this item. This reflects the product entity at the time it was added to the subscription.
           readOnly: true
+    korea_local_underlying_details:
+      title: Korean market underlying details
+      x-stoplight:
+        id: eqdw1ndc89og5
+      type: object
+      description: Information about the Korean payment method used to pay. `null` unless the type is `korea_local`.
+      properties:
+        type:
+          $ref: "#/components/schemas/korea_local_underlying_payment_method_type"
+          readOnly: true
+          x-stoplight:
+            id: ikwjauwwvid81
+    korea_local_underlying_payment_method_type:
+      title: Korean market underlying payment method type
+      x-stoplight:
+        id: a3476a2cf23fc
+      type: string
+      enum:
+        - bc
+        - citi
+        - hana
+        - hyundai
+        - jeju
+        - jeonbuk
+        - kakaobank
+        - kakaopay
+        - kbank
+        - kdbbank
+        - kookmin
+        - kwangju
+        - lotte
+        - mg
+        - naverpaycard
+        - naverpaypoint
+        - nh
+        - payco
+        - post
+        - samsung
+        - samsungpay
+        - savingsbank
+        - shinhan
+        - shinhyup
+        - suhyup
+        - tossbank
+        - unknown
+        - woori
+      x-enum-descriptions:
+        bc:
+          description: BC Card (BCard), a kind of card issued in Korea. (비씨카드)
+        citi:
+          description: Card issued by Citi Bank in Korea. (한국씨티은행)
+        hana:
+          description: Card issued by Hana Bank in Korea. (하나카드)
+        hyundai:
+          description: Hyundai Card, a credit card issued by Hyundai in Korea. (현대카드)
+        jeju:
+          description: Card issued by Jeju Bank in Korea. (제주은행)
+        jeonbuk:
+          description: Card issued by Jeonbuk Bank in Korea. (전북은행)
+        kakaobank:
+          description: Card issued by Kakaobank in Korea. (주식회사 카카오뱅크)
+        kakaopay:
+          description: KakaoPay digital wallet, popular in Korea. (카카오페이)
+        kbank:
+          description: Card issued by K Bank in Korea. (케이뱅크)
+        kdbbank:
+          description: Card issued by KDB Bank in Korea. (한국산업은행)
+        kookmin:
+          description: Card issued by Kookmin Bank in Korea. (국민은행)
+        kwangju:
+          description: Card issued by Kwangju Bank in Korea. (광주은행)
+        lotte:
+          description: Lotte Card, a credit card issued by the Lotte Corporation in Korea. (롯데카드)
+        mg:
+          description: Card issued by MG Community Credit Cooperatives (KFCC) in Korea. (MG새마을금고)
+        naverpaycard:
+          description: Card issued by Naver Pay in Korea. (네이버 페이)
+        naverpaypoint:
+          description: Naver Pay digital wallet, popular in Korea. (네이버 페이)
+        nh:
+          description: NH Card, a card issued by Nonghyup Bank in Korea. (NH농협은행)
+        payco:
+          description: PayCo digital wallet, popular in Korea. (페이코)
+        post:
+          description: Card issued by Korea Post. (우체국예금보험)
+        samsung:
+          description: Samsung Card, a card issued by Samsung in Korea. (삼성카드)
+        samsungpay:
+          description: Samsung Pay digital wallet, popular in Korea. (삼성 월렛)
+        savingsbank:
+          description: Card issued by the Korean Federation of Savings Banks in Korea. (저축은행중앙회)
+        shinhan:
+          description: Card issued by Shinhan Bank in Korea. (주식회사 신한은행)
+        shinhyup:
+          description: Card issued by the National Credit Unit Federation of Korea (Shinhyup) in Korea. (신한은행 신협)
+        suhyup:
+          description: Card issued by the National Federation of Fisheries Cooperation (Suhyup) in Korea. (수협은행)
+        tossbank:
+          description: Card issued by Toss Bank in Korea. (토스뱅크)
+        unknown:
+          description: Underlying payment method not recognized.
+        woori:
+          description: Card issued by Woori Bank in Korea. (주식회사 우리은행)
+      description: Type of Korean payment method used to pay.
+      readOnly: true
     meta:
       title: Meta
       x-stoplight:
@@ -26837,6 +26994,11 @@ components:
       properties:
         type:
           $ref: "#/components/schemas/transaction_payment_method_type"
+        underlying_details:
+          oneOf:
+            - $ref: "#/components/schemas/underlying_details"
+            - type: "null"
+          readOnly: true
         card:
           oneOf:
             - $ref: "#/components/schemas/card"
@@ -27366,6 +27528,7 @@ components:
                     - apple_pay
                     - card
                     - google_pay
+                    - korea_local
                     - paypal
                   x-enum-descriptions:
                     alipay:
@@ -27376,6 +27539,8 @@ components:
                       description: Credit or debit card.
                     google_pay:
                       description: Google Pay on a supported Android device, Chromebook, or Google Chrome browser.
+                    korea_local:
+                      description: Korean payment methods, which includes over 20 payment options for the Korean market.
                     paypal:
                       description: PayPal.
                 origin:
@@ -27431,6 +27596,7 @@ components:
                     - apple_pay
                     - card
                     - google_pay
+                    - korea_local
                     - paypal
                   x-enum-descriptions:
                     alipay:
@@ -27441,6 +27607,8 @@ components:
                       description: Credit or debit card.
                     google_pay:
                       description: Google Pay on a supported Android device, Chromebook, or Google Chrome browser.
+                    korea_local:
+                      description: Korean payment methods, which includes over 20 payment options for the Korean market.
                     paypal:
                       description: PayPal.
                 origin:
@@ -27483,6 +27651,7 @@ components:
         - card
         - google_pay
         - ideal
+        - korea_local
         - paypal
       x-enum-descriptions:
         alipay:
@@ -27497,6 +27666,8 @@ components:
           description: Google Pay on a supported Android device, Chromebook, or Google Chrome browser.
         ideal:
           description: iDEAL, popular in the Netherlands.
+        korea_local:
+          description: Korean payment methods, which includes over 20 payment options for the Korean market.
         paypal:
           description: PayPal.
       description: Type of payment method available for use in the checkout.
@@ -28788,6 +28959,9 @@ components:
         - title: Discounts report
           description: Entity when working with a discounts report.
           $ref: "#/components/schemas/report-discounts"
+        - title: Balance report
+          description: Entity when working with a balance report.
+          $ref: "#/components/schemas/report-balance"
     report-adjustments:
       title: ReportAdjustments
       description: Report entity when working with adjustments reports.
@@ -28801,6 +28975,30 @@ components:
               description: Type of report to create.
             filters:
               $ref: "#/components/schemas/report_filter_adjustments"
+              description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+          required:
+            - type
+    report-balance:
+      title: ReportBalance
+      description: Report entity when working with the balance report.
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/report-base"
+        - type: object
+          properties:
+            type:
+              title: BalanceReportType
+              description: Type of report to create.
+              type: string
+              enum:
+                - balance
+              x-enum-descriptions:
+                balance:
+                  description: Balance reports contain information about your account balance activity, including all movements of funds in and out of your balance.
+              examples:
+                - balance
+            filters:
+              $ref: "#/components/schemas/report_filter_balance"
               description: Filter criteria for this report. If omitted, reports are filtered to include data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
           required:
             - type
@@ -28996,6 +29194,34 @@ components:
                 description: Filter by transaction or adjustment status. Pass an array of strings containing any valid value for the `status` field against a transaction or an adjustment.
               updated_at:
                 description: Filter by transaction or adjustment updated date. Pass an RFC 3339 datetime string.
+          operator:
+            oneOf:
+              - $ref: "#/components/schemas/operator"
+              - type: "null"
+            description: Operator to use when filtering. Valid when filtering by `updated_at`, `null` otherwise.
+          value:
+            type:
+              - array
+              - string
+            description: Value to filter by. Check the allowed values descriptions for the `name` field to see valid values for a field.
+    report_filter_balance:
+      title: BalanceReportFilters
+      description: List of filters applied to this report.
+      type: array
+      maxItems: 10
+      items:
+        type: object
+        description: Filter criteria for this report. If omitted when creating, reports are filtered to include Paddle Billing data updated in the last 30 days. This means `updated_at` is greater than or equal to (`gte`) the date 30 days ago from the time the report was generated.
+        properties:
+          name:
+            title: BalanceReportFilterName
+            type: string
+            description: Field name to filter by.
+            enum:
+              - updated_at
+            x-enum-descriptions:
+              updated_at:
+                description: Filter by balance change updated date. Pass an RFC 3339 datetime string.
           operator:
             oneOf:
               - $ref: "#/components/schemas/operator"
@@ -29660,7 +29886,7 @@ components:
         discount_simulated_as:
           description: Determines which webhooks are sent based on whether a discount is used and how it's entered. If omitted, defaults to `none`.
           type: string
-          default: none
+          default: not_provided
           enum:
             - not_provided
             - prefilled
@@ -30601,6 +30827,40 @@ components:
         past_due:
           description: Transaction is past due. Occurs for automatically-collected transactions when the related subscription is in dunning, and for manually-collected transactions when payment terms have elapsed.
           readOnly: true
+    status-transaction-create:
+      title: TransactionStatus
+      description: Status of this transaction. You may set a transaction to `billed` or `canceled`, other statuses are set automatically by Paddle. Automatically-collected transactions may return `completed` if payment is captured successfully, or `past_due` if payment failed.
+      x-stoplight:
+        id: v1fyo7028qrjj
+      type: string
+      enum:
+        - draft
+        - ready
+        - billed
+        - paid
+        - completed
+        - canceled
+        - past_due
+      x-enum-descriptions:
+        draft:
+          description: Transaction is missing required fields. Typically the first stage of a checkout before customer details are captured.
+          readOnly: true
+        ready:
+          description: Transaction has all of the required fields to be marked as `billed` or `completed`.
+          readOnly: true
+        billed:
+          description: Transaction has been updated to `billed`. Billed transactions get an invoice number and are considered a legal record. They cannot be changed. Typically used as part of an invoice workflow.
+        paid:
+          description: Transaction is fully paid, but has not yet been processed internally.
+          readOnly: true
+        completed:
+          description: Transaction is fully paid and processed.
+          readOnly: true
+        canceled:
+          description: Transaction has been updated to `canceled`. If an invoice, it's no longer due.
+        past_due:
+          description: Transaction is past due. Occurs for automatically-collected transactions when the related subscription is in dunning, and for manually-collected transactions when payment terms have elapsed.
+          readOnly: true
     subscription:
       title: Subscription
       description: Represents a subscription entity.
@@ -30710,7 +30970,7 @@ components:
         import_meta:
           description: Import information for this entity. `null` if this entity is not imported.
           oneOf:
-            - $ref: "#/components/schemas/import_meta"
+            - $ref: "#/components/schemas/import_meta_subscription"
             - type: "null"
           readOnly: true
       x-tags:
@@ -30905,7 +31165,7 @@ components:
         import_meta:
           description: Import information for this entity. `null` if this entity is not imported.
           oneOf:
-            - $ref: "#/components/schemas/import_meta"
+            - $ref: "#/components/schemas/import_meta_subscription"
             - type: "null"
           readOnly: true
     subscription-update:
@@ -32222,7 +32482,10 @@ components:
         - price_id
     subscription_management_urls:
       title: Subscription Management Urls
-      description: Authenticated customer portal deep links for this subscription. For security, the `token` appended to each link is temporary. You shouldn't store these links.
+      description: |-
+        Customer portal deep links for this subscription.
+
+        Authenticated links are only returned when your API key has Customer portal session (Write) permission. For security, the `token` appended to authenticated links is temporary. You shouldn't store them.
       x-stoplight:
         id: golfm9ytaxaf2
       type: object
@@ -32741,7 +33004,7 @@ components:
           $ref: "#/components/schemas/transaction_id"
           readOnly: true
         status:
-          $ref: "#/components/schemas/status-transaction"
+          $ref: "#/components/schemas/status-transaction-create"
           description: |-
             Status of this transaction. You may set a transaction to `billed` when creating,
             or omit to let Paddle set the status. Transactions are created as `ready` if they have
@@ -35251,6 +35514,7 @@ components:
         - card
         - google_pay
         - ideal
+        - korea_local
         - offline
         - paypal
         - unknown
@@ -35268,6 +35532,8 @@ components:
           description: Google Pay on a supported Android device, Chromebook, or Google Chrome browser.
         ideal:
           description: iDEAL, popular in the Netherlands.
+        korea_local:
+          description: Korean payment methods, which includes over 20 payment options for the Korean market. Check `underlying_payment_method.korea_local` for information about the Korean payment method used to pay.
         paypal:
           description: PayPal.
         offline:
@@ -35802,6 +36068,16 @@ components:
           description: Three-letter ISO 4217 currency code of the currency used for this transaction.
           $ref: "#/components/schemas/currency_code"
       readOnly: true
+    underlying_details:
+      title: Underlying details
+      type: object
+      description: Information about the underlying payment method used to pay. Populated for payment methods that offer multiple payment options, like `korea_local`.
+      properties:
+        korea_local:
+          oneOf:
+            - $ref: "#/components/schemas/korea_local_underlying_details"
+            - type: "null"
+          readOnly: true
     unit_price_override:
       title: Unit price override
       x-stoplight:
