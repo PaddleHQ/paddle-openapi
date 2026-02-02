@@ -1,5 +1,5 @@
-- [Security Policy](#security-policy)
-    - [Reporting a Vulnerability](#reporting-a-vulnerability)
+- [Security policy](#security-policy)
+  - [Reporting a vulnerability](#reporting-a-vulnerability)
 
 # Security policy
 
