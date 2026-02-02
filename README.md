@@ -6,12 +6,13 @@ We use OpenAPI 3.1.
 
 ## What is the Paddle API?
 
-[Paddle Billing](https://www.paddle.com/billing?utm_source=dx&utm_medium=paddle-openapi) is a complete subscription and recurring revenue management platform, designed for modern SaaS businesses. It helps you increase your revenue, retain customers, and scale your operations.
+[Paddle Billing](https://www.paddle.com/billing?utm_source=dx&utm_medium=paddle-openapi) is the developer-first merchant of record. We take care of payments, tax, subscriptions, and metrics with one unified API that does it all.
 
 Use [the Paddle API](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-openapi) to create, read, and update information in your Paddle Billing system.
 
 > [!IMPORTANT]
 > The Paddle Classic API is not part of this repository. To work with the Paddle Classic API, see: [Paddle Classic API reference](https://developer.paddle.com/classic/api-reference/1384a288aca7a-api-reference?utm_source=dx&utm_medium=paddle-openapi)
+
 
 ## What is OpenAPI? 
 
@@ -33,15 +34,20 @@ We use some vendor extensions for concepts that are harder to express with OpenA
 |-----------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `x-enum-descriptions` | object  | Provides information about enums, including a description and whether they're read-only.                                                                             |
 | `x-included`          | boolean | Used to mark entities that are only included in a response when the `include` query parameter is used.                                                               |
-| `x-tags`              | array   | Used to categorize schemas. May be removed in the future.                                                                                                            |
-| `x-stoplight`         | object  | Contains stable IDs for working with [Stoplight Studio](https://docs.stoplight.io/docs/platform/x8m99p1dhhvl8-extensions#x-stoplight). May be removed in the future. |
+
+We previously used some vendor extensions that are no longer included:
+
+* `x-tags` to categorize schemas.
+* `x-stoplight` to mark entities with stable IDs for working with Stoplight Studio.
 
 
 ## Run in Postman
 
 [Postman](https://www.postman.com/) is platform for working with and testing APIs.
 
-You can [fork our Postman collection](https://www.postman.com/paddlehq) to see all operations available in the Paddle API and quickly make requests. It's a great way to explore the API if you're new to Paddle or want to test newly released functionality.
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/29428794-16aca740-3ad6-4c1a-97be-05dbc504b4c3?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D29428794-16aca740-3ad6-4c1a-97be-05dbc504b4c3%26entityType%3Dcollection%26workspaceId%3D5ed2587a-f47e-43e0-810c-0c3e782bca12)
+
+You can [fork our Postman collection](https://god.gw.postman.com/run-collection/29428794-16aca740-3ad6-4c1a-97be-05dbc504b4c3?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D29428794-16aca740-3ad6-4c1a-97be-05dbc504b4c3%26entityType%3Dcollection%26workspaceId%3D5ed2587a-f47e-43e0-810c-0c3e782bca12#?env%5BSandbox%5D=W3sia2V5IjoiYmFzZVVybCIsInZhbHVlIjoiaHR0cHM6Ly9zYW5kYm94LWFwaS5wYWRkbGUuY29tIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQifSx7ImtleSI6ImJlYXJlclRva2VuIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlLCJ0eXBlIjoic2VjcmV0In1d) to see all operations available in the Paddle API and quickly make requests. It's a great way to explore the API if you're new to Paddle or want to test newly released functionality.
 
 
 ## Contributing
@@ -53,5 +59,6 @@ If you've spotted a problem with the OpenAPI spec, open an issue.
 
 ## Learn more
 
+* [Paddle developer docs](https://developer.paddle.com?utm_source=dx&utm_medium=paddle-openapi)
 * [Paddle API reference](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-openapi)
 * [Sign up for Paddle Billing](https://login.paddle.com/signup?utm_source=dx&utm_medium=paddle-openapi)
