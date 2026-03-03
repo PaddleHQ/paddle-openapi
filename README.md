@@ -1,17 +1,13 @@
 # OpenAPI description for the Paddle API
 
-This repo contains an OpenAPI description for the Paddle API. 
-
-We use OpenAPI 3.1.
-
-## What is the Paddle API?
-
-[Paddle Billing](https://www.paddle.com/billing?utm_source=dx&utm_medium=paddle-openapi) is the developer-first merchant of record. We take care of payments, tax, subscriptions, and metrics with one unified API that does it all.
+[Paddle Billing](https://developer.padddle.com/?utm_source=dx&utm_medium=paddle-openapi) is the developer-first merchant of record, designed for modern SaaS, AI, mobile app, and digital product businesses. We take care of payments, tax, subscriptions, and metrics with one unified API that does it all.
 
 Use [the Paddle API](https://developer.paddle.com/api-reference/overview?utm_source=dx&utm_medium=paddle-openapi) to create, read, and update information in your Paddle Billing system.
 
+This repo contains an OpenAPI description for the Paddle API. We use OpenAPI 3.1.
+
 > [!IMPORTANT]
-> The Paddle Classic API is not part of this repository. To work with the Paddle Classic API, see: [Paddle Classic API reference](https://developer.paddle.com/classic/api-reference/1384a288aca7a-api-reference?utm_source=dx&utm_medium=paddle-openapi)
+> The Paddle Classic API is not part of this repository. To work with the Paddle Classic API, see: [Paddle Classic dev docs](https://classic.paddle.com/?utm_source=dx&utm_medium=paddle-openapi)
 
 
 ## What is OpenAPI? 
