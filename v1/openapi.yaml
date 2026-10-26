@@ -21,8 +21,6 @@ externalDocs:
   url: https://developer.paddle.com/
   description: Paddle Developer Center
 tags:
-  - name: Checkout domains
-  - name: Subscription history
   - name: Verifications
     description: Verification entities show whether an account is ready for live payments, and which steps are still outstanding. They're read-only.
     externalDocs:
@@ -31,32 +29,37 @@ tags:
   - name: Transactions
     description: Transaction entities calculate and capture revenue. They hold information about an amount that you're billing for.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/transactions/overview
+      url: https://developer.paddle.com/api-reference/transactions
       description: Transaction entity overview
   - name: Subscriptions
     description: Subscription entities describe a recurring billing relationship with a customer. They're closely related to transactions.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/subscriptions/overview
+      url: https://developer.paddle.com/api-reference/subscriptions
       description: Subscription entity overview
+  - name: Subscription history
+    description: Subscription history entries describe the changes made to a subscription over its lifetime, including what changed, when, and who made the change.
+    externalDocs:
+      url: https://developer.paddle.com/api-reference/subscription-history
+      description: Subscription history overview
   - name: Simulations
     description: Simulation entities describe a reusable configuration for testing webhooks.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/simulations/overview
+      url: https://developer.paddle.com/api-reference/simulations
       description: Simulations entity overview
   - name: Simulation types
     description: Simulation type entities are the kinds of simulation you can use when testing webhooks.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/simulation-types/overview
+      url: https://developer.paddle.com/api-reference/simulation-types
       description: Simulation types overview
   - name: Simulation runs
     description: Simulation run entities describe an attempt by Paddle to send simulated events for a notification simulation.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/simulation-runs/overview
+      url: https://developer.paddle.com/api-reference/simulation-runs
       description: Simulation runs entity overview
   - name: Simulation run events
     description: Simulation run event entities describe a simulated event that happened as part of a notification simulation run.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/simulation-events/overview
+      url: https://developer.paddle.com/api-reference/simulation-run-events
       description: Simulation run events entity overview
   - name: Settings
     description: Settings entities describe how your account is configured, including checkout, sales tax, currency, and statement descriptor settings. There's one of each for your account, so you get and update them without an ID.
@@ -66,81 +69,84 @@ tags:
   - name: Reports
     description: Report entities describe a report generated in your Paddle system.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/reports/overview
+      url: https://developer.paddle.com/api-reference/reports
       description: Reports entity overview
   - name: Products
     description: Product entities describe the items that customers can purchase. They hold high-level product attributes.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/products/overview
+      url: https://developer.paddle.com/api-reference/products
       description: Product entity overview
   - name: Pricing preview
     description: Pricing previews are calculated totals for prices.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/pricing-preview/overview
+      url: https://developer.paddle.com/api-reference/pricing-preview
       description: Pricing preview overview
   - name: Prices
     description: Price entities describe how much and how often you charge for your products. They hold charging information.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/prices/overview
+      url: https://developer.paddle.com/api-reference/prices
       description: Price entity overview
   - name: Payouts
     description: Payouts are payments made by Paddle.
   - name: Payment methods
     description: Payment method entities hold information about a payment method a customer saved at checkout for use in the future. They're related to customer entities.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/payment-methods/overview
+      url: https://developer.paddle.com/api-reference/payment-methods
       description: Payment methods entity overview
   - name: Notifications
     description: Notification entities describe a notification for an event that happened in your Paddle system.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/notifications/overview
+      url: https://developer.paddle.com/api-reference/notifications
       description: Notification entity overview
   - name: Notification settings
     description: Notification settings entities describe subscriptions to events. They're also called notification destinations.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/notification-settings/overview
+      url: https://developer.paddle.com/api-reference/notification-settings
       description: Notification settings entity overview
   - name: Notification logs
     description: Notification logs are records of an attempt to deliver a notification.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/notification-logs/overview
+      url: https://developer.paddle.com/api-reference/notification-logs
       description: Notification logs entity overview
   - name: Metrics
     description: Metrics entities contain timeseries data about your Paddle account, including revenue, subscribers, and conversions.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/metrics/overview
+      url: https://developer.paddle.com/api-reference/metrics
       description: Metrics overview
   - name: IP addresses
-    description: Get Paddle IP addresses.
+    description: IP addresses are the Paddle IP addresses for the environment that you make the request in. You can add them to your allowlist.
+    externalDocs:
+      url: https://developer.paddle.com/api-reference/ip-addresses
+      description: IP addresses overview
   - name: Events
     description: Event entities describe something notable that happened in your Paddle system.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/events/overview
+      url: https://developer.paddle.com/api-reference/events
       description: Event entity overview
   - name: Event types
     description: Event types are actions that Paddle creates events for.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/event-types/overview
+      url: https://developer.paddle.com/api-reference/event-types
       description: Event types overview
   - name: Discounts
     description: Discount entities describe percentage or amount-based discounts for transactions. They're sometimes called coupons or promo codes.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/discounts/overview
+      url: https://developer.paddle.com/api-reference/discounts
       description: Discount entity overview
   - name: Discount groups
     description: Discount group entities let you organize your discounts by grouping them together.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/discount-groups/overview
+      url: https://developer.paddle.com/api-reference/discount-groups
       description: Discount Groups overview
   - name: Customer portals
     description: The customer portal lets customers manage their subscriptions, payment methods, and account information. Customer portal sessions hold authenticated links to the portal for a customer.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/customer-portals/overview
+      url: https://developer.paddle.com/api-reference/customer-portals
       description: Customer portals overview
   - name: Customers
     description: Customer entities hold information about the people and businesses that make purchases. They're related to addresses and businesses.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/customers/overview
+      url: https://developer.paddle.com/api-reference/customers
       description: Customer entity overview
   - name: Currencies
     description: Currency entities describe the currencies that Paddle supports, including the number of decimal places used and the minimum amount that Paddle can process.
@@ -155,12 +161,17 @@ tags:
   - name: Client tokens
     description: Client token entities hold the details to authenticate Paddle.js in your frontend code.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/client-tokens/overview
+      url: https://developer.paddle.com/api-reference/client-tokens
       description: Client-side tokens entity overview
+  - name: Checkout domains
+    description: Checkout domain entities hold the domains that you've submitted to serve Paddle Checkout for your account, and their approval status.
+    externalDocs:
+      url: https://developer.paddle.com/api-reference/checkout-domains
+      description: Checkout domains overview
   - name: Businesses
     description: Business entities hold information about customer businesses. They're sub-entities of customers.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/businesses/overview
+      url: https://developer.paddle.com/api-reference/businesses
       description: Business entity overview
   - name: API root
     description: The API root describes the Paddle API and the caller making the request, including the account and permissions for the credentials used.
@@ -170,17 +181,17 @@ tags:
   - name: API keys
     description: API key entities hold details on the secure credentials that authenticate server-side requests to the Paddle API.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/about/api-keys
-      description: API keys overview
+      url: https://developer.paddle.com/api-reference/about/authentication
+      description: Authentication overview
   - name: Adjustments
     description: Adjustment entities describe post-billing adjustments to billed or completed transactions.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/adjustments/overview
+      url: https://developer.paddle.com/api-reference/adjustments
       description: Adjustments entity overview
   - name: Addresses
     description: Address entities hold billing address information for a customer. They're sub-entities of customers.
     externalDocs:
-      url: https://developer.paddle.com/api-reference/addresses/overview
+      url: https://developer.paddle.com/api-reference/addresses
       description: Address entity overview
   - name: Account
     description: The account entity holds the business identity of the Paddle account that you're authenticated as, like its legal name, display name, and contact email address.
@@ -625,7 +636,7 @@ paths:
       tags:
         - Addresses
       externalDocs:
-        url: https://developer.paddle.com/api-reference/addresses/update-adddress
+        url: https://developer.paddle.com/api-reference/addresses/update-address
         description: Update an address for a customer
       requestBody:
         required: true
@@ -2437,7 +2448,7 @@ paths:
 
         Pass `null` to clear `default_url`.
 
-        Returns a `checkout_url_domain_not_approved` error if the URL's domain isn't an approved checkout domain for your account.
+        In live accounts, the URL's domain must be an approved checkout domain for your account, or the request returns a `checkout_url_domain_not_approved` error. Sandbox accounts accept any `https` URL.
 
         If successful, your response includes a copy of the updated checkout URL settings entity.
       parameters: []
@@ -11203,7 +11214,7 @@ paths:
       description: |-
         Returns information about the Paddle API and the caller making the request, including their account and permissions.
 
-        Authentication is optional. A request with no credentials, or with an API key that Paddle doesn't recognize, still succeeds, with `caller.auth_type` and `caller.account` set to `null` and an empty `caller.permissions`. To check that an API key works, make sure `caller.account` isn't `null`.
+        Authentication is optional. A request with no credentials still succeeds, with `caller.auth_type` and `caller.account` set to `null` and an empty `caller.permissions`. A request with an API key that isn't valid returns a `403` error, like any other operation. To check that an API key works, make sure `caller.account` isn't `null`.
       parameters: []
       responses:
         "200":
@@ -12905,6 +12916,7 @@ paths:
                           action: subscription_activated
                           status: active
                           first_billed_at: "2024-04-12T12:42:28Z"
+                          next_billed_at: "2024-05-12T12:42:28Z"
                           current_billing_period:
                             starts_at: "2024-04-12T12:42:28Z"
                             ends_at: "2024-05-12T12:42:28Z"
@@ -19300,7 +19312,7 @@ paths:
       tags:
         - Transactions
       externalDocs:
-        url: https://developer.paddle.com/api-reference/transactions/preview-transaction
+        url: https://developer.paddle.com/api-reference/transactions/preview-transaction-create
         description: Preview a transaction
       requestBody:
         required: true
@@ -20312,7 +20324,7 @@ components:
       description: Paddle ID of the discount entity to work with.
       schema:
         type: string
-        pattern: ^dsc_[a-z\d]{26}(?:@dscrev_[a-z\d]{26})?$
+        pattern: ^dsc_[a-z\d]{26}$
     ListEventsQueryParams.order_by:
       name: order_by
       in: query
@@ -23795,8 +23807,7 @@ components:
         web:
           description: Transaction created automatically by Paddle.js for a checkout.
     TransactionOrigin:
-      oneOf:
-        - $ref: "#/components/schemas/PublicTransactionOrigin"
+      $ref: "#/components/schemas/PublicTransactionOrigin"
     CollectionMode:
       type: string
       enum:
@@ -27097,7 +27108,7 @@ components:
           description: |-
             URL that Paddle opens when a checkout is created without a URL of its own. `null` until set.
 
-            Must use `https`, and its domain must be an approved checkout domain for your account.
+            Must use `https`. In live accounts, its domain must also be an approved checkout domain for your account.
 
             Paddle appends `?_ptxn=` and the transaction ID to this URL. The page must have Paddle.js set up to read it and open the checkout.
       description: Represents the checkout URL settings for your account.
@@ -27116,7 +27127,7 @@ components:
           description: |-
             URL that Paddle opens when a checkout is created without a URL of its own. Pass `null` to clear it.
 
-            Must use `https`, and its domain must be an approved checkout domain for your account.
+            Must use `https`. In live accounts, its domain must also be an approved checkout domain for your account.
 
             Paddle appends `?_ptxn=` and the transaction ID to this URL. The page must have Paddle.js set up to read it and open the checkout.
       description: Represents the checkout URL settings for your account when updating them.
@@ -29903,7 +29914,6 @@ components:
       title: Notification setting ID
       examples:
         - ntfset_01gt21c5pdx9q1e4mh1xrsjjn6
-      readOnly: true
     NotificationSettingType:
       type: string
       enum:
@@ -29992,7 +30002,7 @@ components:
         description:
           type: string
           minLength: 1
-          maxLength: 500
+          maxLength: 256
           description: Short description for this notification destination. Shown in the Paddle Dashboard.
         type:
           allOf:
@@ -30040,7 +30050,7 @@ components:
         description:
           type: string
           minLength: 1
-          maxLength: 500
+          maxLength: 256
           description: Short description for this notification destination. Shown in the Paddle Dashboard.
         destination:
           type: string
@@ -33464,7 +33474,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/NotificationSettingId"
           description: Paddle ID of the notification setting where this simulation is sent, prefixed with `ntfset_`.
-          readOnly: true
         name:
           type: string
           description: Name of this simulation.
@@ -34070,7 +34079,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/NotificationSettingId"
           description: Paddle ID of the notification setting where this simulation is sent, prefixed with `ntfset_`.
-          readOnly: true
         name:
           type: string
           description: Name of this simulation.
@@ -34098,7 +34106,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/NotificationSettingId"
           description: Paddle ID of the notification setting where this simulation is sent, prefixed with `ntfset_`.
-          readOnly: true
         name:
           type: string
           description: Name of this simulation.
@@ -34123,7 +34130,6 @@ components:
           allOf:
             - $ref: "#/components/schemas/NotificationSettingId"
           description: Paddle ID of the notification setting where this simulation is sent, prefixed with `ntfset_`.
-          readOnly: true
         name:
           type: string
           description: Name of this simulation.
@@ -42705,7 +42711,7 @@ webhooks:
                         - chargeback_warning
                         - chargeback_warning_reverse
                         - credit_reverse
-                      description: This parameter indicates the type of adjustment that will be created. Partial and full refunds can be requested, but needs approval from Paddle. Tax refunds, chargeback and chargeback_warning are reserved for Paddle internal users.
+                      description: How this adjustment impacts the related transaction.
                       title: AdjustmentAction
                       x-enum-descriptions:
                         credit:
@@ -43679,7 +43685,7 @@ webhooks:
                         - chargeback_warning
                         - chargeback_warning_reverse
                         - credit_reverse
-                      description: This parameter indicates the type of adjustment that will be created. Partial and full refunds can be requested, but needs approval from Paddle. Tax refunds, chargeback and chargeback_warning are reserved for Paddle internal users.
+                      description: How this adjustment impacts the related transaction.
                       title: AdjustmentAction
                       x-enum-descriptions:
                         credit:
@@ -44731,7 +44737,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/a-p-i-keys/api_key_exposure-created
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-exposure-created
         description: api_key_exposure.created
   api_key.created:
     post:
@@ -44996,157 +45002,156 @@ webhooks:
                     permissions:
                       type: array
                       items:
-                        oneOf:
-                          - type: string
-                            enum:
-                              - account.read
-                              - account.write
-                              - address.read
-                              - address.write
-                              - adjustment.read
-                              - adjustment.write
-                              - balance_currency.read
-                              - balance_currency.write
-                              - business.read
-                              - business.write
-                              - checkout_domain.read
-                              - checkout_domain.write
-                              - checkout_settings.read
-                              - checkout_settings.write
-                              - client_token.read
-                              - client_token.write
-                              - currency_conversion.read
-                              - currency_conversion.write
-                              - customer.read
-                              - customer.write
-                              - customer_auth_token.write
-                              - customer_portal_session.write
-                              - discount.read
-                              - discount.write
-                              - metrics.read
-                              - notification.read
-                              - notification.write
-                              - notification_setting.read
-                              - notification_setting.write
-                              - notification_simulation.read
-                              - notification_simulation.write
-                              - payment_method.read
-                              - payment_method.write
-                              - price.read
-                              - price.write
-                              - product.read
-                              - product.write
-                              - report.read
-                              - report.write
-                              - statement_descriptor.read
-                              - statement_descriptor.write
-                              - subscription.read
-                              - subscription.write
-                              - subscription_history.read
-                              - tax_settings.read
-                              - tax_settings.write
-                              - transaction.read
-                              - transaction.write
-                              - verification.read
-                            x-enum-descriptions:
-                              account.read:
-                                description: View the business identity of your account, including legal name, display name, website, and contact email.
-                              account.write:
-                                description: Update the contact email for your account.
-                              address.read:
-                                description: View customer addresses and include address data in API responses.
-                              address.write:
-                                description: Create and update customer addresses.
-                              adjustment.read:
-                                description: View adjustments and credit notes for transactions.
-                              adjustment.write:
-                                description: Create new adjustments for transactions.
-                              balance_currency.read:
-                                description: View balance currency settings for your account.
-                              balance_currency.write:
-                                description: Update balance currency settings for your account.
-                              business.read:
-                                description: View customer businesses and include business data in API responses.
-                              business.write:
-                                description: Create and update customer businesses.
-                              checkout_domain.read:
-                                description: View checkout domains, their approval status, and payment method verification status.
-                              checkout_domain.write:
-                                description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
-                              checkout_settings.read:
-                                description: View checkout settings for your account.
-                              checkout_settings.write:
-                                description: Update checkout settings for your account.
-                              client_token.read:
-                                description: View client-side tokens.
-                              client_token.write:
-                                description: Create and update client-side tokens.
-                              currency_conversion.read:
-                                description: View currency conversion settings for your account.
-                              currency_conversion.write:
-                                description: Update currency conversion settings for your account.
-                              customer.read:
-                                description: View customers, including credit balances, and include customer data in API responses.
-                              customer.write:
-                                description: Create new customers and update existing customer information.
-                              customer_auth_token.write:
-                                description: Generate authentication tokens for customers.
-                              customer_portal_session.write:
-                                description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
-                              discount.read:
-                                description: View discounts and include discount data in API responses.
-                              discount.write:
-                                description: Create new discounts and modify existing discount information.
-                              metrics.read:
-                                description: View metrics data including revenue, subscribers, and conversion timeseries.
-                              notification.read:
-                                description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
-                              notification.write:
-                                description: Replay notifications.
-                              notification_setting.read:
-                                description: View settings for notifications.
-                              notification_setting.write:
-                                description: Create, update, and delete notification settings.
-                              notification_simulation.read:
-                                description: View notification simulations, simulation runs, and events within a simulation run.
-                              notification_simulation.write:
-                                description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
-                              payment_method.read:
-                                description: View saved payment methods for customers.
-                              payment_method.write:
-                                description: Delete payment methods for customers.
-                              price.read:
-                                description: View prices and include price data in API responses.
-                              price.write:
-                                description: Create new prices and modify existing price information.
-                              product.read:
-                                description: View products and include product data in API responses.
-                              product.write:
-                                description: Create new products and modify existing product information.
-                              report.read:
-                                description: View and download report data.
-                              report.write:
-                                description: Create new reports.
-                              statement_descriptor.read:
-                                description: View statement descriptor settings for your account.
-                              statement_descriptor.write:
-                                description: Update statement descriptor settings for your account.
-                              subscription.read:
-                                description: View subscriptions and preview subscription updates and charges.
-                              subscription.write:
-                                description: Create one-time charges, update subscriptions, and manage subscription status.
-                              subscription_history.read:
-                                description: View subscription history entries for a subscription.
-                              tax_settings.read:
-                                description: View tax settings for your account.
-                              tax_settings.write:
-                                description: Update tax settings for your account.
-                              transaction.read:
-                                description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
-                              transaction.write:
-                                description: Create, update, and revise transactions, and update payment methods.
-                              verification.read:
-                                description: View verification progress, including step statuses.
+                        type: string
+                        enum:
+                          - account.read
+                          - account.write
+                          - address.read
+                          - address.write
+                          - adjustment.read
+                          - adjustment.write
+                          - balance_currency.read
+                          - balance_currency.write
+                          - business.read
+                          - business.write
+                          - checkout_domain.read
+                          - checkout_domain.write
+                          - checkout_settings.read
+                          - checkout_settings.write
+                          - client_token.read
+                          - client_token.write
+                          - currency_conversion.read
+                          - currency_conversion.write
+                          - customer.read
+                          - customer.write
+                          - customer_auth_token.write
+                          - customer_portal_session.write
+                          - discount.read
+                          - discount.write
+                          - metrics.read
+                          - notification.read
+                          - notification.write
+                          - notification_setting.read
+                          - notification_setting.write
+                          - notification_simulation.read
+                          - notification_simulation.write
+                          - payment_method.read
+                          - payment_method.write
+                          - price.read
+                          - price.write
+                          - product.read
+                          - product.write
+                          - report.read
+                          - report.write
+                          - statement_descriptor.read
+                          - statement_descriptor.write
+                          - subscription.read
+                          - subscription.write
+                          - subscription_history.read
+                          - tax_settings.read
+                          - tax_settings.write
+                          - transaction.read
+                          - transaction.write
+                          - verification.read
+                        x-enum-descriptions:
+                          account.read:
+                            description: View the business identity of your account, including legal name, display name, website, and contact email.
+                          account.write:
+                            description: Update the contact email for your account.
+                          address.read:
+                            description: View customer addresses and include address data in API responses.
+                          address.write:
+                            description: Create and update customer addresses.
+                          adjustment.read:
+                            description: View adjustments and credit notes for transactions.
+                          adjustment.write:
+                            description: Create new adjustments for transactions.
+                          balance_currency.read:
+                            description: View balance currency settings for your account.
+                          balance_currency.write:
+                            description: Update balance currency settings for your account.
+                          business.read:
+                            description: View customer businesses and include business data in API responses.
+                          business.write:
+                            description: Create and update customer businesses.
+                          checkout_domain.read:
+                            description: View checkout domains, their approval status, and payment method verification status.
+                          checkout_domain.write:
+                            description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
+                          checkout_settings.read:
+                            description: View checkout settings for your account.
+                          checkout_settings.write:
+                            description: Update checkout settings for your account.
+                          client_token.read:
+                            description: View client-side tokens.
+                          client_token.write:
+                            description: Create and update client-side tokens.
+                          currency_conversion.read:
+                            description: View currency conversion settings for your account.
+                          currency_conversion.write:
+                            description: Update currency conversion settings for your account.
+                          customer.read:
+                            description: View customers, including credit balances, and include customer data in API responses.
+                          customer.write:
+                            description: Create new customers and update existing customer information.
+                          customer_auth_token.write:
+                            description: Generate authentication tokens for customers.
+                          customer_portal_session.write:
+                            description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
+                          discount.read:
+                            description: View discounts and include discount data in API responses.
+                          discount.write:
+                            description: Create new discounts and modify existing discount information.
+                          metrics.read:
+                            description: View metrics data including revenue, subscribers, and conversion timeseries.
+                          notification.read:
+                            description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
+                          notification.write:
+                            description: Replay notifications.
+                          notification_setting.read:
+                            description: View settings for notifications.
+                          notification_setting.write:
+                            description: Create, update, and delete notification settings.
+                          notification_simulation.read:
+                            description: View notification simulations, simulation runs, and events within a simulation run.
+                          notification_simulation.write:
+                            description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
+                          payment_method.read:
+                            description: View saved payment methods for customers.
+                          payment_method.write:
+                            description: Delete payment methods for customers.
+                          price.read:
+                            description: View prices and include price data in API responses.
+                          price.write:
+                            description: Create new prices and modify existing price information.
+                          product.read:
+                            description: View products and include product data in API responses.
+                          product.write:
+                            description: Create new products and modify existing product information.
+                          report.read:
+                            description: View and download report data.
+                          report.write:
+                            description: Create new reports.
+                          statement_descriptor.read:
+                            description: View statement descriptor settings for your account.
+                          statement_descriptor.write:
+                            description: Update statement descriptor settings for your account.
+                          subscription.read:
+                            description: View subscriptions and preview subscription updates and charges.
+                          subscription.write:
+                            description: Create one-time charges, update subscriptions, and manage subscription status.
+                          subscription_history.read:
+                            description: View subscription history entries for a subscription.
+                          tax_settings.read:
+                            description: View tax settings for your account.
+                          tax_settings.write:
+                            description: Update tax settings for your account.
+                          transaction.read:
+                            description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
+                          transaction.write:
+                            description: Create, update, and revise transactions, and update payment methods.
+                          verification.read:
+                            description: View verification progress, including step statuses.
                       description: Permissions assigned to this API key. Determines what actions the API key can perform.
                     exposed_at:
                       anyOf:
@@ -45241,7 +45246,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/a-p-i-keys/api_key-created
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-created
         description: api_key.created
   api_key.updated:
     post:
@@ -45506,157 +45511,156 @@ webhooks:
                     permissions:
                       type: array
                       items:
-                        oneOf:
-                          - type: string
-                            enum:
-                              - account.read
-                              - account.write
-                              - address.read
-                              - address.write
-                              - adjustment.read
-                              - adjustment.write
-                              - balance_currency.read
-                              - balance_currency.write
-                              - business.read
-                              - business.write
-                              - checkout_domain.read
-                              - checkout_domain.write
-                              - checkout_settings.read
-                              - checkout_settings.write
-                              - client_token.read
-                              - client_token.write
-                              - currency_conversion.read
-                              - currency_conversion.write
-                              - customer.read
-                              - customer.write
-                              - customer_auth_token.write
-                              - customer_portal_session.write
-                              - discount.read
-                              - discount.write
-                              - metrics.read
-                              - notification.read
-                              - notification.write
-                              - notification_setting.read
-                              - notification_setting.write
-                              - notification_simulation.read
-                              - notification_simulation.write
-                              - payment_method.read
-                              - payment_method.write
-                              - price.read
-                              - price.write
-                              - product.read
-                              - product.write
-                              - report.read
-                              - report.write
-                              - statement_descriptor.read
-                              - statement_descriptor.write
-                              - subscription.read
-                              - subscription.write
-                              - subscription_history.read
-                              - tax_settings.read
-                              - tax_settings.write
-                              - transaction.read
-                              - transaction.write
-                              - verification.read
-                            x-enum-descriptions:
-                              account.read:
-                                description: View the business identity of your account, including legal name, display name, website, and contact email.
-                              account.write:
-                                description: Update the contact email for your account.
-                              address.read:
-                                description: View customer addresses and include address data in API responses.
-                              address.write:
-                                description: Create and update customer addresses.
-                              adjustment.read:
-                                description: View adjustments and credit notes for transactions.
-                              adjustment.write:
-                                description: Create new adjustments for transactions.
-                              balance_currency.read:
-                                description: View balance currency settings for your account.
-                              balance_currency.write:
-                                description: Update balance currency settings for your account.
-                              business.read:
-                                description: View customer businesses and include business data in API responses.
-                              business.write:
-                                description: Create and update customer businesses.
-                              checkout_domain.read:
-                                description: View checkout domains, their approval status, and payment method verification status.
-                              checkout_domain.write:
-                                description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
-                              checkout_settings.read:
-                                description: View checkout settings for your account.
-                              checkout_settings.write:
-                                description: Update checkout settings for your account.
-                              client_token.read:
-                                description: View client-side tokens.
-                              client_token.write:
-                                description: Create and update client-side tokens.
-                              currency_conversion.read:
-                                description: View currency conversion settings for your account.
-                              currency_conversion.write:
-                                description: Update currency conversion settings for your account.
-                              customer.read:
-                                description: View customers, including credit balances, and include customer data in API responses.
-                              customer.write:
-                                description: Create new customers and update existing customer information.
-                              customer_auth_token.write:
-                                description: Generate authentication tokens for customers.
-                              customer_portal_session.write:
-                                description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
-                              discount.read:
-                                description: View discounts and include discount data in API responses.
-                              discount.write:
-                                description: Create new discounts and modify existing discount information.
-                              metrics.read:
-                                description: View metrics data including revenue, subscribers, and conversion timeseries.
-                              notification.read:
-                                description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
-                              notification.write:
-                                description: Replay notifications.
-                              notification_setting.read:
-                                description: View settings for notifications.
-                              notification_setting.write:
-                                description: Create, update, and delete notification settings.
-                              notification_simulation.read:
-                                description: View notification simulations, simulation runs, and events within a simulation run.
-                              notification_simulation.write:
-                                description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
-                              payment_method.read:
-                                description: View saved payment methods for customers.
-                              payment_method.write:
-                                description: Delete payment methods for customers.
-                              price.read:
-                                description: View prices and include price data in API responses.
-                              price.write:
-                                description: Create new prices and modify existing price information.
-                              product.read:
-                                description: View products and include product data in API responses.
-                              product.write:
-                                description: Create new products and modify existing product information.
-                              report.read:
-                                description: View and download report data.
-                              report.write:
-                                description: Create new reports.
-                              statement_descriptor.read:
-                                description: View statement descriptor settings for your account.
-                              statement_descriptor.write:
-                                description: Update statement descriptor settings for your account.
-                              subscription.read:
-                                description: View subscriptions and preview subscription updates and charges.
-                              subscription.write:
-                                description: Create one-time charges, update subscriptions, and manage subscription status.
-                              subscription_history.read:
-                                description: View subscription history entries for a subscription.
-                              tax_settings.read:
-                                description: View tax settings for your account.
-                              tax_settings.write:
-                                description: Update tax settings for your account.
-                              transaction.read:
-                                description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
-                              transaction.write:
-                                description: Create, update, and revise transactions, and update payment methods.
-                              verification.read:
-                                description: View verification progress, including step statuses.
+                        type: string
+                        enum:
+                          - account.read
+                          - account.write
+                          - address.read
+                          - address.write
+                          - adjustment.read
+                          - adjustment.write
+                          - balance_currency.read
+                          - balance_currency.write
+                          - business.read
+                          - business.write
+                          - checkout_domain.read
+                          - checkout_domain.write
+                          - checkout_settings.read
+                          - checkout_settings.write
+                          - client_token.read
+                          - client_token.write
+                          - currency_conversion.read
+                          - currency_conversion.write
+                          - customer.read
+                          - customer.write
+                          - customer_auth_token.write
+                          - customer_portal_session.write
+                          - discount.read
+                          - discount.write
+                          - metrics.read
+                          - notification.read
+                          - notification.write
+                          - notification_setting.read
+                          - notification_setting.write
+                          - notification_simulation.read
+                          - notification_simulation.write
+                          - payment_method.read
+                          - payment_method.write
+                          - price.read
+                          - price.write
+                          - product.read
+                          - product.write
+                          - report.read
+                          - report.write
+                          - statement_descriptor.read
+                          - statement_descriptor.write
+                          - subscription.read
+                          - subscription.write
+                          - subscription_history.read
+                          - tax_settings.read
+                          - tax_settings.write
+                          - transaction.read
+                          - transaction.write
+                          - verification.read
+                        x-enum-descriptions:
+                          account.read:
+                            description: View the business identity of your account, including legal name, display name, website, and contact email.
+                          account.write:
+                            description: Update the contact email for your account.
+                          address.read:
+                            description: View customer addresses and include address data in API responses.
+                          address.write:
+                            description: Create and update customer addresses.
+                          adjustment.read:
+                            description: View adjustments and credit notes for transactions.
+                          adjustment.write:
+                            description: Create new adjustments for transactions.
+                          balance_currency.read:
+                            description: View balance currency settings for your account.
+                          balance_currency.write:
+                            description: Update balance currency settings for your account.
+                          business.read:
+                            description: View customer businesses and include business data in API responses.
+                          business.write:
+                            description: Create and update customer businesses.
+                          checkout_domain.read:
+                            description: View checkout domains, their approval status, and payment method verification status.
+                          checkout_domain.write:
+                            description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
+                          checkout_settings.read:
+                            description: View checkout settings for your account.
+                          checkout_settings.write:
+                            description: Update checkout settings for your account.
+                          client_token.read:
+                            description: View client-side tokens.
+                          client_token.write:
+                            description: Create and update client-side tokens.
+                          currency_conversion.read:
+                            description: View currency conversion settings for your account.
+                          currency_conversion.write:
+                            description: Update currency conversion settings for your account.
+                          customer.read:
+                            description: View customers, including credit balances, and include customer data in API responses.
+                          customer.write:
+                            description: Create new customers and update existing customer information.
+                          customer_auth_token.write:
+                            description: Generate authentication tokens for customers.
+                          customer_portal_session.write:
+                            description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
+                          discount.read:
+                            description: View discounts and include discount data in API responses.
+                          discount.write:
+                            description: Create new discounts and modify existing discount information.
+                          metrics.read:
+                            description: View metrics data including revenue, subscribers, and conversion timeseries.
+                          notification.read:
+                            description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
+                          notification.write:
+                            description: Replay notifications.
+                          notification_setting.read:
+                            description: View settings for notifications.
+                          notification_setting.write:
+                            description: Create, update, and delete notification settings.
+                          notification_simulation.read:
+                            description: View notification simulations, simulation runs, and events within a simulation run.
+                          notification_simulation.write:
+                            description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
+                          payment_method.read:
+                            description: View saved payment methods for customers.
+                          payment_method.write:
+                            description: Delete payment methods for customers.
+                          price.read:
+                            description: View prices and include price data in API responses.
+                          price.write:
+                            description: Create new prices and modify existing price information.
+                          product.read:
+                            description: View products and include product data in API responses.
+                          product.write:
+                            description: Create new products and modify existing product information.
+                          report.read:
+                            description: View and download report data.
+                          report.write:
+                            description: Create new reports.
+                          statement_descriptor.read:
+                            description: View statement descriptor settings for your account.
+                          statement_descriptor.write:
+                            description: Update statement descriptor settings for your account.
+                          subscription.read:
+                            description: View subscriptions and preview subscription updates and charges.
+                          subscription.write:
+                            description: Create one-time charges, update subscriptions, and manage subscription status.
+                          subscription_history.read:
+                            description: View subscription history entries for a subscription.
+                          tax_settings.read:
+                            description: View tax settings for your account.
+                          tax_settings.write:
+                            description: Update tax settings for your account.
+                          transaction.read:
+                            description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
+                          transaction.write:
+                            description: Create, update, and revise transactions, and update payment methods.
+                          verification.read:
+                            description: View verification progress, including step statuses.
                       description: Permissions assigned to this API key. Determines what actions the API key can perform.
                     exposed_at:
                       anyOf:
@@ -45750,7 +45754,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/a-p-i-keys/api_key-updated
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-updated
         description: api_key.updated
   api_key.expired:
     post:
@@ -46015,157 +46019,156 @@ webhooks:
                     permissions:
                       type: array
                       items:
-                        oneOf:
-                          - type: string
-                            enum:
-                              - account.read
-                              - account.write
-                              - address.read
-                              - address.write
-                              - adjustment.read
-                              - adjustment.write
-                              - balance_currency.read
-                              - balance_currency.write
-                              - business.read
-                              - business.write
-                              - checkout_domain.read
-                              - checkout_domain.write
-                              - checkout_settings.read
-                              - checkout_settings.write
-                              - client_token.read
-                              - client_token.write
-                              - currency_conversion.read
-                              - currency_conversion.write
-                              - customer.read
-                              - customer.write
-                              - customer_auth_token.write
-                              - customer_portal_session.write
-                              - discount.read
-                              - discount.write
-                              - metrics.read
-                              - notification.read
-                              - notification.write
-                              - notification_setting.read
-                              - notification_setting.write
-                              - notification_simulation.read
-                              - notification_simulation.write
-                              - payment_method.read
-                              - payment_method.write
-                              - price.read
-                              - price.write
-                              - product.read
-                              - product.write
-                              - report.read
-                              - report.write
-                              - statement_descriptor.read
-                              - statement_descriptor.write
-                              - subscription.read
-                              - subscription.write
-                              - subscription_history.read
-                              - tax_settings.read
-                              - tax_settings.write
-                              - transaction.read
-                              - transaction.write
-                              - verification.read
-                            x-enum-descriptions:
-                              account.read:
-                                description: View the business identity of your account, including legal name, display name, website, and contact email.
-                              account.write:
-                                description: Update the contact email for your account.
-                              address.read:
-                                description: View customer addresses and include address data in API responses.
-                              address.write:
-                                description: Create and update customer addresses.
-                              adjustment.read:
-                                description: View adjustments and credit notes for transactions.
-                              adjustment.write:
-                                description: Create new adjustments for transactions.
-                              balance_currency.read:
-                                description: View balance currency settings for your account.
-                              balance_currency.write:
-                                description: Update balance currency settings for your account.
-                              business.read:
-                                description: View customer businesses and include business data in API responses.
-                              business.write:
-                                description: Create and update customer businesses.
-                              checkout_domain.read:
-                                description: View checkout domains, their approval status, and payment method verification status.
-                              checkout_domain.write:
-                                description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
-                              checkout_settings.read:
-                                description: View checkout settings for your account.
-                              checkout_settings.write:
-                                description: Update checkout settings for your account.
-                              client_token.read:
-                                description: View client-side tokens.
-                              client_token.write:
-                                description: Create and update client-side tokens.
-                              currency_conversion.read:
-                                description: View currency conversion settings for your account.
-                              currency_conversion.write:
-                                description: Update currency conversion settings for your account.
-                              customer.read:
-                                description: View customers, including credit balances, and include customer data in API responses.
-                              customer.write:
-                                description: Create new customers and update existing customer information.
-                              customer_auth_token.write:
-                                description: Generate authentication tokens for customers.
-                              customer_portal_session.write:
-                                description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
-                              discount.read:
-                                description: View discounts and include discount data in API responses.
-                              discount.write:
-                                description: Create new discounts and modify existing discount information.
-                              metrics.read:
-                                description: View metrics data including revenue, subscribers, and conversion timeseries.
-                              notification.read:
-                                description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
-                              notification.write:
-                                description: Replay notifications.
-                              notification_setting.read:
-                                description: View settings for notifications.
-                              notification_setting.write:
-                                description: Create, update, and delete notification settings.
-                              notification_simulation.read:
-                                description: View notification simulations, simulation runs, and events within a simulation run.
-                              notification_simulation.write:
-                                description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
-                              payment_method.read:
-                                description: View saved payment methods for customers.
-                              payment_method.write:
-                                description: Delete payment methods for customers.
-                              price.read:
-                                description: View prices and include price data in API responses.
-                              price.write:
-                                description: Create new prices and modify existing price information.
-                              product.read:
-                                description: View products and include product data in API responses.
-                              product.write:
-                                description: Create new products and modify existing product information.
-                              report.read:
-                                description: View and download report data.
-                              report.write:
-                                description: Create new reports.
-                              statement_descriptor.read:
-                                description: View statement descriptor settings for your account.
-                              statement_descriptor.write:
-                                description: Update statement descriptor settings for your account.
-                              subscription.read:
-                                description: View subscriptions and preview subscription updates and charges.
-                              subscription.write:
-                                description: Create one-time charges, update subscriptions, and manage subscription status.
-                              subscription_history.read:
-                                description: View subscription history entries for a subscription.
-                              tax_settings.read:
-                                description: View tax settings for your account.
-                              tax_settings.write:
-                                description: Update tax settings for your account.
-                              transaction.read:
-                                description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
-                              transaction.write:
-                                description: Create, update, and revise transactions, and update payment methods.
-                              verification.read:
-                                description: View verification progress, including step statuses.
+                        type: string
+                        enum:
+                          - account.read
+                          - account.write
+                          - address.read
+                          - address.write
+                          - adjustment.read
+                          - adjustment.write
+                          - balance_currency.read
+                          - balance_currency.write
+                          - business.read
+                          - business.write
+                          - checkout_domain.read
+                          - checkout_domain.write
+                          - checkout_settings.read
+                          - checkout_settings.write
+                          - client_token.read
+                          - client_token.write
+                          - currency_conversion.read
+                          - currency_conversion.write
+                          - customer.read
+                          - customer.write
+                          - customer_auth_token.write
+                          - customer_portal_session.write
+                          - discount.read
+                          - discount.write
+                          - metrics.read
+                          - notification.read
+                          - notification.write
+                          - notification_setting.read
+                          - notification_setting.write
+                          - notification_simulation.read
+                          - notification_simulation.write
+                          - payment_method.read
+                          - payment_method.write
+                          - price.read
+                          - price.write
+                          - product.read
+                          - product.write
+                          - report.read
+                          - report.write
+                          - statement_descriptor.read
+                          - statement_descriptor.write
+                          - subscription.read
+                          - subscription.write
+                          - subscription_history.read
+                          - tax_settings.read
+                          - tax_settings.write
+                          - transaction.read
+                          - transaction.write
+                          - verification.read
+                        x-enum-descriptions:
+                          account.read:
+                            description: View the business identity of your account, including legal name, display name, website, and contact email.
+                          account.write:
+                            description: Update the contact email for your account.
+                          address.read:
+                            description: View customer addresses and include address data in API responses.
+                          address.write:
+                            description: Create and update customer addresses.
+                          adjustment.read:
+                            description: View adjustments and credit notes for transactions.
+                          adjustment.write:
+                            description: Create new adjustments for transactions.
+                          balance_currency.read:
+                            description: View balance currency settings for your account.
+                          balance_currency.write:
+                            description: Update balance currency settings for your account.
+                          business.read:
+                            description: View customer businesses and include business data in API responses.
+                          business.write:
+                            description: Create and update customer businesses.
+                          checkout_domain.read:
+                            description: View checkout domains, their approval status, and payment method verification status.
+                          checkout_domain.write:
+                            description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
+                          checkout_settings.read:
+                            description: View checkout settings for your account.
+                          checkout_settings.write:
+                            description: Update checkout settings for your account.
+                          client_token.read:
+                            description: View client-side tokens.
+                          client_token.write:
+                            description: Create and update client-side tokens.
+                          currency_conversion.read:
+                            description: View currency conversion settings for your account.
+                          currency_conversion.write:
+                            description: Update currency conversion settings for your account.
+                          customer.read:
+                            description: View customers, including credit balances, and include customer data in API responses.
+                          customer.write:
+                            description: Create new customers and update existing customer information.
+                          customer_auth_token.write:
+                            description: Generate authentication tokens for customers.
+                          customer_portal_session.write:
+                            description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
+                          discount.read:
+                            description: View discounts and include discount data in API responses.
+                          discount.write:
+                            description: Create new discounts and modify existing discount information.
+                          metrics.read:
+                            description: View metrics data including revenue, subscribers, and conversion timeseries.
+                          notification.read:
+                            description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
+                          notification.write:
+                            description: Replay notifications.
+                          notification_setting.read:
+                            description: View settings for notifications.
+                          notification_setting.write:
+                            description: Create, update, and delete notification settings.
+                          notification_simulation.read:
+                            description: View notification simulations, simulation runs, and events within a simulation run.
+                          notification_simulation.write:
+                            description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
+                          payment_method.read:
+                            description: View saved payment methods for customers.
+                          payment_method.write:
+                            description: Delete payment methods for customers.
+                          price.read:
+                            description: View prices and include price data in API responses.
+                          price.write:
+                            description: Create new prices and modify existing price information.
+                          product.read:
+                            description: View products and include product data in API responses.
+                          product.write:
+                            description: Create new products and modify existing product information.
+                          report.read:
+                            description: View and download report data.
+                          report.write:
+                            description: Create new reports.
+                          statement_descriptor.read:
+                            description: View statement descriptor settings for your account.
+                          statement_descriptor.write:
+                            description: Update statement descriptor settings for your account.
+                          subscription.read:
+                            description: View subscriptions and preview subscription updates and charges.
+                          subscription.write:
+                            description: Create one-time charges, update subscriptions, and manage subscription status.
+                          subscription_history.read:
+                            description: View subscription history entries for a subscription.
+                          tax_settings.read:
+                            description: View tax settings for your account.
+                          tax_settings.write:
+                            description: Update tax settings for your account.
+                          transaction.read:
+                            description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
+                          transaction.write:
+                            description: Create, update, and revise transactions, and update payment methods.
+                          verification.read:
+                            description: View verification progress, including step statuses.
                       description: Permissions assigned to this API key. Determines what actions the API key can perform.
                     exposed_at:
                       anyOf:
@@ -46260,7 +46263,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/a-p-i-keys/api_key-expired
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-expired
         description: api_key.expired
   api_key.expiring:
     post:
@@ -46525,157 +46528,156 @@ webhooks:
                     permissions:
                       type: array
                       items:
-                        oneOf:
-                          - type: string
-                            enum:
-                              - account.read
-                              - account.write
-                              - address.read
-                              - address.write
-                              - adjustment.read
-                              - adjustment.write
-                              - balance_currency.read
-                              - balance_currency.write
-                              - business.read
-                              - business.write
-                              - checkout_domain.read
-                              - checkout_domain.write
-                              - checkout_settings.read
-                              - checkout_settings.write
-                              - client_token.read
-                              - client_token.write
-                              - currency_conversion.read
-                              - currency_conversion.write
-                              - customer.read
-                              - customer.write
-                              - customer_auth_token.write
-                              - customer_portal_session.write
-                              - discount.read
-                              - discount.write
-                              - metrics.read
-                              - notification.read
-                              - notification.write
-                              - notification_setting.read
-                              - notification_setting.write
-                              - notification_simulation.read
-                              - notification_simulation.write
-                              - payment_method.read
-                              - payment_method.write
-                              - price.read
-                              - price.write
-                              - product.read
-                              - product.write
-                              - report.read
-                              - report.write
-                              - statement_descriptor.read
-                              - statement_descriptor.write
-                              - subscription.read
-                              - subscription.write
-                              - subscription_history.read
-                              - tax_settings.read
-                              - tax_settings.write
-                              - transaction.read
-                              - transaction.write
-                              - verification.read
-                            x-enum-descriptions:
-                              account.read:
-                                description: View the business identity of your account, including legal name, display name, website, and contact email.
-                              account.write:
-                                description: Update the contact email for your account.
-                              address.read:
-                                description: View customer addresses and include address data in API responses.
-                              address.write:
-                                description: Create and update customer addresses.
-                              adjustment.read:
-                                description: View adjustments and credit notes for transactions.
-                              adjustment.write:
-                                description: Create new adjustments for transactions.
-                              balance_currency.read:
-                                description: View balance currency settings for your account.
-                              balance_currency.write:
-                                description: Update balance currency settings for your account.
-                              business.read:
-                                description: View customer businesses and include business data in API responses.
-                              business.write:
-                                description: Create and update customer businesses.
-                              checkout_domain.read:
-                                description: View checkout domains, their approval status, and payment method verification status.
-                              checkout_domain.write:
-                                description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
-                              checkout_settings.read:
-                                description: View checkout settings for your account.
-                              checkout_settings.write:
-                                description: Update checkout settings for your account.
-                              client_token.read:
-                                description: View client-side tokens.
-                              client_token.write:
-                                description: Create and update client-side tokens.
-                              currency_conversion.read:
-                                description: View currency conversion settings for your account.
-                              currency_conversion.write:
-                                description: Update currency conversion settings for your account.
-                              customer.read:
-                                description: View customers, including credit balances, and include customer data in API responses.
-                              customer.write:
-                                description: Create new customers and update existing customer information.
-                              customer_auth_token.write:
-                                description: Generate authentication tokens for customers.
-                              customer_portal_session.write:
-                                description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
-                              discount.read:
-                                description: View discounts and include discount data in API responses.
-                              discount.write:
-                                description: Create new discounts and modify existing discount information.
-                              metrics.read:
-                                description: View metrics data including revenue, subscribers, and conversion timeseries.
-                              notification.read:
-                                description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
-                              notification.write:
-                                description: Replay notifications.
-                              notification_setting.read:
-                                description: View settings for notifications.
-                              notification_setting.write:
-                                description: Create, update, and delete notification settings.
-                              notification_simulation.read:
-                                description: View notification simulations, simulation runs, and events within a simulation run.
-                              notification_simulation.write:
-                                description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
-                              payment_method.read:
-                                description: View saved payment methods for customers.
-                              payment_method.write:
-                                description: Delete payment methods for customers.
-                              price.read:
-                                description: View prices and include price data in API responses.
-                              price.write:
-                                description: Create new prices and modify existing price information.
-                              product.read:
-                                description: View products and include product data in API responses.
-                              product.write:
-                                description: Create new products and modify existing product information.
-                              report.read:
-                                description: View and download report data.
-                              report.write:
-                                description: Create new reports.
-                              statement_descriptor.read:
-                                description: View statement descriptor settings for your account.
-                              statement_descriptor.write:
-                                description: Update statement descriptor settings for your account.
-                              subscription.read:
-                                description: View subscriptions and preview subscription updates and charges.
-                              subscription.write:
-                                description: Create one-time charges, update subscriptions, and manage subscription status.
-                              subscription_history.read:
-                                description: View subscription history entries for a subscription.
-                              tax_settings.read:
-                                description: View tax settings for your account.
-                              tax_settings.write:
-                                description: Update tax settings for your account.
-                              transaction.read:
-                                description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
-                              transaction.write:
-                                description: Create, update, and revise transactions, and update payment methods.
-                              verification.read:
-                                description: View verification progress, including step statuses.
+                        type: string
+                        enum:
+                          - account.read
+                          - account.write
+                          - address.read
+                          - address.write
+                          - adjustment.read
+                          - adjustment.write
+                          - balance_currency.read
+                          - balance_currency.write
+                          - business.read
+                          - business.write
+                          - checkout_domain.read
+                          - checkout_domain.write
+                          - checkout_settings.read
+                          - checkout_settings.write
+                          - client_token.read
+                          - client_token.write
+                          - currency_conversion.read
+                          - currency_conversion.write
+                          - customer.read
+                          - customer.write
+                          - customer_auth_token.write
+                          - customer_portal_session.write
+                          - discount.read
+                          - discount.write
+                          - metrics.read
+                          - notification.read
+                          - notification.write
+                          - notification_setting.read
+                          - notification_setting.write
+                          - notification_simulation.read
+                          - notification_simulation.write
+                          - payment_method.read
+                          - payment_method.write
+                          - price.read
+                          - price.write
+                          - product.read
+                          - product.write
+                          - report.read
+                          - report.write
+                          - statement_descriptor.read
+                          - statement_descriptor.write
+                          - subscription.read
+                          - subscription.write
+                          - subscription_history.read
+                          - tax_settings.read
+                          - tax_settings.write
+                          - transaction.read
+                          - transaction.write
+                          - verification.read
+                        x-enum-descriptions:
+                          account.read:
+                            description: View the business identity of your account, including legal name, display name, website, and contact email.
+                          account.write:
+                            description: Update the contact email for your account.
+                          address.read:
+                            description: View customer addresses and include address data in API responses.
+                          address.write:
+                            description: Create and update customer addresses.
+                          adjustment.read:
+                            description: View adjustments and credit notes for transactions.
+                          adjustment.write:
+                            description: Create new adjustments for transactions.
+                          balance_currency.read:
+                            description: View balance currency settings for your account.
+                          balance_currency.write:
+                            description: Update balance currency settings for your account.
+                          business.read:
+                            description: View customer businesses and include business data in API responses.
+                          business.write:
+                            description: Create and update customer businesses.
+                          checkout_domain.read:
+                            description: View checkout domains, their approval status, and payment method verification status.
+                          checkout_domain.write:
+                            description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
+                          checkout_settings.read:
+                            description: View checkout settings for your account.
+                          checkout_settings.write:
+                            description: Update checkout settings for your account.
+                          client_token.read:
+                            description: View client-side tokens.
+                          client_token.write:
+                            description: Create and update client-side tokens.
+                          currency_conversion.read:
+                            description: View currency conversion settings for your account.
+                          currency_conversion.write:
+                            description: Update currency conversion settings for your account.
+                          customer.read:
+                            description: View customers, including credit balances, and include customer data in API responses.
+                          customer.write:
+                            description: Create new customers and update existing customer information.
+                          customer_auth_token.write:
+                            description: Generate authentication tokens for customers.
+                          customer_portal_session.write:
+                            description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
+                          discount.read:
+                            description: View discounts and include discount data in API responses.
+                          discount.write:
+                            description: Create new discounts and modify existing discount information.
+                          metrics.read:
+                            description: View metrics data including revenue, subscribers, and conversion timeseries.
+                          notification.read:
+                            description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
+                          notification.write:
+                            description: Replay notifications.
+                          notification_setting.read:
+                            description: View settings for notifications.
+                          notification_setting.write:
+                            description: Create, update, and delete notification settings.
+                          notification_simulation.read:
+                            description: View notification simulations, simulation runs, and events within a simulation run.
+                          notification_simulation.write:
+                            description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
+                          payment_method.read:
+                            description: View saved payment methods for customers.
+                          payment_method.write:
+                            description: Delete payment methods for customers.
+                          price.read:
+                            description: View prices and include price data in API responses.
+                          price.write:
+                            description: Create new prices and modify existing price information.
+                          product.read:
+                            description: View products and include product data in API responses.
+                          product.write:
+                            description: Create new products and modify existing product information.
+                          report.read:
+                            description: View and download report data.
+                          report.write:
+                            description: Create new reports.
+                          statement_descriptor.read:
+                            description: View statement descriptor settings for your account.
+                          statement_descriptor.write:
+                            description: Update statement descriptor settings for your account.
+                          subscription.read:
+                            description: View subscriptions and preview subscription updates and charges.
+                          subscription.write:
+                            description: Create one-time charges, update subscriptions, and manage subscription status.
+                          subscription_history.read:
+                            description: View subscription history entries for a subscription.
+                          tax_settings.read:
+                            description: View tax settings for your account.
+                          tax_settings.write:
+                            description: Update tax settings for your account.
+                          transaction.read:
+                            description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
+                          transaction.write:
+                            description: Create, update, and revise transactions, and update payment methods.
+                          verification.read:
+                            description: View verification progress, including step statuses.
                       description: Permissions assigned to this API key. Determines what actions the API key can perform.
                     exposed_at:
                       anyOf:
@@ -46770,7 +46772,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/a-p-i-keys/api_key-expiring
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-expiring
         description: api_key.expiring
   api_key.revoked:
     post:
@@ -47035,157 +47037,156 @@ webhooks:
                     permissions:
                       type: array
                       items:
-                        oneOf:
-                          - type: string
-                            enum:
-                              - account.read
-                              - account.write
-                              - address.read
-                              - address.write
-                              - adjustment.read
-                              - adjustment.write
-                              - balance_currency.read
-                              - balance_currency.write
-                              - business.read
-                              - business.write
-                              - checkout_domain.read
-                              - checkout_domain.write
-                              - checkout_settings.read
-                              - checkout_settings.write
-                              - client_token.read
-                              - client_token.write
-                              - currency_conversion.read
-                              - currency_conversion.write
-                              - customer.read
-                              - customer.write
-                              - customer_auth_token.write
-                              - customer_portal_session.write
-                              - discount.read
-                              - discount.write
-                              - metrics.read
-                              - notification.read
-                              - notification.write
-                              - notification_setting.read
-                              - notification_setting.write
-                              - notification_simulation.read
-                              - notification_simulation.write
-                              - payment_method.read
-                              - payment_method.write
-                              - price.read
-                              - price.write
-                              - product.read
-                              - product.write
-                              - report.read
-                              - report.write
-                              - statement_descriptor.read
-                              - statement_descriptor.write
-                              - subscription.read
-                              - subscription.write
-                              - subscription_history.read
-                              - tax_settings.read
-                              - tax_settings.write
-                              - transaction.read
-                              - transaction.write
-                              - verification.read
-                            x-enum-descriptions:
-                              account.read:
-                                description: View the business identity of your account, including legal name, display name, website, and contact email.
-                              account.write:
-                                description: Update the contact email for your account.
-                              address.read:
-                                description: View customer addresses and include address data in API responses.
-                              address.write:
-                                description: Create and update customer addresses.
-                              adjustment.read:
-                                description: View adjustments and credit notes for transactions.
-                              adjustment.write:
-                                description: Create new adjustments for transactions.
-                              balance_currency.read:
-                                description: View balance currency settings for your account.
-                              balance_currency.write:
-                                description: Update balance currency settings for your account.
-                              business.read:
-                                description: View customer businesses and include business data in API responses.
-                              business.write:
-                                description: Create and update customer businesses.
-                              checkout_domain.read:
-                                description: View checkout domains, their approval status, and payment method verification status.
-                              checkout_domain.write:
-                                description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
-                              checkout_settings.read:
-                                description: View checkout settings for your account.
-                              checkout_settings.write:
-                                description: Update checkout settings for your account.
-                              client_token.read:
-                                description: View client-side tokens.
-                              client_token.write:
-                                description: Create and update client-side tokens.
-                              currency_conversion.read:
-                                description: View currency conversion settings for your account.
-                              currency_conversion.write:
-                                description: Update currency conversion settings for your account.
-                              customer.read:
-                                description: View customers, including credit balances, and include customer data in API responses.
-                              customer.write:
-                                description: Create new customers and update existing customer information.
-                              customer_auth_token.write:
-                                description: Generate authentication tokens for customers.
-                              customer_portal_session.write:
-                                description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
-                              discount.read:
-                                description: View discounts and include discount data in API responses.
-                              discount.write:
-                                description: Create new discounts and modify existing discount information.
-                              metrics.read:
-                                description: View metrics data including revenue, subscribers, and conversion timeseries.
-                              notification.read:
-                                description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
-                              notification.write:
-                                description: Replay notifications.
-                              notification_setting.read:
-                                description: View settings for notifications.
-                              notification_setting.write:
-                                description: Create, update, and delete notification settings.
-                              notification_simulation.read:
-                                description: View notification simulations, simulation runs, and events within a simulation run.
-                              notification_simulation.write:
-                                description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
-                              payment_method.read:
-                                description: View saved payment methods for customers.
-                              payment_method.write:
-                                description: Delete payment methods for customers.
-                              price.read:
-                                description: View prices and include price data in API responses.
-                              price.write:
-                                description: Create new prices and modify existing price information.
-                              product.read:
-                                description: View products and include product data in API responses.
-                              product.write:
-                                description: Create new products and modify existing product information.
-                              report.read:
-                                description: View and download report data.
-                              report.write:
-                                description: Create new reports.
-                              statement_descriptor.read:
-                                description: View statement descriptor settings for your account.
-                              statement_descriptor.write:
-                                description: Update statement descriptor settings for your account.
-                              subscription.read:
-                                description: View subscriptions and preview subscription updates and charges.
-                              subscription.write:
-                                description: Create one-time charges, update subscriptions, and manage subscription status.
-                              subscription_history.read:
-                                description: View subscription history entries for a subscription.
-                              tax_settings.read:
-                                description: View tax settings for your account.
-                              tax_settings.write:
-                                description: Update tax settings for your account.
-                              transaction.read:
-                                description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
-                              transaction.write:
-                                description: Create, update, and revise transactions, and update payment methods.
-                              verification.read:
-                                description: View verification progress, including step statuses.
+                        type: string
+                        enum:
+                          - account.read
+                          - account.write
+                          - address.read
+                          - address.write
+                          - adjustment.read
+                          - adjustment.write
+                          - balance_currency.read
+                          - balance_currency.write
+                          - business.read
+                          - business.write
+                          - checkout_domain.read
+                          - checkout_domain.write
+                          - checkout_settings.read
+                          - checkout_settings.write
+                          - client_token.read
+                          - client_token.write
+                          - currency_conversion.read
+                          - currency_conversion.write
+                          - customer.read
+                          - customer.write
+                          - customer_auth_token.write
+                          - customer_portal_session.write
+                          - discount.read
+                          - discount.write
+                          - metrics.read
+                          - notification.read
+                          - notification.write
+                          - notification_setting.read
+                          - notification_setting.write
+                          - notification_simulation.read
+                          - notification_simulation.write
+                          - payment_method.read
+                          - payment_method.write
+                          - price.read
+                          - price.write
+                          - product.read
+                          - product.write
+                          - report.read
+                          - report.write
+                          - statement_descriptor.read
+                          - statement_descriptor.write
+                          - subscription.read
+                          - subscription.write
+                          - subscription_history.read
+                          - tax_settings.read
+                          - tax_settings.write
+                          - transaction.read
+                          - transaction.write
+                          - verification.read
+                        x-enum-descriptions:
+                          account.read:
+                            description: View the business identity of your account, including legal name, display name, website, and contact email.
+                          account.write:
+                            description: Update the contact email for your account.
+                          address.read:
+                            description: View customer addresses and include address data in API responses.
+                          address.write:
+                            description: Create and update customer addresses.
+                          adjustment.read:
+                            description: View adjustments and credit notes for transactions.
+                          adjustment.write:
+                            description: Create new adjustments for transactions.
+                          balance_currency.read:
+                            description: View balance currency settings for your account.
+                          balance_currency.write:
+                            description: Update balance currency settings for your account.
+                          business.read:
+                            description: View customer businesses and include business data in API responses.
+                          business.write:
+                            description: Create and update customer businesses.
+                          checkout_domain.read:
+                            description: View checkout domains, their approval status, and payment method verification status.
+                          checkout_domain.write:
+                            description: Delete checkout domains, and trigger payment method verification (Apple Pay) for approved checkout domains.
+                          checkout_settings.read:
+                            description: View checkout settings for your account.
+                          checkout_settings.write:
+                            description: Update checkout settings for your account.
+                          client_token.read:
+                            description: View client-side tokens.
+                          client_token.write:
+                            description: Create and update client-side tokens.
+                          currency_conversion.read:
+                            description: View currency conversion settings for your account.
+                          currency_conversion.write:
+                            description: Update currency conversion settings for your account.
+                          customer.read:
+                            description: View customers, including credit balances, and include customer data in API responses.
+                          customer.write:
+                            description: Create new customers and update existing customer information.
+                          customer_auth_token.write:
+                            description: Generate authentication tokens for customers.
+                          customer_portal_session.write:
+                            description: Create new customer portal sessions for customers to manage their subscriptions, payment methods, and more.
+                          discount.read:
+                            description: View discounts and include discount data in API responses.
+                          discount.write:
+                            description: Create new discounts and modify existing discount information.
+                          metrics.read:
+                            description: View metrics data including revenue, subscribers, and conversion timeseries.
+                          notification.read:
+                            description: View event history, sent notifications, notification delivery logs, and include event data in API responses.
+                          notification.write:
+                            description: Replay notifications.
+                          notification_setting.read:
+                            description: View settings for notifications.
+                          notification_setting.write:
+                            description: Create, update, and delete notification settings.
+                          notification_simulation.read:
+                            description: View notification simulations, simulation runs, and events within a simulation run.
+                          notification_simulation.write:
+                            description: Create and modify notification simulations, create a run for a simulation, and replay events within a run for a simulation.
+                          payment_method.read:
+                            description: View saved payment methods for customers.
+                          payment_method.write:
+                            description: Delete payment methods for customers.
+                          price.read:
+                            description: View prices and include price data in API responses.
+                          price.write:
+                            description: Create new prices and modify existing price information.
+                          product.read:
+                            description: View products and include product data in API responses.
+                          product.write:
+                            description: Create new products and modify existing product information.
+                          report.read:
+                            description: View and download report data.
+                          report.write:
+                            description: Create new reports.
+                          statement_descriptor.read:
+                            description: View statement descriptor settings for your account.
+                          statement_descriptor.write:
+                            description: Update statement descriptor settings for your account.
+                          subscription.read:
+                            description: View subscriptions and preview subscription updates and charges.
+                          subscription.write:
+                            description: Create one-time charges, update subscriptions, and manage subscription status.
+                          subscription_history.read:
+                            description: View subscription history entries for a subscription.
+                          tax_settings.read:
+                            description: View tax settings for your account.
+                          tax_settings.write:
+                            description: Update tax settings for your account.
+                          transaction.read:
+                            description: View transactions, preview transactions and prices, access invoices, and include transaction data in API responses.
+                          transaction.write:
+                            description: Create, update, and revise transactions, and update payment methods.
+                          verification.read:
+                            description: View verification progress, including step statuses.
                       description: Permissions assigned to this API key. Determines what actions the API key can perform.
                     exposed_at:
                       anyOf:
@@ -47280,7 +47281,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/a-p-i-keys/api_key-revoked
+        url: https://developer.paddle.com/webhooks/api-keys/api-key-revoked
         description: api_key.revoked
   business.created:
     post:
@@ -48776,7 +48777,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/client-tokens/client_token-created
+        url: https://developer.paddle.com/webhooks/client-tokens/client-token-created
         description: client_token.created
   client_token.revoked:
     post:
@@ -49095,7 +49096,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/client-tokens/client_token-revoked
+        url: https://developer.paddle.com/webhooks/client-tokens/client-token-revoked
         description: client_token.revoked
   client_token.updated:
     post:
@@ -49414,7 +49415,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/client-tokens/client_token-updated
+        url: https://developer.paddle.com/webhooks/client-tokens/client-token-updated
         description: client_token.updated
   customer.created:
     post:
@@ -50817,7 +50818,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/discount-groups/discount_group-created
+        url: https://developer.paddle.com/webhooks/discount-groups/discount-group-created
         description: discount_group.created
   discount_group.updated:
     post:
@@ -51135,7 +51136,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/discount-groups/discount_group-updated
+        url: https://developer.paddle.com/webhooks/discount-groups/discount-group-updated
         description: discount_group.updated
   discount.created:
     post:
@@ -53191,7 +53192,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/payment-methods/payment_method-saved
+        url: https://developer.paddle.com/webhooks/payment-methods/payment-method-saved
         description: payment_method.saved
   payment_method.deleted:
     post:
@@ -53565,7 +53566,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/payment-methods/payment_method-deleted
+        url: https://developer.paddle.com/webhooks/payment-methods/payment-method-deleted
         description: payment_method.deleted
   payout.created:
     post:
@@ -83656,7 +83657,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/subscriptions/subscription-past_due
+        url: https://developer.paddle.com/webhooks/subscriptions/subscription-past-due
         description: subscription.past_due
   subscription.paused:
     post:
@@ -97968,28 +97969,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -102700,28 +102700,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -107435,28 +107434,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -112216,28 +112214,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -116942,28 +116939,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -121702,28 +121698,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -125998,7 +125993,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/transactions/transaction-past_due
+        url: https://developer.paddle.com/webhooks/transactions/transaction-past-due
         description: transaction.past_due
   transaction.payment_failed:
     post:
@@ -126417,28 +126412,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -130745,7 +130739,7 @@ webhooks:
       security:
         - {}
       externalDocs:
-        url: https://developer.paddle.com/webhooks/transactions/transaction-payment_failed
+        url: https://developer.paddle.com/webhooks/transactions/transaction-payment-failed
         description: transaction.payment_failed
   transaction.ready:
     post:
@@ -131159,28 +131153,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -135874,28 +135867,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
@@ -140604,28 +140596,27 @@ webhooks:
                         ZAR:
                           description: South African Rand
                     origin:
-                      oneOf:
-                        - type: string
-                          enum:
-                            - api
-                            - subscription_charge
-                            - subscription_payment_method_change
-                            - subscription_recurring
-                            - subscription_update
-                            - web
-                          x-enum-descriptions:
-                            api:
-                              description: Transaction created via the Paddle API.
-                            subscription_charge:
-                              description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
-                            subscription_payment_method_change:
-                              description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
-                            subscription_recurring:
-                              description: Transaction created automatically by Paddle as a result of a subscription renewal.
-                            subscription_update:
-                              description: Transaction created automatically by Paddle as a result of an update to a subscription.
-                            web:
-                              description: Transaction created automatically by Paddle.js for a checkout.
+                      type: string
+                      enum:
+                        - api
+                        - subscription_charge
+                        - subscription_payment_method_change
+                        - subscription_recurring
+                        - subscription_update
+                        - web
+                      x-enum-descriptions:
+                        api:
+                          description: Transaction created via the Paddle API.
+                        subscription_charge:
+                          description: Transaction created automatically by Paddle as a result of a one-time charge for a subscription.
+                        subscription_payment_method_change:
+                          description: Transaction created automatically as part of updating a payment method. May be a zero value transaction.
+                        subscription_recurring:
+                          description: Transaction created automatically by Paddle as a result of a subscription renewal.
+                        subscription_update:
+                          description: Transaction created automatically by Paddle as a result of an update to a subscription.
+                        web:
+                          description: Transaction created automatically by Paddle.js for a checkout.
                       description: Describes how this transaction was created.
                     subscription_id:
                       anyOf:
